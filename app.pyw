@@ -9,11 +9,26 @@ import llenar_excel
 import pdf2img
 
 ventana = Tk()
-ventana.geometry("960x520")
+ventana.geometry()#"960x520"
 
-
-frame = Frame(ventana, width=960, height=520)
-frame.pack()
+# frame = Frame(ventana, width=960, height=520, bg="purple")
+# frame.pack_propagate(False)
+# frame.pack()
+# frame_archivo = Frame(frame, width=960, height=100, bg="green")
+# frame_archivo.pack_propagate(False)
+# frame_archivo.pack()
+# frame_seleccionar = Frame(frame_archivo, width=380, height=100, bg="orange")
+# frame_seleccionar.grid_propagate(False)
+# frame_seleccionar.grid(row=0, column=0)
+# frame_ruta = Frame(frame_archivo, width=580, height=100, bg="red")
+# frame_ruta.grid_propagate(False)
+# frame_ruta.grid(row=0, column=1)
+# frame_guardar = Frame(frame, width=960, height=100, bg="blue")
+# frame_guardar.pack_propagate(False)
+# frame_guardar.pack()
+# frame_consultas = Frame(frame, width=960, height=320, bg="yellow")
+# frame_consultas.pack_propagate(False)
+# frame_consultas.pack()
 
 restaurantes = traer_restaurantes.lista_restaurantes()
 fecha_actual = datetime.now()
@@ -48,43 +63,42 @@ def consultar():
 def consultar_año():
     resultado = select_restaurante.info_todo_año(cb_restaurantes.get(),cb_años.get())
     llenar_excel.cosulta(resultado)
-    
-btn_seleccionar = Button(frame, text = "Seleccionar", command = seleccionar)
-btn_seleccionar.grid(row=1,column=1)
 
-nombre_pdf = Label(frame, text = "Seleccione una factura en pdf")
-nombre_pdf.grid(row=1, column=3)
 
-btn_analizar = Button(frame, text = "Analizar", command = analizar)
-btn_analizar.grid(row=2,column=2)
+btn_seleccionar = Button(ventana, text = "Seleccionar", bg="red", command = seleccionar)
+btn_seleccionar.grid(row=0, column=0)
 
-btn_consulta = Button(frame, text = "Consultar", command = consultar)
-btn_consulta.grid(row=4,column=0)
+nombre_pdf = Label(ventana, text = "Seleccione una factura en pdf")
+nombre_pdf.grid(row=0, column=1)
 
-btn_consulta_año = Button(frame, text = "Consultar todo el año", command = consultar_año)
-btn_consulta_año.grid(row=4,column=1)
+btn_analizar = Button(ventana, text = "Analizar", command = analizar)
+btn_analizar.grid(row=2, column=0)
 
-lb_mes = Label(frame, text = "Mes: ")
-lb_mes.grid(row=3, column=0)
+lb_mes = Label(ventana, text = "Mes: ")
+lb_mes.grid(row=4, column=0)
 
-cb_mes = ttk.Combobox(frame, value = meses)
+cb_mes = ttk.Combobox(ventana, value = meses)
 cb_mes.current(0)
-#cb_mes.bind("<<ComboboxSelected>>", cb_mes_click)
-cb_mes.grid(row=3, column=1)
+cb_mes.grid(row=5, column=0)
 
-lb_restaurante = Label(frame, text = "Restaurante: ")
-lb_restaurante.grid(row=3, column=2)
+lb_restaurante = Label(ventana, text = "Restaurante: ")
+lb_restaurante.grid(row=4, column=1)
 
-cb_restaurantes = ttk.Combobox(frame, value = restaurantes)
+cb_restaurantes = ttk.Combobox(ventana, value = restaurantes)
 cb_restaurantes.current(0)
-cb_restaurantes.grid(row=3, column=3)
+cb_restaurantes.grid(row=5, column=1)
 
-lb_año = Label(frame, text = "Año: ")
-lb_año.grid(row=3, column=4)
+lb_año = Label(ventana, text = "Año: ")
+lb_año.grid(row=4, column=2)
 
-cb_años = ttk.Combobox(frame, value = años)
+cb_años = ttk.Combobox(ventana, value = años)
 cb_años.current(0)
-cb_años.grid(row=3, column=5)
+cb_años.grid(row=5, column=2)
 
+btn_consulta = Button(ventana, text = "Consultar mes", command = consultar)
+btn_consulta.grid(row=7, column=0)
+
+btn_consulta_año = Button(ventana, text = "Consultar año", command = consultar_año)
+btn_consulta_año.grid(row=7, column=1)
 
 ventana.mainloop()
