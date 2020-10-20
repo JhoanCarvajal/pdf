@@ -20,8 +20,8 @@ año = fecha_actual.year
 años = []
 for i in range(año,(año-30),-1):
     años.append(i)
-#meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
-meses = [1,2,3,4,5,6,7,8,9,10,11,12]
+meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+#meses = [1,2,3,4,5,6,7,8,9,10,11,12]
 def seleccionar():
     pdf_ruta = askopenfilename()
     nombre_pdf["text"] = str(pdf_ruta)
@@ -37,7 +37,11 @@ def cb_restaurantes_click(event):
     pass
 
 def consultar():
-    resultado = select_restaurante.info_restaurante(cb_mes.get(),cb_restaurantes.get(),cb_años.get())
+    mes = cb_mes.get()
+    for m in meses:
+        if m == mes:
+            mes = meses.index(m) + 1
+    resultado = select_restaurante.info_restaurante(mes,cb_restaurantes.get(),cb_años.get())
     llenar_excel.cosulta(resultado)
 
 def consultar_año():
