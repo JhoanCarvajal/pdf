@@ -12,7 +12,7 @@ def cosulta(resultado):
     row = 0
     col = 0
 
-    titulos = ["#","Cod restaurante","Lectura actual","Lectura anterior","Consumo","Vertimiento","Total a pagar","fecha"]
+    titulos = ["#","Cod restaurante","Lectura Inicial","Lectura Final","Causa mes","Consumo mes","Otros","Alumbrado","Kw/h","Valor de Kw/h","Direccion"]
     for titulo in titulos:
         ws.write(row, col, titulo)
         col +=1
