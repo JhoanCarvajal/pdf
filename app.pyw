@@ -100,5 +100,4 @@ btn_consulta.grid(row=7, column=0)
 
 btn_consulta_año = Button(ventana, text = "Consultar año", command = consultar_año)
 btn_consulta_año.grid(row=7, column=1)
-
 ventana.mainloop()
