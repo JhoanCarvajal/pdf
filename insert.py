@@ -57,8 +57,8 @@ def insert(lista):
     for datos in resultados:
         if datos[1]== direccion:
             id_restaurante = datos[0]
-            sql="insert into facturas(id, id_restaurante, inicial, final,causa,consumo,otros,alumbrado,kw,direccion,valor_kw) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-            datos=(max_id, id_restaurante, inicial, final, causa, consumo, otros, alumbrado, kw, direccion, vr_kw)
+            sql="insert into facturas(id, id_restaurante, inicial, final,causa,consumo,otros,alumbrado,kw,valor_kw,direccion) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            datos=(max_id, id_restaurante, inicial, final, causa, consumo, otros, alumbrado, kw, vr_kw, direccion)
             print(datos)
             cursor.execute(sql, datos)
             con.commit()
