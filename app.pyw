@@ -11,6 +11,7 @@ import pdf2img
 ventana = Tk()
 ventana.geometry("960x520")
 
+
 frame = Frame(ventana, width=960, height=520)
 frame.pack()
 
@@ -48,12 +49,11 @@ def consultar_año():
     resultado = select_restaurante.info_todo_año(cb_restaurantes.get(),cb_años.get())
     llenar_excel.cosulta(resultado)
     
+btn_seleccionar = Button(frame, text = "Seleccionar", command = seleccionar)
+btn_seleccionar.grid(row=1,column=1)
 
 nombre_pdf = Label(frame, text = "Seleccione una factura en pdf")
-nombre_pdf.grid(row=2, column=1)
-
-btn_seleccionar = Button(frame, text = "Seleccionar", command = seleccionar)
-btn_seleccionar.grid(row=2,column=0)
+nombre_pdf.grid(row=1, column=3)
 
 btn_analizar = Button(frame, text = "Analizar", command = analizar)
 btn_analizar.grid(row=2,column=2)
