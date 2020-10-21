@@ -7,39 +7,42 @@ from datetime import datetime
 import select_restaurante
 import llenar_excel
 import pdf2img
+import tkFont
 
 ventana = Tk()
+ventana.title("prototipo facturación de frisby")
 ventana.geometry("800x450")
 ventana.resizable(0,0)
-ventana.config(bg="#FFF5E0")
+ventana.config(bg="#D5DDF0")
 
+helv36 = tkFont.Font(family='Helvetica', size=36, weight='bold')
 
 frame = Frame(ventana)
 frame.pack(fill=BOTH, expand=True, padx=60, pady=60)
 frame.columnconfigure(1, weight=1)
 frame.rowconfigure(1, weight=1)
 
-frame_archivo = Frame(frame, bg="#FFF5E0")
+frame_archivo = Frame(frame, bg="#9197A3")
 frame_archivo.pack(fill=BOTH, expand=True)
 frame_archivo.columnconfigure(1, weight=1)
 frame_archivo.rowconfigure(1, weight=1)
 
-frame_seleccionar = Frame(frame_archivo, bg="#FFF5E0")
+frame_seleccionar = Frame(frame_archivo, bg="#9197A3")
 frame_seleccionar.grid(row=0, column=0)
 # frame_seleccionar.columnconfigure(1, weight=1)
 # frame_seleccionar.rowconfigure(1, weight=1)
 
-frame_ruta = Frame(frame_archivo, bg="#FFF5E0")
+frame_ruta = Frame(frame_archivo, bg="#9197A3")
 frame_ruta.grid(row=0, column=1)
 # frame_ruta.columnconfigure(1, weight=1)
 # frame_ruta.rowconfigure(1, weight=1)
 
-frame_guardar = Frame(frame, bg="#FFEDC7")
+frame_guardar = Frame(frame, bg="#D5DDF0")
 frame_guardar.pack(fill=BOTH, expand=True)
 frame_guardar.columnconfigure(1, weight=1)
 frame_guardar.rowconfigure(1, weight=1)
 
-frame_consultas = Frame(frame, bg="#FFE5AD")
+frame_consultas = Frame(frame, bg="#9197A3")
 frame_consultas.pack(fill=BOTH, expand=True)
 frame_consultas.columnconfigure(1, weight=1)
 frame_consultas.rowconfigure(1, weight=1)
@@ -79,40 +82,40 @@ def consultar_año():
     llenar_excel.cosulta(resultado)
 
 
-btn_seleccionar = Button(frame_seleccionar, text = "Seleccionar", bg="#AEFFAD", width=25, height=2, command = seleccionar)
+btn_seleccionar = Button(frame_seleccionar, text = "Seleccionar", bg="#425070", width=25, height=2, command = seleccionar)
 btn_seleccionar.grid(row=0, column=0, padx=15, pady=10)
 
-nombre_pdf = Label(frame_ruta, text = "Seleccione una factura en pdf", bg="#BAD3FF")
+nombre_pdf = Label(frame_ruta, text = "Seleccione una factura en pdf", bg="#D5DDF0")
 nombre_pdf.grid(row=0, column=0, padx=15, pady=10)
 
-btn_analizar = Button(frame_guardar, text = "Analizar", bg="#AEFFAD", width=25, height=2, command = analizar)
+btn_analizar = Button(frame_guardar, text = "Analizar y Guardar", bg="#425070", width=25, height=2, command = analizar)
 btn_analizar.pack(padx=15, pady=15)
 
-lb_mes = Label(frame_consultas, text = "Mes: ", bg="#BAD3FF", width=25, height=2)
+lb_mes = Label(frame_consultas, text = "Mes: ", bg="#D5DDF0", width=25, height=2)
 lb_mes.grid(row=4, column=0, padx=15, pady=5)
 
 cb_mes = ttk.Combobox(frame_consultas, width=25, height=2, value = meses)
 cb_mes.current(0)
 cb_mes.grid(row=5, column=0, padx=15, pady=5)
 
-lb_restaurante = Label(frame_consultas, text = "Restaurante: ", bg="#BAD3FF", width=25, height=2)
+lb_restaurante = Label(frame_consultas, text = "Restaurante: ", bg="#D5DDF0", width=25, height=2)
 lb_restaurante.grid(row=4, column=1, padx=15, pady=5)
 
 cb_restaurantes = ttk.Combobox(frame_consultas, width=25, value = restaurantes)
 cb_restaurantes.current(0)
 cb_restaurantes.grid(row=5, column=1, padx=15, pady=5)
 
-lb_año = Label(frame_consultas, text = "Año: ", bg="#BAD3FF", width=25, height=2)
+lb_año = Label(frame_consultas, text = "Año: ", bg="#D5DDF0", width=25, height=2)
 lb_año.grid(row=4, column=2, padx=15, pady=5)
 
 cb_años = ttk.Combobox(frame_consultas, width=25, height=2, value = años)
 cb_años.current(0)
 cb_años.grid(row=5, column=2, padx=15, pady=5)
 
-btn_consulta = Button(frame_consultas, text = "Consultar mes", bg="#AEFFAD", width=25, height=2, command = consultar)
+btn_consulta = Button(frame_consultas, text = "Consultar mes", bg="#425070", width=25, height=2, command = consultar)
 btn_consulta.grid(row=7, column=0, padx=15, pady=10, sticky=W)
 
-btn_consulta_año = Button(frame_consultas, text = "Consultar año", bg="#AEFFAD", width=25, height=2, command = consultar_año)
+btn_consulta_año = Button(frame_consultas, text = "Consultar año", bg="#425070", width=25, height=2, command = consultar_año)
 btn_consulta_año.grid(row=7, column=1, padx=15, pady=10, sticky=W)
 
 
