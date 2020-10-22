@@ -33,13 +33,9 @@ frame_archivo.rowconfigure(1, weight=1)
 
 frame_seleccionar = Frame(frame_archivo, bg="#9197A3")
 frame_seleccionar.grid(row=0, column=0)
-# frame_seleccionar.columnconfigure(1, weight=1)
-# frame_seleccionar.rowconfigure(1, weight=1)
 
 frame_ruta = Frame(frame_archivo, bg="#9197A3")
 frame_ruta.grid(row=0, column=1)
-# frame_ruta.columnconfigure(1, weight=1)
-# frame_ruta.rowconfigure(1, weight=1)
 
 frame_guardar = Frame(frame, bg="#D5DDF0")
 frame_guardar.pack(fill=BOTH, expand=True)

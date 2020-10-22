@@ -12,12 +12,3 @@ def pdf2img(pdf):
     for pagina in paginas:
         pagina.save(f'{carpeta}/{nombre}.jpg', 'JPEG')
     ocr.ocr(f'{carpeta}/{nombre}.jpg')
-
-
-#pdf2img('C:/Users/Jhoan/Documents/tecnoparque/pdf/imagenes/fac_frisby.pdf')
-
-#api convertir pdf a jpg
-#convertapi.api_secret = '<YOUR SECRET HERE>'
-#convertapi.convert('jpg', {
-#    'File': '/path/to/my_file.pdf'
-#}, from_format = 'pdf').save_files('/path/to/dir')
