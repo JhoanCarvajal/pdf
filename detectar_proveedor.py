@@ -11,15 +11,10 @@ def proveedor(ruta):
 
     roi_texto = image[4821:4821+661,1:1+1365]
 
-
-    print("ROI texto")
     texto = pytesseract.image_to_string(roi_texto)
     texto = texto[:len(texto) - 2]
-    print(texto)
-    print("--------------------------------")
 
     palabras = texto.split()
-    print(texto)
 
     if "www.eep.com.co" in palabras:
         ocr_eep.ocr_eep(ruta)
