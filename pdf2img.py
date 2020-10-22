@@ -1,6 +1,6 @@
 import os
 from pdf2image import convert_from_path
-import ocr
+import detectar_proveedor
 def pdf2img(pdf):
     ruta = os.path.split(pdf)
     carpeta = ruta[0]
@@ -11,4 +11,4 @@ def pdf2img(pdf):
     paginas = convert_from_path(pdf, 500)
     for pagina in paginas:
         pagina.save(f'{carpeta}/{nombre}.jpg', 'JPEG')
-    ocr.ocr(f'{carpeta}/{nombre}.jpg')
+    detectar_proveedor.proveedor(f'{carpeta}/{nombre}.jpg')
