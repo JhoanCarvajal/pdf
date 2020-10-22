@@ -10,6 +10,9 @@ def proveedor(ruta):
     image = 255 - cv2.threshold(imagen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
     roi_texto = image[4821:4821+661,1:1+1365]
+    cv2.imshow('ROI10', roi_texto)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
     texto = pytesseract.image_to_string(roi_texto)
     texto = texto[:len(texto) - 2]
