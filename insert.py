@@ -43,7 +43,8 @@ def insert(lista):
     alumbrado = numero_entero(lista[5])
     kw = numero_entero(lista[6])
     vr_kw = float(lista[7])
-    matricula = int(lista[8])
+    direccion = lista[8]
+    matricula = int(lista[9])
 
     sql = "select MAX(id) from facturas"
     cursor.execute(sql)
@@ -61,8 +62,8 @@ def insert(lista):
     for datos in resultados:
         if datos[1]== matricula:
             id_restaurante = datos[0]
-            sql="insert into facturas(id, id_restaurante, inicial, final,causa,consumo,otros,alumbrado,kw,valor_kw,matricula) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-            datos=(max_id, id_restaurante, inicial, final, causa, consumo, otros, alumbrado, kw, vr_kw, matricula)
+            sql="insert into facturas(id, id_restaurante, inicial, final,causa,consumo,otros,alumbrado,kw,valor_kw,matricula, direccion) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            datos=(max_id, id_restaurante, inicial, final, causa, consumo, otros, alumbrado, kw, vr_kw, matricula, direccion)
             print(datos)
             cursor.execute(sql, datos)
         else:

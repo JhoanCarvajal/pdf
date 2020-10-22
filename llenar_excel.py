@@ -6,13 +6,14 @@ from subprocess import call
 import datetime
 
 def cosulta(resultado):
-    wb = xlsxwriter.Workbook('excel/resultado_consulta.xlsx')
+    directorio = os.getcwd()
+    wb = xlsxwriter.Workbook(f'{directorio}/excel/resultado_consulta.xlsx')
     ws = wb.add_worksheet()
 
     row = 0
     col = 0
 
-    titulos = ["#","Cod restaurante","Lectura Inicial","Lectura Final","Causa mes","Consumo mes","Otros","Alumbrado","Kw/h","Valor de Kw/h","Direccion"]
+    titulos = ["#","Cod restaurante","Lectura Inicial","Lectura Final","Causa mes","Consumo mes","Otros","Alumbrado","Kw/h","Valor de Kw/h","Matricula"]
     for titulo in titulos:
         ws.write(row, col, titulo)
         col +=1
@@ -29,4 +30,4 @@ def cosulta(resultado):
         col = 0
             
     wb.close()
-    os.system("C:/Users/Jhoan/Documents/tecnoparque/pdf/excel/resultado_consulta.xlsx")
+    os.system(f"{directorio}/excel/resultado_consulta.xlsx")

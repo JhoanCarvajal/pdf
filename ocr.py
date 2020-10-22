@@ -15,8 +15,8 @@ def ocr(ruta):
     roi_alumbrado = image[381:381+101,3689:3689+477]
     roi_kw = image[1555:1555+75,2051:2051+337]
     roi_vr_kw = image[1853:1853+79,293:293+317]
+    roi_direccion = image[340:340+96,300:300+1628]
     roi_matricula = image[142:142+76,3173:3173+966]
-    
 
     lista = []
 
@@ -69,6 +69,12 @@ def ocr(ruta):
     print(vr_kw)
     print("--------------------------------")
     print("ROI9")
+    direccion = pytesseract.image_to_string(roi_direccion)
+    direccion = direccion[:len(direccion) - 2]
+    lista.append(direccion)
+    print(direccion)
+    print("--------------------------------")
+    print("ROI10")
     matricula = pytesseract.image_to_string(roi_matricula)
     matricula = matricula[:len(matricula) - 2]
     lista.append(matricula)
@@ -83,7 +89,8 @@ def ocr(ruta):
     cv2.imshow('ROI6', roi_alumbrado)
     cv2.imshow('ROI7', roi_kw)
     cv2.imshow('ROI8', roi_vr_kw)
-    cv2.imshow('ROI9', roi_matricula)
+    cv2.imshow('ROI9', roi_direccion)
+    cv2.imshow('ROI10', roi_matricula)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
