@@ -3,11 +3,15 @@ import insert
 import datetime
 import os
 from subprocess import call
+import threading
 
 def cosulta(resultado):
     if resultado:
         directorio = os.getcwd()
-        wb = xlsxwriter.Workbook(f'{directorio}/excel/resultado_consulta.xlsx')
+        fecha = datetime.datetime.now()
+        fecha = fecha.strftime("%m_%d_%Y_%H_%M_%S")
+        print(fecha)
+        wb = xlsxwriter.Workbook(f'{directorio}/excel/R_C_{fecha}.xlsx')
         ws = wb.add_worksheet()
 
         row = 0
@@ -30,6 +34,9 @@ def cosulta(resultado):
             col = 0
                 
         wb.close()
-        os.system(f"{directorio}/excel/resultado_consulta.xlsx")
+        def abrir_excel():
+            os.system(f"{directorio}/excel/R_C_{fecha}.xlsx")
+        t = threading.Thread(target=abrir_excel)
+        t.start()
     else:
         print("No hay ningun restaurante con factura en esta fecha")

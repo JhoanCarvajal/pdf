@@ -20,3 +20,4 @@ def proveedor(ruta):
         ocr_eep.ocr_eep(ruta)
     else:
         print("no se reconoce el proveedor")
+        os.remove(ruta)
