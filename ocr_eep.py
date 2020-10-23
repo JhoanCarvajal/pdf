@@ -95,5 +95,5 @@ def ocr_eep(ruta):
     cv2.destroyAllWindows()
 
     #os.remove(ruta)
-    #insert.insert(lista)
+    insert.insert(lista)
 

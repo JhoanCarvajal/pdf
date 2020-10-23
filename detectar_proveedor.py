@@ -4,6 +4,7 @@ import pytesseract
 import insert
 import os
 import ocr_eep
+import ocr_agua
 
 def proveedor(ruta):
     imagen = cv2.imread(ruta, 0)
@@ -32,6 +33,8 @@ def proveedor(ruta):
         print("factura de efigas")
     elif "serviciudad" in palabras or "acueducto" in palabras:
         print("factura de agua")
+        ocr_agua.ocr_agua(ruta)
+
     else:
         print("no se reconoce el proveedor")
         #os.remove(ruta)

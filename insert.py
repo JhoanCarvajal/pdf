@@ -7,6 +7,8 @@ def fecha(dato):
     print(datos_fecha)
     meses = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"]
     mes=datos_fecha[1].lower()
+    if len(mes) == 4:
+        mes = mes[:len(mes) - 1]
     mes_corregido = ""
     for letra in mes:
         if letra == "0":
@@ -18,6 +20,8 @@ def fecha(dato):
         if m == mes_corregido:
             mes_corregido = meses.index(m) + 1
     print(f'otro mes pero en numero {mes_corregido}')
+    if int(datos_fecha[0]) > 31:
+        datos_fecha[0] = 31
     fecha = str(datos_fecha[2]) + "-" + str(mes_corregido) + "-" + str(datos_fecha[0])
     fecha = datetime.datetime.strptime(fecha,"%Y-%m-%d")
     return fecha
@@ -31,6 +35,16 @@ def numero_entero(dato):
     numero = int(numero)
     return numero
 
+def numero_decimal(dato):
+    numero = ""
+    lista = dato.split(",")
+    for digito in lista[0]:
+        print(digito)
+        if digito.isdigit():
+            numero += str(digito)
+    numero += "." + lista[1]
+    return numero
+
 def insert(lista):
     con = psycopg2.connect(database="bd", user="postgres", password="12345678", port=5433)
     cursor=con.cursor()
@@ -42,7 +56,7 @@ def insert(lista):
     otros = numero_entero(lista[4])
     alumbrado = numero_entero(lista[5])
     kw = numero_entero(lista[6])
-    vr_kw = float(lista[7])
+    vr_kw = numero_decimal(lista[7])
     direccion = lista[8]
     matricula = int(lista[9])
 
@@ -62,8 +76,8 @@ def insert(lista):
     for datos in resultados:
         if datos[1]== matricula:
             id_restaurante = datos[0]
-            sql="insert into facturas(id, id_restaurante, inicial, final,causa,consumo,otros,alumbrado,kw,valor_kw,matricula, direccion) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-            datos=(max_id, id_restaurante, inicial, final, causa, consumo, otros, alumbrado, kw, vr_kw, matricula, direccion)
+            sql="insert into facturas(id, id_restaurante, inicial, final,causa,consumo,otros,alumbrado,kw,valor_kw, direccion, matricula) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            datos=(max_id, id_restaurante, inicial, final, causa, consumo, otros, alumbrado, kw, vr_kw, direccion, matricula)
             print(datos)
             cursor.execute(sql, datos)
         else:
