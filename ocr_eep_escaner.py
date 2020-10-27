@@ -2,97 +2,95 @@ import cv2
 import pytesseract
 import insert
 import os
+import resaltar_color
 
 def ocr_eep(ruta):
-    imagen = cv2.imread(ruta, 0)
-    image = 255 - cv2.threshold(imagen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+    image = resaltar_color.solo_negro(ruta)          #cv2.imread(ruta, 0)
+    #image = 255 - cv2.threshold(imagen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
-    roi_inicial = image[1755:1755+71,513:513+230]
-    roi_final = image[1757:1757+71,760:760+220]
-    roi_causa = image[715:715+81,3805:3805+305]
-    roi_consumo = image[3963:3963+57,1577:1577+292]
-    roi_otros = image[4012:4012+43,1574:1574+285]
-    roi_alumbrado = image[401:401+101,3689:3689+477]
-    roi_kw = image[1575:1575+75,2051:2051+337]
-    roi_vr_kw = image[1873:1873+80,293:293+657]
-    roi_direccion = image[340:340+116,300:300+1628]
-    roi_matricula = image[162:162+96,3173:3173+966]
+    roi_fechas = image[1766:1766+123,405:405+798]
+    roi_seg_fecha = image[1815:1815+63,728:728+232]
+    roi_causa = image[710:710+148,3454:3454+735]
+    roi_consumo_otros = image[3963:3963+448,1451:1451+495]
+    roi_alumbrado = image[278:278+441,3583:3583+505]
+    roi_kw = image[2133:2133+150,435:435+371]
+    roi_vr_kw = image[1877:1877+115,295:295+711]
+    roi_direccion = image[379:379+139,269:269+1719]
+    roi_matricula = image[120:120+162,3096:3096+1114]
 
-    lista = []
+    rows,cols = roi_fechas.shape
+    k = []
+    y = 0
+    x = 0
+    for i in range(rows):
+        cont = 0
+        for j in range(cols):
+            if roi_fechas[i,j] != 255:
+                cont +=1
+        if cont > 3:
+            y == j
+    print(k)
 
-    print("ROI1")
-    inicial = pytesseract.image_to_string(roi_inicial)
-    inicial = inicial[:len(inicial) - 2]
-    lista.append(inicial)
-    print(inicial)
-    print("--------------------------------")
-    print("ROI2")
-    final = pytesseract.image_to_string(roi_final)
-    final = final[:len(final) - 2]
-    lista.append(final)
-    print(final)
-    print("--------------------------------")
-    print("ROI3")
-    causa = pytesseract.image_to_string(roi_causa)
-    causa = causa[:len(causa) - 2]
-    lista.append(causa)
-    print(causa)
-    print("--------------------------------")
-    print("ROI4")
-    consumo = pytesseract.image_to_string(roi_consumo)
-    consumo = consumo[:len(consumo) - 2]
-    lista.append(consumo)
-    print(consumo)
-    print("--------------------------------")
-    print("ROI5")
-    otros = pytesseract.image_to_string(roi_otros)
-    otros = otros[:len(otros) - 2]
-    lista.append(otros)
-    print(otros)
-    print("--------------------------------")
-    print("ROI6")
-    alumbrado = pytesseract.image_to_string(roi_alumbrado)
-    alumbrado = alumbrado[:len(alumbrado) - 2]
-    lista.append(alumbrado)
-    print(alumbrado)
-    print("--------------------------------")
-    print("ROI7")
-    kw = pytesseract.image_to_string(roi_kw)
-    kw = kw[:len(kw) - 2]
-    lista.append(kw)
-    print(kw)
-    print("--------------------------------")
-    print("ROI8")
-    vr_kw = pytesseract.image_to_string(roi_vr_kw)
-    vr_kw = vr_kw[:len(vr_kw) - 2]
-    lista.append(vr_kw)
-    print(vr_kw)
-    print("--------------------------------")
-    print("ROI9")
-    direccion = pytesseract.image_to_string(roi_direccion)
-    direccion = direccion[:len(direccion) - 2]
-    lista.append(direccion)
-    print(direccion)
-    print("--------------------------------")
-    print("ROI10")
-    matricula = pytesseract.image_to_string(roi_matricula)
-    matricula = matricula[:len(matricula) - 2]
-    lista.append(matricula)
-    print(matricula)
-    print("--------------------------------")
+    # print("ROI fechas")
+    # fechas = pytesseract.image_to_string(roi_fechas)
+    # fechas = fechas[:len(fechas) - 2]
+    # print(fechas)
+    # print("--------------------------------")
+    # print("ROI segunda fecha")
+    # segunda_fecha = pytesseract.image_to_string(roi_seg_fecha)
+    # segunda_fecha = segunda_fecha[:len(segunda_fecha) - 2]
+    # print(segunda_fecha)
+    # print("--------------------------------")
+    # print("ROI causa")
+    # causa = pytesseract.image_to_string(roi_causa, config='--psm 10 --oem 3 -c tessedit_char_whitelist=0123456789')
+    # causa = causa[:len(causa) - 2]
+    # print(causa)
+    # print("--------------------------------")
+    # print("ROI consumo y otros")
+    # consumo = pytesseract.image_to_string(roi_consumo_otros)
+    # consumo = consumo[:len(consumo) - 2]
+    # print(consumo)
+    # print("--------------------------------")
+    # print("ROI alumbrado")
+    # alumbrado = pytesseract.image_to_string(roi_alumbrado)
+    # alumbrado = alumbrado[:len(alumbrado) - 2]
+    # print(alumbrado)
+    # print("--------------------------------")
+    # print("ROI kw")
+    # kw = pytesseract.image_to_string(roi_kw, config='--psm 10 --oem 3 -c tessedit_char_whitelist=0123456789')
+    # kw = kw[:len(kw) - 2]
+    # print(kw)
+    # print("--------------------------------")
+    # print("ROI valor kw")
+    # vr_kw = pytesseract.image_to_string(roi_vr_kw)
+    # if "tarifaria" in vr_kw.lower():
+    #     vr_kw = vr_kw[:len(vr_kw) - 15]
+    # else:
+    #     vr_kw = vr_kw[:len(vr_kw) - 2]
+    # print(vr_kw)
+    # print("--------------------------------")
+    # print("ROI direccion")
+    # direccion = pytesseract.image_to_string(roi_direccion)
+    # direccion = direccion[:len(direccion) - 2]
+    # print(direccion)
+    # print("--------------------------------")
+    # print("ROI matricula")
+    # matricula = pytesseract.image_to_string(roi_matricula)
+    # matricula = matricula[:len(matricula) - 2]
+    # print(matricula)
+    # print("--------------------------------")
 
-    cv2.imshow('ROI1', roi_inicial)
-    cv2.imshow('ROI2', roi_final)
-    cv2.imshow('ROI3', roi_causa)
-    cv2.imshow('ROI4', roi_consumo)
-    cv2.imshow('ROI5', roi_otros)
-    cv2.imshow('ROI6', roi_alumbrado)
-    cv2.imshow('ROI7', roi_kw)
-    cv2.imshow('ROI8', roi_vr_kw)
-    cv2.imshow('ROI9', roi_direccion)
-    cv2.imshow('ROI10', roi_matricula)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.imshow('ROI1', roi_fechas)
+    # cv2.imshow('ROIsegundafecha', roi_seg_fecha)
+    # cv2.imshow('ROI3', roi_causa)
+    # cv2.imshow('ROI4', roi_consumo_otros)
+    # cv2.imshow('ROI6', roi_alumbrado)
+    # cv2.imshow('ROI7', roi_kw)
+    # cv2.imshow('ROI8', roi_vr_kw)
+    # cv2.imshow('ROI9', roi_direccion)
+    # cv2.imshow('ROI10', roi_matricula)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
     #os.remove(ruta)
     #insert.insert(lista)

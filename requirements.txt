@@ -13,3 +13,4 @@ PyPDF2==1.26.0
 pytesseract==0.3.6
 Wand==0.6.3
 XlsxWriter==1.3.6
+# https://es.stackoverflow.com/questions/277341/detectar-y-recortar-autom%c3%a1ticamente-una-foto para el angulo de la foto

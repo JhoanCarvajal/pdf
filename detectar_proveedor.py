@@ -38,6 +38,8 @@ def proveedor(ruta):
     elif "henao" in palabras or "baena" in palabras:
         print("factura de energia de carlos")
         ocr_eep_escaner.ocr_eep(ruta)
+    elif not palabras:
+        ocr_eep_escaner.ocr_eep(ruta)
 
     else:
         print("no se reconoce el proveedor")
