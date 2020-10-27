@@ -5,6 +5,7 @@ import insert
 import os
 import ocr_eep
 import ocr_agua
+import ocr_eep_escaner
 
 def proveedor(ruta):
     imagen = cv2.imread(ruta, 0)
@@ -34,6 +35,9 @@ def proveedor(ruta):
     elif "serviciudad" in palabras or "acueducto" in palabras:
         print("factura de agua")
         ocr_agua.ocr_agua(ruta)
+    elif "henao" in palabras or "baena" in palabras:
+        print("factura de energia de carlos")
+        ocr_eep_escaner.ocr_eep(ruta)
 
     else:
         print("no se reconoce el proveedor")
