@@ -36,14 +36,22 @@ def numero_entero(dato):
     return numero
 
 def numero_decimal(dato):
-    numero = ""
-    lista = dato.split(",")
-    for digito in lista[0]:
-        print(digito)
-        if digito.isdigit():
-            numero += str(digito)
-    numero += "." + lista[1]
-    return numero
+    try:
+        if dato:
+            numero = ""
+            lista = dato.split(",")
+            for digito in lista[0]:
+                print(digito)
+                if digito.isdigit():
+                    numero += str(digito)
+            numero += "." + lista[1]
+            return numero
+        else:
+            numero = None
+            print("No hay un numero para combertir a decimal")
+    except ValueError:
+        print("Hubo un error innesperado")
+    
 
 def insert(lista):
     con = psycopg2.connect(database="bd", user="postgres", password="12345678", port=5433)
