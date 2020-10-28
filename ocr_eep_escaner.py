@@ -19,6 +19,7 @@ def ocr_eep(ruta):
     roi_matricula = image[120:120+162,3096:3096+1114]
 
     rows,cols = roi_fechas.shape
+    print(rows,cols)
     k = []
     y = 0
     x = 0
@@ -28,14 +29,51 @@ def ocr_eep(ruta):
             if roi_fechas[i,j] != 255:
                 cont +=1
         if cont > 3:
-            y == j
-    print(k)
+            y = i-3
+            break
+    print(y)
+    for i in range(cols):
+        cont = 0
+        for j in range(rows):
+            if roi_fechas[j,i] != 255:
+                cont +=1
+        if cont > 3:
+            x = i-3
+            break
+    print(x)
+    y1 = 0
+    x1 = 0
+    for i in range(rows-1,0,-1):
+        cont = 0
+        for j in range(cols-1,0,-1):
+            if roi_fechas[i,j] != 255:
+                cont +=1
+        if cont > 3:
+            y1 = i+3
+            break
+    print(y1)
+    for i in range(cols-1,0,-1):
+        cont = 0
+        for j in range(rows-1,0,-1):
+            if roi_fechas[j,i] != 255:
+                cont +=1
+        if cont > 3:
+            x1 = i+3
+            break
+    print(x1)
 
-    # print("ROI fechas")
-    # fechas = pytesseract.image_to_string(roi_fechas)
-    # fechas = fechas[:len(fechas) - 2]
-    # print(fechas)
-    # print("--------------------------------")
+    roi_fechas_nuevo = roi_fechas[y:y1,x:x1]
+    print("ROI fechas")
+    fechas = pytesseract.image_to_string(roi_fechas)
+    fechas = fechas[:len(fechas) - 2]
+    print(fechas)
+    print("--------------------------------")
+    
+    print("ROI nuevo fechas")
+    nuevo_fechas = pytesseract.image_to_string(roi_fechas_nuevo)
+    nuevo_fechas = nuevo_fechas[:len(nuevo_fechas) - 2]
+    print(nuevo_fechas)
+    print("--------------------------------")
     # print("ROI segunda fecha")
     # segunda_fecha = pytesseract.image_to_string(roi_seg_fecha)
     # segunda_fecha = segunda_fecha[:len(segunda_fecha) - 2]
@@ -80,7 +118,8 @@ def ocr_eep(ruta):
     # print(matricula)
     # print("--------------------------------")
 
-    # cv2.imshow('ROI1', roi_fechas)
+    cv2.imshow('ROI1', roi_fechas)
+    cv2.imshow('ROIadif', roi_fechas_nuevo)
     # cv2.imshow('ROIsegundafecha', roi_seg_fecha)
     # cv2.imshow('ROI3', roi_causa)
     # cv2.imshow('ROI4', roi_consumo_otros)
@@ -89,8 +128,8 @@ def ocr_eep(ruta):
     # cv2.imshow('ROI8', roi_vr_kw)
     # cv2.imshow('ROI9', roi_direccion)
     # cv2.imshow('ROI10', roi_matricula)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
     #os.remove(ruta)
     #insert.insert(lista)

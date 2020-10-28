@@ -64,7 +64,10 @@ def seleccionar():
 
 def analizar():
     pdf_ruta = nombre_pdf["text"]
-    pdf2img.pdf2img(pdf_ruta)
+    if pdf2img.pdf2img(pdf_ruta):
+        print("Todo ha ido bien")
+    else:
+        print("No funciono no se por que")
 
 def cb_mes_click(event):
     pass
