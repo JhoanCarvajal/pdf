@@ -3,10 +3,17 @@ import pytesseract
 import insert
 import os
 import resaltar_color
+from funciones.recortar_roi import *
+from funciones.dividir_roi import *
+from funciones.crear_roi import *
+from validar_fechas import *
+
 
 def ocr_eep(ruta):
-    image = resaltar_color.solo_negro(ruta)          #cv2.imread(ruta, 0)
-    #image = 255 - cv2.threshold(imagen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+    image = resaltar_color.solo_negro(ruta)
+
+    imagen = cv2.imread(ruta, 0)
+    img_grises = 255 - cv2.threshold(imagen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
     roi_fechas = image[1766:1766+123,405:405+798]
     roi_seg_fecha = image[1815:1815+63,728:728+232]
@@ -19,61 +26,35 @@ def ocr_eep(ruta):
     roi_matricula = image[120:120+162,3096:3096+1114]
 
     rows,cols = roi_fechas.shape
-    print(rows,cols)
-    k = []
-    y = 0
-    x = 0
-    for i in range(rows):
-        cont = 0
-        for j in range(cols):
-            if roi_fechas[i,j] != 255:
-                cont +=1
-        if cont > 3:
-            y = i-3
-            break
-    print(y)
-    for i in range(cols):
-        cont = 0
-        for j in range(rows):
-            if roi_fechas[j,i] != 255:
-                cont +=1
-        if cont > 3:
-            x = i-3
-            break
-    print(x)
-    y1 = 0
-    x1 = 0
-    for i in range(rows-1,0,-1):
-        cont = 0
-        for j in range(cols-1,0,-1):
-            if roi_fechas[i,j] != 255:
-                cont +=1
-        if cont > 3:
-            y1 = i+3
-            break
-    print(y1)
-    for i in range(cols-1,0,-1):
-        cont = 0
-        for j in range(rows-1,0,-1):
-            if roi_fechas[j,i] != 255:
-                cont +=1
-        if cont > 3:
-            x1 = i+3
-            break
-    print(x1)
+    roi_fechas_nuevo = recortar(rows,cols,roi_fechas)
+    fecha_inicio, fecha_final = dividir(roi_fechas_nuevo)
 
-    roi_fechas_nuevo = roi_fechas[y:y1,x:x1]
     print("ROI fechas")
     fechas = pytesseract.image_to_string(roi_fechas)
     fechas = fechas[:len(fechas) - 2]
     print(fechas)
     print("--------------------------------")
-    
     print("ROI nuevo fechas")
     nuevo_fechas = pytesseract.image_to_string(roi_fechas_nuevo)
     nuevo_fechas = nuevo_fechas[:len(nuevo_fechas) - 2]
     print(nuevo_fechas)
     print("--------------------------------")
+
+    print("roi fecha inicio")
+    inicio = pytesseract.image_to_string(fecha_inicio)
+    inicio = inicio[:len(inicio) - 2]
+    print(inicio)
+    print("--------------------------------")
+    print("roi fecha final")
+    final = pytesseract.image_to_string(fecha_final)
+    final = final[:len(final) - 2]
+    print(final)
+    print("--------------------------------")
+
+    fecha1,fecha2 = validar_fecha(inicio,final)
+    print("555555555555555555555555555555555555555555555")
+    print(fecha1, fecha2)
+
     # print("ROI segunda fecha")
     # segunda_fecha = pytesseract.image_to_string(roi_seg_fecha)
     # segunda_fecha = segunda_fecha[:len(segunda_fecha) - 2]
@@ -120,6 +101,8 @@ def ocr_eep(ruta):
 
     cv2.imshow('ROI1', roi_fechas)
     cv2.imshow('ROIadif', roi_fechas_nuevo)
+    cv2.imshow('roi_fecha_inicio', fecha_inicio)
+    cv2.imshow('roi_fecha_final', fecha_final)
     # cv2.imshow('ROIsegundafecha', roi_seg_fecha)
     # cv2.imshow('ROI3', roi_causa)
     # cv2.imshow('ROI4', roi_consumo_otros)

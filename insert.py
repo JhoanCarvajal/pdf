@@ -1,30 +1,7 @@
 import psycopg2
 import datetime
+import validar_fechas
 
-def fecha(dato):
-    print(dato)
-    datos_fecha = dato.split("/")
-    print(datos_fecha)
-    meses = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"]
-    mes=datos_fecha[1].lower()
-    if len(mes) == 4:
-        mes = mes[:len(mes) - 1]
-    mes_corregido = ""
-    for letra in mes:
-        if letra == "0":
-            letra = "o"
-        mes_corregido += letra
-    print(mes)
-    print(mes_corregido)
-    for m in meses:
-        if m == mes_corregido:
-            mes_corregido = meses.index(m) + 1
-    print(f'otro mes pero en numero {mes_corregido}')
-    if int(datos_fecha[0]) > 31:
-        datos_fecha[0] = 31
-    fecha = str(datos_fecha[2]) + "-" + str(mes_corregido) + "-" + str(datos_fecha[0])
-    fecha = datetime.datetime.strptime(fecha,"%Y-%m-%d")
-    return fecha
 
 def numero_entero(dato):
     try:
@@ -63,17 +40,23 @@ def insert(lista):
         con = psycopg2.connect(database="bd", user="postgres", password="12345678", port=5433)
         cursor=con.cursor()
 
-        inicial = fecha(lista[0])
-        final = fecha(lista[1])
-        causa = numero_entero(lista[2])
-        consumo = numero_entero(lista[3])
-        otros = numero_entero(lista[4])
-        alumbrado = numero_entero(lista[5])
-        kw = numero_entero(lista[6])
-        vr_kw = numero_decimal(lista[7])
-        direccion = lista[8]
-        matricula = int(lista[9])
+        matricula = int(lista[0])
+        inicial = validar_fechas.fecha(lista[1])
+        final = validar_fechas.fecha(lista[2])
+        vr_paga = numero_entero(lista[3])
+        consumo = numero_entero(lista[4])
+        kw = numero_entero(lista[5])
+        vr_kw = numero_decimal(lista[6])
+        otros = numero_entero(lista[7])
+        alumbrado = numero_entero(lista[8])
+        direccion = lista[9]
 
+        causa = 7990000
+        paga = vr_paga - otros
+        ajuste = paga - causa
+        doc_pag = None
+        doc_aj = None
+        
         sql = "select MAX(id) from facturas"
         cursor.execute(sql)
         max_id = cursor.fetchall()
@@ -90,8 +73,10 @@ def insert(lista):
         for datos in resultados:
             if datos[1]== matricula:
                 id_restaurante = datos[0]
-                sql="insert into facturas(id, id_restaurante, inicial, final,causa,consumo,otros,alumbrado,kw,valor_kw, direccion, matricula) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-                datos=(max_id, id_restaurante, inicial, final, causa, consumo, otros, alumbrado, kw, vr_kw, direccion, matricula)
+                sql="insert into facturas(id, id_restaurante, matricula, inicial, final, causa, paga, ajuste, doc_pag, doc_aj, \
+                    consumo, kw, vr_kw, otros, alumbrado) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                datos=(max_id, id_restaurante, matricula, inicial, final, causa, paga, ajuste, \
+                    doc_pag, doc_aj, consumo, kw, vr_kw, otros, alumbrado)
                 print(datos)
                 cursor.execute(sql, datos)
             else:
