@@ -1,12 +1,10 @@
 from tkinter.filedialog import askopenfilename
 from tkinter import *
 from tkinter import ttk
-import traer_restaurantes
 from datetime import date
 from datetime import datetime
-import select_restaurante
-import llenar_excel
-import pdf2img
+import select_restaurante, traer_restaurantes, llenar_excel, pdf2img
+
 import tkinter.font as tkFont
 
 ventana = Tk()
