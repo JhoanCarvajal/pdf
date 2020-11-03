@@ -5,7 +5,7 @@ import os
 from subprocess import call
 import threading
 
-def cosulta(resultado):
+def consulta(resultado):
     if resultado:
         directorio = os.getcwd()
         fecha = datetime.datetime.now()
@@ -17,7 +17,7 @@ def cosulta(resultado):
         row = 0
         col = 0
 
-        titulos = ["#","Cod restaurante","Lectura Inicial","Lectura Final","Causa mes","Consumo mes","Otros","Alumbrado","Kw/h","Valor de Kw/h","Matricula","Dirección"]
+        titulos = ["#","Cod restaurante", "Matricula", "Lectura Inicial","Lectura Final","Causa mes","Paga mes","Ajus","Doc pag", "Doc aj", "Consumo", "Kw/h","Valor de Kw/h","Otros","Alumbrado"]
         for titulo in titulos:
             ws.write(row, col, titulo)
             col +=1

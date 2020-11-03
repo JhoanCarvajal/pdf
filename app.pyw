@@ -79,11 +79,15 @@ def consultar():
         if m == mes:
             mes = meses.index(m) + 1
     resultado = select_restaurante.info_restaurante(mes,cb_restaurantes.get(),cb_años.get())
-    llenar_excel.cosulta(resultado)
+    llenar_excel.consulta(resultado)
 
 def consultar_año():
     resultado = select_restaurante.info_todo_año(cb_restaurantes.get(),cb_años.get())
-    llenar_excel.cosulta(resultado)
+    llenar_excel.consulta(resultado)
+
+def consultar_todo():
+    resultado = select_restaurante.todo()
+    llenar_excel.consulta(resultado)
 
 
 btn_seleccionar = Button(frame_seleccionar, text = "Seleccionar", fg="white", bg="#425070", font=fuente, width=25, height=2, command = seleccionar)
@@ -121,6 +125,9 @@ btn_consulta.grid(row=7, column=0, padx=15, pady=10)
 
 btn_consulta_año = Button(frame_consultas, text = "Consultar año", fg="white", bg="#425070", font=fuente, width=20, height=2, command = consultar_año)
 btn_consulta_año.grid(row=7, column=1, padx=15, pady=10)
+
+btn_consulta_todo = Button(frame_consultas, text = "Consultar todo", fg="white", bg="#425070", font=fuente, width=20, height=2, command = consultar_todo)
+btn_consulta_todo.grid(row=7, column=2, padx=15, pady=10)
 
 
 ventana.mainloop()

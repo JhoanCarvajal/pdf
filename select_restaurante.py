@@ -23,3 +23,9 @@ def info_todo_año(nombre,año):
     cursor.execute(sql,datos)
     restaurantes = cursor.fetchall()
     return restaurantes
+
+def todo():
+    sql = """SELECT * FROM facturas"""
+    cursor.execute(sql)
+    restaurantes = cursor.fetchall()
+    return restaurantes

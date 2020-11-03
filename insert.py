@@ -6,11 +6,16 @@ import validar_fechas
 def numero_entero(dato):
     try:
         numero = ""
+        negativo = False
         for digito in dato:
             print(digito)
             if digito.isdigit():
                 numero += str(digito)
+            elif digito == "-":
+                negativo = True
         numero = int(numero)
+        if negativo:
+            numero *= -1
         return numero
     except ValueError:
         print("hubo un error al combertir a numero")
@@ -40,9 +45,17 @@ def insert(lista):
         con = psycopg2.connect(database="bd", user="postgres", password="12345678", port=5433)
         cursor=con.cursor()
 
-        matricula = int(lista[0])
-        inicial = validar_fechas.fecha(lista[1])
-        final = validar_fechas.fecha(lista[2])
+        matricula = numero_entero(lista[0])
+        if matricula < 0:
+            matricula *= -1
+        if isinstance(lista[1], str):
+            inicial = validar_fechas.crear_fecha(lista[1])
+        else:
+            inicial = lista[1]
+        if isinstance(lista[2], str):
+            final = validar_fechas.crear_fecha(lista[2])
+        else:
+            final = lista[2]
         vr_paga = numero_entero(lista[3])
         consumo = numero_entero(lista[4])
         kw = numero_entero(lista[5])

@@ -5,20 +5,21 @@ import calendar
 
 def letra_a_numero(dato):
     dato = dato.lower()
+    #aqui esta el error creo que toca convertir el string en una lista para poder editar cada dato 
     print(dato)
     dato_corregido = ""
-    r = ""
+
     for d in range(len(dato)):
-        if dato[d] == "o":
+        r = dato[d]
+        if r == "o":
             r = "0"
-        if dato[d] == "i":
+        if r == "i":
             r = "1"
-        if dato[d] == "g":
-            print("holaaaaaaaaaa")
+        if r == "g":
             r = "6"
-        if dato[d] == "s":
+        if r == "s":
             r = "5"
-        if dato[d] == "b":
+        if r == "b":
             r = "8"
         dato_corregido += r
     print(f"este es el año corregido " + dato_corregido)
@@ -63,12 +64,29 @@ def crear_fecha(dato):
     return fecha
 
 def comparar_fechas(fechas):
-    dia1 = fechas[0].strftime('%d')
-    mes1 = fechas[0].strftime('%m')
-    año1 = fechas[0].strftime('%Y')
-    dia2 = fechas[1].strftime('%d')
-    mes2 = fechas[1].strftime('%m')
-    año2 = fechas[1].strftime('%Y')
+    dia1 = int(fechas[0].strftime('%d'))
+    mes1 = int(fechas[0].strftime('%m'))
+    año1 = int(fechas[0].strftime('%Y'))
+    dia2 = int(fechas[1].strftime('%d'))
+    mes2 = int(fechas[1].strftime('%m'))
+    año2 = int(fechas[1].strftime('%Y'))
+    fechas = []
+
+    print(dia1, mes1, año1, dia2, mes2, año2)
+    if mes1 == 12 and mes2 == 1:
+        if año2-1 != año1:
+            año1 = año2-1
+    elif año1 != año2:
+        año1 = año2
+    fecha1 = str(año1) + "-" + str(mes1) + "-" + str(dia1)
+    fecha1 = datetime.datetime.strptime(fecha1,"%Y-%m-%d")
+    fechas.append(fecha1)
+    fecha2 = str(año2) + "-" + str(mes2) + "-" + str(dia2)
+    fecha2 = datetime.datetime.strptime(fecha2,"%Y-%m-%d")
+    fechas.append(fecha2)
+
+    return fechas
+
 
 def añadir_mes(sourcedate, months):
     month = sourcedate.month - 1 + months
@@ -89,36 +107,15 @@ def validar_fecha(fechas):
     try:
         fechas = fechas.split("-")
         print(fechas)
+        #creo las fechas
         for i in range(len(fechas)):
             print(fechas[i])
             fechas[i] = crear_fecha(fechas[i])
 
-        fechas_v = comparar_fechas(fechas)
+        #comparo los años
+        fechas = comparar_fechas(fechas)
 
-        print(fechas)
-        por_defecto = datetime.datetime.strptime("1111-01-01","%Y-%m-%d")
-
-        if fechas[0] == por_defecto:
-            if fechas[1] == por_defecto:
-                # codigo por si las dos fechas estan malas
-                print("imposible de saber")
-            else:
-                # codigo por si la primera fecha esta mala y la segunda buena
-                un_mes_antes = restar_mes(fechas[1],1)
-                fechas[0] = un_mes_antes
-        else:
-            if fechas[1] == por_defecto:
-                # codigo por si la primera fecha esta buena y la segunda mala
-                un_mes_despues = añadir_mes(fechas[0],1)
-                fechas[1] = un_mes_despues
-            else:
-                # codigo por si las dos fechas estan bien
-                un_mes_despues = añadir_mes(fechas[0],1)
-                if fechas[1] == un_mes_despues:
-                    pass
-                else:
-                    fechas[1] = fechas[1].strftime('%d-%m-%Y')
-                    un_mes_despues = un_mes_despues.strftime('%d-%m-%Y')
+        print(f"retornamos estas fechas: {fechas}")
         return fechas
     except ValueError:
         print("error en validar fecha")
