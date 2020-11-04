@@ -96,5 +96,5 @@ def ocr_agua(ruta):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-    #os.remove(ruta)
-    insert.insert(lista)
+    os.remove(ruta)
+    return lista

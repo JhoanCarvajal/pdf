@@ -9,9 +9,11 @@ def numero_entero(dato):
         negativo = False
         for digito in dato:
             print(digito)
+            if digito == "B":
+                digito = "8"
             if digito.isdigit():
                 numero += str(digito)
-            elif digito == "-":
+            elif digito == "-" or digito =="~":
                 negativo = True
         numero = int(numero)
         if negativo:
@@ -31,7 +33,18 @@ def numero_decimal(dato):
                         numero += str(digito)
                 numero += "." + lista[-1]
             else:
-                numero = float(dato)
+                try:
+                    numero = float(dato)
+                except:
+                    numero = dato
+                    while isinstance(numero, str):
+                        numero = numero[:len(numero) - 1]
+                        try:
+                            numero = float(numero)
+                        except ValueError:
+                            if len(numero) <= 0:
+                                numero = None
+                        
             return numero
         else:
             numero = None
@@ -40,7 +53,7 @@ def numero_decimal(dato):
         print("Hubo un error innesperado al convertir numero a decimal")
     
 
-def insert(lista):
+def insert(lista,causa,doc_pag,doc_aj):
     try:
         con = psycopg2.connect(database="bd", user="postgres", password="12345678", port=5433)
         cursor=con.cursor()
@@ -64,11 +77,11 @@ def insert(lista):
         alumbrado = numero_entero(lista[8])
         direccion = lista[9]
 
-        causa = 7990000
+        causa = int(causa)
         paga = vr_paga - otros
         ajuste = paga - causa
-        doc_pag = None
-        doc_aj = None
+        doc_pag = int(doc_pag)
+        doc_aj = int(doc_aj)
         
         sql = "select MAX(id) from facturas"
         cursor.execute(sql)
@@ -91,14 +104,11 @@ def insert(lista):
                 datos=(max_id, id_restaurante, matricula, inicial, final, causa, paga, ajuste, \
                     doc_pag, doc_aj, consumo, kw, vr_kw, otros, alumbrado)
                 print(datos)
-                cursor.execute(sql, datos)
+                #cursor.execute(sql, datos)
             else:
                 print(f"No se ha encontrado el restaurante con esta matricula {matricula}")
         
         con.commit()
         con.close()
-        return True
     except ValueError:
         print("error en insert")
-        return False
-

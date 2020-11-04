@@ -4,6 +4,8 @@ from tkinter import ttk
 from datetime import date
 from datetime import datetime
 import select_restaurante, traer_restaurantes, llenar_excel, pdf2img
+import detectar_proveedor
+import insert
 
 import tkinter.font as tkFont
 
@@ -59,13 +61,31 @@ meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Sept
 def seleccionar():
     pdf_ruta = askopenfilename()
     nombre_pdf["text"] = str(pdf_ruta)
-
+matriz_datos = []
 def analizar():
+    del matriz_datos[:]
     pdf_ruta = nombre_pdf["text"]
-    if pdf2img.pdf2img(pdf_ruta):
-        print("Todo ha ido bien")
+    lista_imagenes = pdf2img.pdf2img(pdf_ruta)
+    for ruta_img in lista_imagenes:
+        lista_datos = detectar_proveedor.proveedor(ruta_img)
+        matriz_datos.append(lista_datos)
+        entry_matricula.delete(0, "end")
+        entry_causa.delete(0, "end")
+        entry_doc_pag.delete(0, "end")
+        entry_doc_aj.delete(0, "end")
+        entry_matricula.insert(0, str(lista_datos[0]))
+
+def guardar():
+    if entry_matricula.get() == "":
+        entry_matricula.config(bg="red")
+    elif entry_causa.get() == "":
+        entry_causa.config(bg="red")
+    elif entry_doc_pag.get() == "":
+        entry_doc_pag.config(bg="red")
+    elif entry_doc_aj.get() == "":
+        entry_doc_aj.config(bg="red")
     else:
-        print("No funciono no se por que")
+        insert.insert(matriz_datos[0], entry_causa.get(), entry_doc_pag.get(), entry_doc_aj.get())
 
 def cb_mes_click(event):
     pass
@@ -91,43 +111,51 @@ def consultar_todo():
 
 
 btn_seleccionar = Button(frame_seleccionar, text = "Seleccionar", fg="white", bg="#425070", font=fuente, width=25, height=2, command = seleccionar)
-btn_seleccionar.grid(row=0, column=0, padx=15, pady=10)
-
-nombre_pdf = Label(frame_ruta, text = "Ruta del archivo", font=fuente, bg="#D5DDF0")
-nombre_pdf.grid(row=0, column=0, padx=15, pady=10)
-
-btn_analizar = Button(frame_guardar, text = "Analizar y Guardar", fg="white", font=fuente, bg="#425070", width=25, height=2, command = analizar)
-btn_analizar.pack(padx=15, pady=15)
-
+nombre_pdf = Label(frame_ruta, text = "Ruta del archivo", bg="#D5DDF0")
+btn_analizar = Button(frame_ruta, text = "Analizar", fg="white", font=fuente, bg="#425070", width=25, height=2, command = analizar)
+lb_matricula = Label(frame_guardar, text="Matricula:")
+entry_matricula = Entry(frame_guardar)
+lb_causa = Label(frame_guardar, text="Causa:")
+entry_causa = Entry(frame_guardar)
+lb_doc_pag = Label(frame_guardar, text="Doc pag:")
+entry_doc_pag = Entry(frame_guardar)
+lb_doc_aj = Label(frame_guardar, text="Doc aj:")
+entry_doc_aj = Entry(frame_guardar)
+btn_guardar = Button(frame_guardar, text = "Guardar", fg="white", font=fuente, bg="#425070", width=25, height=2, command = guardar)
 lb_mes = Label(frame_consultas, text = "Mes: ", font=fuente, bg="#D5DDF0", width=20, height=2)
-lb_mes.grid(row=4, column=0, padx=15, pady=5)
-
 cb_mes = ttk.Combobox(frame_consultas, font=fuente, width=20, value = meses)
 cb_mes.current(0)
-cb_mes.grid(row=5, column=0, padx=15, pady=5)
-
 lb_restaurante = Label(frame_consultas, text = "Restaurante: ", font=fuente, bg="#D5DDF0", width=20, height=2)
-lb_restaurante.grid(row=4, column=1, padx=15, pady=5)
-
 cb_restaurantes = ttk.Combobox(frame_consultas, font=fuente, width=20, value = restaurantes)
 cb_restaurantes.current(0)
-cb_restaurantes.grid(row=5, column=1, padx=15, pady=5)
-
 lb_año = Label(frame_consultas, text = "Año: ", bg="#D5DDF0", font=fuente, width=20, height=2)
-lb_año.grid(row=4, column=2, padx=15, pady=5)
-
 cb_años = ttk.Combobox(frame_consultas, font=fuente, width=20, value = años)
 cb_años.current(0)
-cb_años.grid(row=5, column=2, padx=15, pady=5)
-
 btn_consulta = Button(frame_consultas, text = "Consultar mes", fg="white", bg="#425070", font=fuente, width=20, height=2, command = consultar)
-btn_consulta.grid(row=7, column=0, padx=15, pady=10)
-
 btn_consulta_año = Button(frame_consultas, text = "Consultar año", fg="white", bg="#425070", font=fuente, width=20, height=2, command = consultar_año)
-btn_consulta_año.grid(row=7, column=1, padx=15, pady=10)
-
 btn_consulta_todo = Button(frame_consultas, text = "Consultar todo", fg="white", bg="#425070", font=fuente, width=20, height=2, command = consultar_todo)
-btn_consulta_todo.grid(row=7, column=2, padx=15, pady=10)
 
+#pongo los widgets donde quiero
+btn_seleccionar.grid(row=0, column=0, padx=15, pady=10)
+nombre_pdf.grid(row=0, column=0, padx=15, pady=2)
+btn_analizar.grid(row=1, column=0, padx=0, pady=2)
+lb_matricula.grid(row=0, column=0, padx=0, pady=0, sticky="sw")
+entry_matricula.grid(row=1, column=0, padx=0, pady=0)
+lb_causa.grid(row=0, column=1, padx=0, pady=0, sticky="sw")
+entry_causa.grid(row=1, column=1, padx=0, pady=0)
+lb_doc_pag.grid(row=0, column=2, padx=0, pady=0, sticky="sw")
+entry_doc_pag.grid(row=1, column=2, padx=0, pady=0)
+lb_doc_aj.grid(row=0, column=3, padx=0, pady=0, sticky="sw")
+entry_doc_aj.grid(row=1, column=3, padx=0, pady=0)
+btn_guardar.grid(row=0, rowspan=2, column=4, padx=5, pady=0)
+lb_mes.grid(row=4, column=0, padx=15, pady=5)
+cb_mes.grid(row=5, column=0, padx=15, pady=5)
+lb_restaurante.grid(row=4, column=1, padx=15, pady=5)
+cb_restaurantes.grid(row=5, column=1, padx=15, pady=5)
+lb_año.grid(row=4, column=2, padx=15, pady=5)
+cb_años.grid(row=5, column=2, padx=15, pady=5)
+btn_consulta.grid(row=7, column=0, padx=15, pady=10)
+btn_consulta_año.grid(row=7, column=1, padx=15, pady=10)
+btn_consulta_todo.grid(row=7, column=2, padx=15, pady=10)
 
 ventana.mainloop()

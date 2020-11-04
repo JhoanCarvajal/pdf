@@ -8,6 +8,7 @@ from funciones.dividir_roi import *
 from funciones.crear_roi import *
 from validar_fechas import *
 import imutils
+import datos_confusos
 
 
 def ocr_eep(ruta):
@@ -20,7 +21,7 @@ def ocr_eep(ruta):
     roi_consumo_otros = image[3963:3963+408,1937:1937+425]
     roi_kw = image[2133:2133+150,435:435+371]
     roi_vr_kw = image[1877:1877+115,295:295+711]
-    roi_alumbrado = image[1259:1259+115,3815:3815+273]
+    roi_alumbrado = image[1219:1219+155,3815:3815+273]
     roi_direccion = image[379:379+139,269:269+1719]
 
     #lista para guardar los datos 
@@ -54,6 +55,9 @@ def ocr_eep(ruta):
     consumo = pytesseract.image_to_string(roi_consumo_otros)
     consumo = consumo[:len(consumo) - 2]
     consumo = consumo.split("\n")
+    for i in range(len(consumo)):
+        if consumo[i] == "":
+            consumo.pop(i)
     lista_datos.append(consumo[0])
     print(consumo)
     print("--------------------------------")
@@ -106,5 +110,5 @@ def ocr_eep(ruta):
     print(f"lista: {lista_datos}")
 
     os.remove(ruta)
-    insert.insert(lista_datos)
+    return lista_datos
 

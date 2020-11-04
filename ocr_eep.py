@@ -43,13 +43,9 @@ def ocr_eep(ruta):
 
         #eliminanos la imagen contenida en la ruta
         os.remove(ruta)
-        # llamamos la funcion insert
-        if insert.insert(lista_datos):
-            return True
-        else:
-            return False
+        # retornamos la lista de datos
+        return lista_datos
     except ValueError:
         #mostramos esto en caso de que ocurra un error
         print("Error en ocr_eep.py")
-        return False
 

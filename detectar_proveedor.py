@@ -17,15 +17,16 @@ def proveedor(ruta):
         #obtenemso el alto y ancho
         height, width = image.shape
         #determinamos de donde sacar la informacion
-        if height == 5500:
+        if height <= 5500:
             roi_texto = image[4821:4821+661,1:1+1365]
         else:
-            roi_texto = image[169:169+669,73:73+2265]
+            #roi_texto = image[169:169+669,73:73+2265] era para la factura vertiacal de agua
+            roi_texto = image[4821:4821+661,1:1+1365]
 
         #mostramos el roi de la informacion
-        cv2.imshow('ROI10', roi_texto)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # cv2.imshow('ROI10', roi_texto)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
 
         #leemos el texto del roi
         texto = pytesseract.image_to_string(roi_texto)
@@ -38,25 +39,19 @@ def proveedor(ruta):
         print(palabras)
         #comparamos para determinar que proveedor es
         if "www.eep.com.co" in palabras:
-            if ocr_eep.ocr_eep(ruta):
-                return True
+            lista_datos = ocr_eep.ocr_eep(ruta)
         elif "efigas" in palabras:
             print("factura de efigas")
         elif "serviciudad" in palabras or "acueducto" in palabras:
-            print("factura de agua")
-            if ocr_agua.ocr_agua(ruta):
-                return True
+            lista_datos = ocr_agua.ocr_agua(ruta)
         elif "henao" in palabras or "baena" in palabras:
-            print("factura de energia de carlos")
-            if ocr_eep_escaner.ocr_eep(ruta):
-                return True
+            lista_datos = ocr_eep_escaner.ocr_eep(ruta)
         elif not palabras:
-            if ocr_eep_escaner.ocr_eep(ruta):
-                return True
+            lista_datos = ocr_eep_escaner.ocr_eep(ruta)
         else:
             print("no se reconoce el proveedor")
+            lista_datos = []
             os.remove(ruta)
-            return False
+        return lista_datos
     except ValueError:
         print("Error en el codigo de detectar proveedor")
-        return False
