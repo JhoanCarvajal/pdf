@@ -1,87 +1,9 @@
 import psycopg2
-import datetime
-import validar_fechas
 
-
-def numero_entero(dato):
-    try:
-        numero = ""
-        negativo = False
-        for digito in dato:
-            print(digito)
-            if digito == "B":
-                digito = "8"
-            if digito.isdigit():
-                numero += str(digito)
-            elif digito == "-" or digito =="~":
-                negativo = True
-        numero = int(numero)
-        if negativo:
-            numero *= -1
-        return numero
-    except ValueError:
-        print("hubo un error al combertir a numero")
-
-def numero_decimal(dato):
-    try:
-        if dato:
-            numero = ""
-            lista = dato.split(",")
-            if len(lista) > 2:
-                for digito in lista[0]:
-                    if digito.isdigit():
-                        numero += str(digito)
-                numero += "." + lista[-1]
-            else:
-                try:
-                    numero = float(dato)
-                except:
-                    numero = dato
-                    while isinstance(numero, str):
-                        numero = numero[:len(numero) - 1]
-                        try:
-                            numero = float(numero)
-                        except ValueError:
-                            if len(numero) <= 0:
-                                numero = None
-                        
-            return numero
-        else:
-            numero = None
-            print("No hay un numero para combertir a decimal")
-    except ValueError:
-        print("Hubo un error innesperado al convertir numero a decimal")
-    
-
-def insert(lista,causa,doc_pag,doc_aj):
+def insert(lista):
     try:
         con = psycopg2.connect(database="bd", user="postgres", password="12345678", port=5433)
         cursor=con.cursor()
-
-        matricula = numero_entero(lista[0])
-        if matricula < 0:
-            matricula *= -1
-        if isinstance(lista[1], str):
-            inicial = validar_fechas.crear_fecha(lista[1])
-        else:
-            inicial = lista[1]
-        if isinstance(lista[2], str):
-            final = validar_fechas.crear_fecha(lista[2])
-        else:
-            final = lista[2]
-        vr_paga = numero_entero(lista[3])
-        consumo = numero_entero(lista[4])
-        kw = numero_entero(lista[5])
-        vr_kw = numero_decimal(lista[6])
-        otros = numero_entero(lista[7])
-        alumbrado = numero_entero(lista[8])
-        direccion = lista[9]
-
-        causa = int(causa)
-        paga = vr_paga - otros
-        ajuste = paga - causa
-        doc_pag = int(doc_pag)
-        doc_aj = int(doc_aj)
         
         sql = "select MAX(id) from facturas"
         cursor.execute(sql)
@@ -97,18 +19,18 @@ def insert(lista,causa,doc_pag,doc_aj):
         cursor.execute(sql)
         resultados = cursor.fetchall()
         for datos in resultados:
-            if datos[1]== matricula:
+            if datos[1]== lista[0]:
                 id_restaurante = datos[0]
                 sql="insert into facturas(id, id_restaurante, matricula, inicial, final, causa, paga, ajuste, doc_pag, doc_aj, \
                     consumo, kw, vr_kw, otros, alumbrado) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-                datos=(max_id, id_restaurante, matricula, inicial, final, causa, paga, ajuste, \
-                    doc_pag, doc_aj, consumo, kw, vr_kw, otros, alumbrado)
+                datos=(max_id, id_restaurante, lista[0], lista[1], lista[2], lista[3], lista[4], lista[5], \
+                    lista[6], lista[7], lista[8], lista[9], lista[10], lista[11], lista[12])
                 print(datos)
-                #cursor.execute(sql, datos)
+                cursor.execute(sql, datos)
             else:
-                print(f"No se ha encontrado el restaurante con esta matricula {matricula}")
+                print(f"No se ha encontrado el restaurante con esta matricula {lista[0]}")
         
         con.commit()
         con.close()
     except ValueError:
-        print("error en insert")
+        print("error al guardar los datos en la base de datos")

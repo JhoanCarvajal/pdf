@@ -3,6 +3,7 @@ import pytesseract
 import insert
 import os
 from resaltar_color import *
+import imutils
 
 def ocr_eep(ruta):
     try:
@@ -14,15 +15,18 @@ def ocr_eep(ruta):
 
         #agregamos cada roi(region de interes) a nuestra lista
         lista_rois.append(image[142:142+76,3173:3173+966])#matricula
-        lista_rois.append(image[1765:1765+41,533:533+230])#fehca inicial
-        lista_rois.append(image[1767:1767+41,780:780+220])#fecha final
+        lista_rois.append(image[1745:1745+88,413:413+590])#fechas de periodo de facturacion
         lista_rois.append(image[685:685+81,3795:3795+315])#valor a pagar
-        lista_rois.append(image[3903:3903+52,1527:1527+292])#consumo
         lista_rois.append(image[1555:1555+75,2051:2051+337])#kw
         lista_rois.append(image[1853:1853+79,293:293+317])#valor de kw
-        lista_rois.append(image[3954:3954+41,1534:1534+285])#otros o contribucion
-        lista_rois.append(image[381:381+101,3689:3689+477])#alumbrado
+        lista_rois.append(image[1227:1227+57,3854:3854+268])#alumbrado
         lista_rois.append(image[340:340+96,300:300+1628])#direccion
+        lista_rois.append(image[3898:3898+353,375:375+125])#cod de concepto empresa de energia
+        lista_rois.append(image[3898:3898+353,2033:2033+280])#totales de los conceptos de la empresa de energia
+
+        #redimensionamos los que no se leen bien
+        lista_rois[7] = imutils.resize(lista_rois[7], width=600)
+        lista_rois[8] = imutils.resize(lista_rois[8], width=600)
 
         #lista para guardar los datos 
         lista_datos = []

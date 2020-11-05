@@ -5,6 +5,7 @@ from datetime import date
 from datetime import datetime
 import select_restaurante, traer_restaurantes, llenar_excel, pdf2img
 import detectar_proveedor
+import analizar_datos
 import insert
 
 import tkinter.font as tkFont
@@ -58,24 +59,25 @@ for i in range(año,(año-30),-1):
     años.append(i)
 meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
 
+def limpiar_entrys():
+    entry_matricula.delete(0, "end")
+    entry_causa.delete(0, "end")
+    entry_doc_pag.delete(0, "end")
+    entry_doc_aj.delete(0, "end")
+
+matriz_datos = []
 def seleccionar():
     pdf_ruta = askopenfilename()
     nombre_pdf["text"] = str(pdf_ruta)
-matriz_datos = []
-def analizar():
     del matriz_datos[:]
-    pdf_ruta = nombre_pdf["text"]
     lista_imagenes = pdf2img.pdf2img(pdf_ruta)
     for ruta_img in lista_imagenes:
         lista_datos = detectar_proveedor.proveedor(ruta_img)
         matriz_datos.append(lista_datos)
-        entry_matricula.delete(0, "end")
-        entry_causa.delete(0, "end")
-        entry_doc_pag.delete(0, "end")
-        entry_doc_aj.delete(0, "end")
+        limpiar_entrys()
         entry_matricula.insert(0, str(lista_datos[0]))
 
-def guardar():
+def analizar():
     if entry_matricula.get() == "":
         entry_matricula.config(bg="red")
     elif entry_causa.get() == "":
@@ -85,7 +87,12 @@ def guardar():
     elif entry_doc_aj.get() == "":
         entry_doc_aj.config(bg="red")
     else:
-        insert.insert(matriz_datos[0], entry_causa.get(), entry_doc_pag.get(), entry_doc_aj.get())
+        datos = analizar_datos.analisis(matriz_datos[0], entry_causa.get(), entry_doc_pag.get(), entry_doc_aj.get())
+        del matriz_datos[:]
+        matriz_datos.append(datos)
+
+def guardar():
+    insert.insert(matriz_datos[0])
 
 def cb_mes_click(event):
     pass

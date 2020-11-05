@@ -1,11 +1,8 @@
 import datetime
-from datetime import timedelta
-import calendar
-
 
 def letra_a_numero(dato):
     dato = dato.lower()
-    #aqui esta el error creo que toca convertir el string en una lista para poder editar cada dato 
+
     print(dato)
     dato_corregido = ""
 
@@ -88,20 +85,6 @@ def comparar_fechas(fechas):
     return fechas
 
 
-def añadir_mes(sourcedate, months):
-    month = sourcedate.month - 1 + months
-    year = sourcedate.year + month // 12
-    month = month % 12 + 1
-    day = min(sourcedate.day, calendar.monthrange(year,month)[1])
-    return datetime.date(year, month, day)
-
-def restar_mes(sourcedate, months):
-    month = sourcedate.month - 1 + months
-    year = sourcedate.year + month // 12
-    month = month % 12 + 1
-    day = min(sourcedate.day, calendar.monthrange(year,month)[1])
-    return datetime.date(year, month, day)
-
 
 def validar_fecha(fechas):
     try:
@@ -116,7 +99,12 @@ def validar_fecha(fechas):
         fechas = comparar_fechas(fechas)
 
         print(f"retornamos estas fechas: {fechas}")
-        return fechas
+
+        #separo las fechas
+        fecha_inicio = fechas[0]
+        fecha_final = fechas[1]
+
+        return fecha_inicio, fecha_final
     except ValueError:
         print("error en validar fecha")
     
