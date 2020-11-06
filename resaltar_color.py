@@ -15,9 +15,9 @@ def solo_negro(ruta):
     # Detectamos el color negro
     mask_negro = cv2.inRange(imageHSV, negro_bajo, negro_alto)
     #mask = cv2.add(mask_negro)
-    #mask = cv2.medianBlur(mask_negro, 3)
+    mask = cv2.medianBlur(mask_negro, 3)
     # Fondo en grises
-    invMask = cv2.bitwise_not(mask_negro)
+    invMask = cv2.bitwise_not(mask)
     #por si la quiero guardar
     cv2.imwrite('Grises.png',invMask)
     return invMask
