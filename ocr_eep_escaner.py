@@ -4,6 +4,9 @@ import os
 import resaltar_color
 import imutils
 
+#para dibujar los rectangulos
+from dibujar_rectangulos import *
+
 
 def ocr_eep(ruta):
     #imagen donde solo se ve el color negro
@@ -16,12 +19,12 @@ def ocr_eep(ruta):
     lista_rois.append(image[120:120+162,3096:3096+1114])#matricula
     lista_rois.append(image[1766:1766+123,405:405+798])#fechas de periodo de facturacion
     lista_rois.append(image[710:710+148,3454:3454+735])#valor a pagar
-    lista_rois.append(image[2133:2133+150,435:435+371])#kw
+    lista_rois.append(image[1566:1566+146,2000:2000+383])#kw
     lista_rois.append(image[1877:1877+115,295:295+711])#valor de kw
     lista_rois.append(image[1219:1219+155,3815:3815+273])#alumbrado
     lista_rois.append(image[379:379+139,269:269+1719])#direccion
-    lista_rois.append(image[3963:3963+400,297:297+163])#cod de concepto empresa de energia
-    lista_rois.append(image[3963:3963+408,1937:1937+425])#totales de los conceptos de la empresa de energia
+    lista_rois.append(image[3963:3963+600,297:297+163])#cod de concepto empresa de energia
+    lista_rois.append(image[3963:3963+600,1937:1937+425])#totales de los conceptos de la empresa de energia
 
     #redimensionamos los que no se leen bien 
     lista_rois[1] = imutils.resize(lista_rois[1], width=800)
@@ -46,6 +49,7 @@ def ocr_eep(ruta):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
+    dibujar(image)
     #eliminanos la imagen contenida en la ruta
     os.remove(ruta)
     # retornamos la lista de datos

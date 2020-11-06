@@ -21,8 +21,8 @@ def ocr_eep(ruta):
         lista_rois.append(image[1853:1853+79,293:293+317])#valor de kw
         lista_rois.append(image[1227:1227+57,3854:3854+268])#alumbrado
         lista_rois.append(image[340:340+96,300:300+1628])#direccion
-        lista_rois.append(image[3898:3898+353,375:375+125])#cod de concepto empresa de energia
-        lista_rois.append(image[3898:3898+353,2033:2033+280])#totales de los conceptos de la empresa de energia
+        lista_rois.append(image[3898:3898+600,375:375+125])#cod de concepto empresa de energia
+        lista_rois.append(image[3898:3898+600,2033:2033+280])#totales de los conceptos de la empresa de energia
 
         #redimensionamos los que no se leen bien
         lista_rois[7] = imutils.resize(lista_rois[7], width=600)

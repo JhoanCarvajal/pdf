@@ -2,10 +2,7 @@ import datetime
 
 def letra_a_numero(dato):
     dato = dato.lower()
-
-    print(dato)
     dato_corregido = ""
-
     for d in range(len(dato)):
         r = dato[d]
         if r == "o":
@@ -18,8 +15,9 @@ def letra_a_numero(dato):
             r = "5"
         if r == "b":
             r = "8"
+        if r == "q":
+            r = "0"
         dato_corregido += r
-    print(f"este es el año corregido " + dato_corregido)
     return dato_corregido
 
 
@@ -33,12 +31,9 @@ def mes_letra_a_numero(dato):
         if letra == "0":
             letra = "o"
         mes_corregido += letra
-    print(mes)
-    print(mes_corregido)
     for m in meses:
         if m == mes_corregido:
             mes_corregido = meses.index(m) + 1
-    print(f'otro mes pero en numero {mes_corregido}')
     return mes_corregido
 
 
@@ -69,7 +64,6 @@ def comparar_fechas(fechas):
     año2 = int(fechas[1].strftime('%Y'))
     fechas = []
 
-    print(dia1, mes1, año1, dia2, mes2, año2)
     if mes1 == 12 and mes2 == 1:
         if año2-1 != año1:
             año1 = año2-1

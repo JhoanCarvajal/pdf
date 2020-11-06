@@ -76,6 +76,7 @@ def seleccionar():
         matriz_datos.append(lista_datos)
         limpiar_entrys()
         entry_matricula.insert(0, str(lista_datos[0]))
+    btn_analizar.config(state=NORMAL)
 
 def analizar():
     if entry_matricula.get() == "":
@@ -90,9 +91,12 @@ def analizar():
         datos = analizar_datos.analisis(matriz_datos[0], entry_causa.get(), entry_doc_pag.get(), entry_doc_aj.get())
         del matriz_datos[:]
         matriz_datos.append(datos)
+    btn_guardar.config(state=NORMAL)
 
 def guardar():
     insert.insert(matriz_datos[0])
+    btn_analizar.config(state=DISABLED)
+    btn_guardar.config(state=DISABLED)
 
 def cb_mes_click(event):
     pass
@@ -119,7 +123,7 @@ def consultar_todo():
 
 btn_seleccionar = Button(frame_seleccionar, text = "Seleccionar", fg="white", bg="#425070", font=fuente, width=25, height=2, command = seleccionar)
 nombre_pdf = Label(frame_ruta, text = "Ruta del archivo", bg="#D5DDF0")
-btn_analizar = Button(frame_ruta, text = "Analizar", fg="white", font=fuente, bg="#425070", width=25, height=2, command = analizar)
+btn_analizar = Button(frame_ruta, text = "Analizar", fg="white", font=fuente, bg="#425070", width=25, height=2, state=DISABLED, command = analizar)
 lb_matricula = Label(frame_guardar, text="Matricula:")
 entry_matricula = Entry(frame_guardar)
 lb_causa = Label(frame_guardar, text="Causa:")
@@ -128,7 +132,7 @@ lb_doc_pag = Label(frame_guardar, text="Doc pag:")
 entry_doc_pag = Entry(frame_guardar)
 lb_doc_aj = Label(frame_guardar, text="Doc aj:")
 entry_doc_aj = Entry(frame_guardar)
-btn_guardar = Button(frame_guardar, text = "Guardar", fg="white", font=fuente, bg="#425070", width=25, height=2, command = guardar)
+btn_guardar = Button(frame_guardar, text = "Guardar", fg="white", font=fuente, bg="#425070", width=25, height=2, state=DISABLED, command = guardar)
 lb_mes = Label(frame_consultas, text = "Mes: ", font=fuente, bg="#D5DDF0", width=20, height=2)
 cb_mes = ttk.Combobox(frame_consultas, font=fuente, width=20, value = meses)
 cb_mes.current(0)

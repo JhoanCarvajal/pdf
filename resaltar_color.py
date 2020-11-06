@@ -13,7 +13,7 @@ def solo_negro(ruta):
     imageGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     imageGray = cv2.cvtColor(imageGray, cv2.COLOR_GRAY2BGR)
     imageHSV = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-    # Detectamos el color rojo
+    # Detectamos el color negro
     mask_negro = cv2.inRange(imageHSV, negro_bajo, negro_alto)
     #mask = cv2.add(mask_negro)
     #mask = cv2.medianBlur(mask_negro, 3)
