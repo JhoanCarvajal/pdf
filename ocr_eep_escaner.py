@@ -4,9 +4,6 @@ import os
 import resaltar_color
 import imutils
 
-#para dibujar los rectangulos
-from dibujar_rectangulos import *
-
 
 def ocr_eep(ruta):
     #imagen donde solo se ve el color negro
@@ -49,7 +46,6 @@ def ocr_eep(ruta):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-    dibujar(image)
     #eliminanos la imagen contenida en la ruta
     os.remove(ruta)
     # retornamos la lista de datos

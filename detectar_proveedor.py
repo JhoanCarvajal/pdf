@@ -4,7 +4,6 @@ import pytesseract
 import insert
 import os
 import ocr_eep
-import ocr_agua
 import ocr_eep_escaner
 
 def proveedor(ruta):
@@ -15,7 +14,7 @@ def proveedor(ruta):
         image = 255 - cv2.threshold(imagen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
         #obtenemso el alto y ancho
-        height, width = image.shape
+        height, _ = image.shape
         #determinamos de donde sacar la informacion
         if height <= 5500:
             roi_texto = image[4821:4821+661,1:1+1365]
@@ -40,12 +39,6 @@ def proveedor(ruta):
         #comparamos para determinar que proveedor es
         if "www.eep.com.co" in palabras:
             lista_datos = ocr_eep.ocr_eep(ruta)
-        elif "efigas" in palabras:
-            print("factura de efigas")
-        elif "serviciudad" in palabras or "acueducto" in palabras:
-            lista_datos = ocr_agua.ocr_agua(ruta)
-        elif "henao" in palabras or "baena" in palabras:
-            lista_datos = ocr_eep_escaner.ocr_eep(ruta)
         elif not palabras:
             lista_datos = ocr_eep_escaner.ocr_eep(ruta)
         else:

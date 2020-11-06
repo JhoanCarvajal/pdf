@@ -69,14 +69,18 @@ matriz_datos = []
 def seleccionar():
     pdf_ruta = askopenfilename()
     nombre_pdf["text"] = str(pdf_ruta)
-    del matriz_datos[:]
-    lista_imagenes = pdf2img.pdf2img(pdf_ruta)
-    for ruta_img in lista_imagenes:
-        lista_datos = detectar_proveedor.proveedor(ruta_img)
-        matriz_datos.append(lista_datos)
-        limpiar_entrys()
-        entry_matricula.insert(0, str(lista_datos[0]))
-    btn_analizar.config(state=NORMAL)
+    if nombre_pdf.cget("text") != "":
+        del matriz_datos[:]
+        lista_imagenes = pdf2img.pdf2img(pdf_ruta)
+        for ruta_img in lista_imagenes:
+            lista_datos = detectar_proveedor.proveedor(ruta_img)
+            matriz_datos.append(lista_datos)
+            limpiar_entrys()
+            entry_matricula.insert(0, str(lista_datos[0]))
+        btn_analizar.config(state=NORMAL)
+    else:
+        nombre_pdf["text"] = "Ninguno"
+
 
 def analizar():
     if entry_matricula.get() == "":
