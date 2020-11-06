@@ -29,3 +29,12 @@ def todo():
     cursor.execute(sql)
     restaurantes = cursor.fetchall()
     return restaurantes
+
+def lista_restaurantes():
+    sql = "select id, nombre from restaurantes"
+    cursor.execute(sql)
+    restaurantes = cursor.fetchall()
+    lista = []
+    for restaurante in restaurantes:
+        lista.append(restaurante[1])
+    return lista

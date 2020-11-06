@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import ttk
 from datetime import date
 from datetime import datetime
-import select_restaurante, traer_restaurantes, llenar_excel, pdf2img
+import select_restaurante, llenar_excel, pdf2img
 import detectar_proveedor
 import analizar_datos
 import insert
@@ -51,7 +51,7 @@ frame_consultas.pack(fill=BOTH, expand=True)
 frame_consultas.columnconfigure(1, weight=1)
 frame_consultas.rowconfigure(1, weight=1)
 
-restaurantes = traer_restaurantes.lista_restaurantes()
+restaurantes = select_restaurante.lista_restaurantes()
 fecha_actual = datetime.now()
 año = fecha_actual.year
 años = []

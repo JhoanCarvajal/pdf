@@ -1,4 +1,5 @@
 from validar_fechas import *
+
 def retornar_totales(codigos, totales):
     lista_cod = codigos.split("\n")
     lista_totales = totales.split("\n")
