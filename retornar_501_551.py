@@ -1,8 +1,14 @@
+from validar_fechas import *
+
 def retornar_totales(codigos, totales):
     lista_cod = codigos.split("\n")
     lista_totales = totales.split("\n")
     lista_cod = eliminar_espacios_blanco(lista_cod)
     lista_totales = eliminar_espacios_blanco(lista_totales)
+    for i in range(len(lista_cod)):
+        lista_cod[i] = letra_a_numero(lista_cod[i])
+    for i in range(len(lista_totales)):
+        lista_totales[i] = letra_a_numero(lista_totales[i])
     print("____________________________________________________________")
     print(lista_cod)
     print(lista_totales)

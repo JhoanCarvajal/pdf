@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import ttk
 from datetime import date
 from datetime import datetime
-import select_restaurante, traer_restaurantes, llenar_excel, pdf2img
+import select_restaurante, llenar_excel, pdf2img
 import detectar_proveedor
 import analizar_datos
 import insert
@@ -51,7 +51,7 @@ frame_consultas.pack(fill=BOTH, expand=True)
 frame_consultas.columnconfigure(1, weight=1)
 frame_consultas.rowconfigure(1, weight=1)
 
-restaurantes = traer_restaurantes.lista_restaurantes()
+restaurantes = select_restaurante.lista_restaurantes()
 fecha_actual = datetime.now()
 año = fecha_actual.year
 años = []
@@ -69,13 +69,18 @@ matriz_datos = []
 def seleccionar():
     pdf_ruta = askopenfilename()
     nombre_pdf["text"] = str(pdf_ruta)
-    del matriz_datos[:]
-    lista_imagenes = pdf2img.pdf2img(pdf_ruta)
-    for ruta_img in lista_imagenes:
-        lista_datos = detectar_proveedor.proveedor(ruta_img)
-        matriz_datos.append(lista_datos)
-        limpiar_entrys()
-        entry_matricula.insert(0, str(lista_datos[0]))
+    if nombre_pdf.cget("text") != "":
+        del matriz_datos[:]
+        lista_imagenes = pdf2img.pdf2img(pdf_ruta)
+        for ruta_img in lista_imagenes:
+            lista_datos = detectar_proveedor.proveedor(ruta_img)
+            matriz_datos.append(lista_datos)
+            limpiar_entrys()
+            entry_matricula.insert(0, str(lista_datos[0]))
+        btn_analizar.config(state=NORMAL)
+    else:
+        nombre_pdf["text"] = "Ninguno"
+
 
 def analizar():
     if entry_matricula.get() == "":
@@ -90,9 +95,12 @@ def analizar():
         datos = analizar_datos.analisis(matriz_datos[0], entry_causa.get(), entry_doc_pag.get(), entry_doc_aj.get())
         del matriz_datos[:]
         matriz_datos.append(datos)
+    btn_guardar.config(state=NORMAL)
 
 def guardar():
     insert.insert(matriz_datos[0])
+    btn_analizar.config(state=DISABLED)
+    btn_guardar.config(state=DISABLED)
 
 def cb_mes_click(event):
     pass
@@ -119,7 +127,7 @@ def consultar_todo():
 
 btn_seleccionar = Button(frame_seleccionar, text = "Seleccionar", fg="white", bg="#425070", font=fuente, width=25, height=2, command = seleccionar)
 nombre_pdf = Label(frame_ruta, text = "Ruta del archivo", bg="#D5DDF0")
-btn_analizar = Button(frame_ruta, text = "Analizar", fg="white", font=fuente, bg="#425070", width=25, height=2, command = analizar)
+btn_analizar = Button(frame_ruta, text = "Analizar", fg="white", font=fuente, bg="#425070", width=25, height=2, state=DISABLED, command = analizar)
 lb_matricula = Label(frame_guardar, text="Matricula:")
 entry_matricula = Entry(frame_guardar)
 lb_causa = Label(frame_guardar, text="Causa:")
@@ -128,7 +136,7 @@ lb_doc_pag = Label(frame_guardar, text="Doc pag:")
 entry_doc_pag = Entry(frame_guardar)
 lb_doc_aj = Label(frame_guardar, text="Doc aj:")
 entry_doc_aj = Entry(frame_guardar)
-btn_guardar = Button(frame_guardar, text = "Guardar", fg="white", font=fuente, bg="#425070", width=25, height=2, command = guardar)
+btn_guardar = Button(frame_guardar, text = "Guardar", fg="white", font=fuente, bg="#425070", width=25, height=2, state=DISABLED, command = guardar)
 lb_mes = Label(frame_consultas, text = "Mes: ", font=fuente, bg="#D5DDF0", width=20, height=2)
 cb_mes = ttk.Combobox(frame_consultas, font=fuente, width=20, value = meses)
 cb_mes.current(0)

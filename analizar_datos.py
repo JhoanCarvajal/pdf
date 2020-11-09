@@ -23,6 +23,9 @@ def numero_entero(dato):
         print("hubo un error al combertir a numero")
 
 def numero_decimal(dato):
+    print("############################### NUMERO DECIMAL ##########################")
+    print(dato)
+    print("#########################################################################")
     try:
         if dato:
             numero = ""
@@ -39,18 +42,21 @@ def numero_decimal(dato):
                     numero = dato
                     while isinstance(numero, str):
                         numero = numero[:len(numero) - 1]
+                        print(numero)
+                        print("_____________________________________________________________")
                         try:
                             numero = float(numero)
-                        except ValueError:
-                            try:
-                                numero = dato
-                                numero = numero[1:len(numero)]
-                                numero = float(numero)
-                            except:
-                                numero = None
+                        except:
+                            if len(numero) <= 0:
+                                try:
+                                    numero = dato
+                                    numero = numero[1:len(numero)]
+                                    numero = float(numero)
+                                except:
+                                    print(numero)
             return numero
         else:
-            numero = None
+            numero = 0
             print("No hay un numero para combertir a decimal")
     except ValueError:
         print("Hubo un error innesperado al convertir numero a decimal")
