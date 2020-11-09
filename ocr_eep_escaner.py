@@ -25,8 +25,8 @@ def ocr_eep(ruta):
 
     #redimensionamos los que no se leen bien 
     lista_rois[1] = imutils.resize(lista_rois[1], width=800)
-    lista_rois[7] = imutils.resize(lista_rois[7], width=800)
-    lista_rois[8] = imutils.resize(lista_rois[8], width=800)
+    #lista_rois[7] = imutils.resize(lista_rois[7], width=800)
+    #lista_rois[8] = imutils.resize(lista_rois[8], width=800)
 
 
     #lista para guardar los datos 
@@ -36,7 +36,7 @@ def ocr_eep(ruta):
     i = 0
     for roi in lista_rois:
         if i > 6:
-            dato = pytesseract.image_to_string(roi, config='--psm 6 --oem 0 -c \
+            dato = pytesseract.image_to_string(roi, config='--psm 6 -c \
                 tessedit_char_whitelist=.,-0123456789')
         else:
             dato = pytesseract.image_to_string(roi)
