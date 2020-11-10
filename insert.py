@@ -22,9 +22,9 @@ def insert(lista):
             if datos[1]== lista[0]:
                 id_restaurante = datos[0]
                 sql="insert into facturas(id, id_restaurante, matricula, inicial, final, causa, paga, ajuste, doc_pag, doc_aj, \
-                    consumo, kw, vr_kw, otros, alumbrado) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                    consumo_activa, consumo_reactiva, kw, valor_kw, contribucion, alumbrado) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
                 datos=(max_id, id_restaurante, lista[0], lista[1], lista[2], lista[3], lista[4], lista[5], \
-                    lista[6], lista[7], lista[8], lista[9], lista[10], lista[11], lista[12])
+                    lista[6], lista[7], lista[8], lista[9], lista[10], lista[11], lista[12], lista[13])
                 print(datos)
                 cursor.execute(sql, datos)
             else:

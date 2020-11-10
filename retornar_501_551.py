@@ -13,24 +13,31 @@ def retornar_totales(codigos, totales):
     print(lista_cod)
     print(lista_totales)
     print("____________________________________________________________")
-    pos_consumo = None
+    pos_consumo_activa = None
     pos_contribuciones = None
+    pos_consumo_reactiva = None
     for i in range(len(lista_cod)):
         if lista_cod[i] == "501":
-            pos_consumo = i
+            pos_consumo_activa = i
+        if lista_cod[i] == "511":
+            pos_consumo_reactiva = i
         if lista_cod[i] == "551":
             pos_contribuciones = i
     
-    if pos_consumo != None:
-        consumo = lista_totales[pos_consumo]
+    if pos_consumo_activa != None:
+        consumo_activa = lista_totales[pos_consumo_activa]
     else:
         consumo = "0"
+    if pos_consumo_reactiva != None:
+        consumo_reactiva = lista_totales[pos_consumo_reactiva]
+    else:
+        consumo_reactiva = "0"
     if pos_contribuciones != None:
         contribuciones = lista_totales[pos_contribuciones]
     else:
         contribuciones = "0"
 
-    return consumo, contribuciones
+    return consumo_activa, consumo_reactiva, contribuciones
 
 def eliminar_espacios_blanco(lista):
     while "" in lista:

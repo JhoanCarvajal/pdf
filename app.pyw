@@ -51,6 +51,9 @@ frame_consultas.pack(fill=BOTH, expand=True)
 frame_consultas.columnconfigure(1, weight=1)
 frame_consultas.rowconfigure(1, weight=1)
 
+lb_proceso = Label(frame)
+lb_proceso.pack()
+
 restaurantes = select_restaurante.lista_restaurantes()
 fecha_actual = datetime.now()
 año = fecha_actual.year
@@ -58,6 +61,7 @@ años = []
 for i in range(año,(año-30),-1):
     años.append(i)
 meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+
 
 def limpiar_entrys():
     entry_matricula.delete(0, "end")
@@ -80,7 +84,6 @@ def seleccionar():
         btn_analizar.config(state=NORMAL)
     else:
         nombre_pdf["text"] = "Ninguno"
-
 
 def analizar():
     if entry_matricula.get() == "":

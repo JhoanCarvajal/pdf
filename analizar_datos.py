@@ -73,18 +73,19 @@ def analisis(lista,causa,doc_pag,doc_aj):
         vr_kw = numero_decimal(lista[4])
         alumbrado = numero_entero(lista[5])
         direccion = lista[6]
-        consumo, contribuciones = retornar_totales(lista[7], lista[8])
+        consumo_activa, consumo_reactiva, contribucion = retornar_totales(lista[7], lista[8])
 
-        consumo = numero_entero(consumo)
-        contribuciones = numero_entero(contribuciones)
+        consumo_activa = numero_entero(consumo_activa)
+        consumo_reactiva = numero_entero(consumo_reactiva)
+        contribucion = numero_entero(contribucion)
 
         causa = int(causa)
-        paga = vr_paga - contribuciones
+        paga = vr_paga - contribucion
         ajuste = paga - causa
         doc_pag = int(doc_pag)
         doc_aj = int(doc_aj)
 
-        datos = [matricula, fecha_inicial, fecha_final, causa, paga, ajuste, doc_pag, doc_aj, consumo, kw, vr_kw, contribuciones,alumbrado]
+        datos = [matricula, fecha_inicial, fecha_final, causa, paga, ajuste, doc_pag, doc_aj, consumo_activa, consumo_reactiva, kw, vr_kw, contribucion,alumbrado]
 
         print("__________________________________________________________________________________________________________")
         print("ESTOS SON LOS DATOS DESPUES DE MANDARLOS AL ANALISIS ESPERO Y ESTEN BIEN")

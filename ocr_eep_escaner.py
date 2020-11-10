@@ -8,6 +8,7 @@ import imutils
 def ocr_eep(ruta):
     #imagen donde solo se ve el color negro
     image = resaltar_color.solo_negro(ruta)
+    # image = cv2.imread(ruta, 1) #Si se quiere usar la imagen original
 
     #lista de los rois
     lista_rois = []
