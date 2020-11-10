@@ -17,7 +17,7 @@ def consulta(resultado):
         row = 0
         col = 0
 
-        titulos = ["#","Cod restaurante", "Matricula", "Lectura Inicial","Lectura Final","Causa mes","Paga mes","Ajus","Doc pag", "Doc aj", "Consumo", "Kw/h","Valor de Kw/h","Otros","Alumbrado"]
+        titulos = ["#","Cod restaurante", "Matricula", "Lectura inicial","Lectura final","Causa mes","Paga mes","Ajus","Doc pag", "Doc aj", "Consumo activa", "Consumo reactiva", "Kw/h","Valor de Kw/h","Otros","Alumbrado"]
         for titulo in titulos:
             ws.write(row, col, titulo)
             col +=1
