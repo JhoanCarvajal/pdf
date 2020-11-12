@@ -32,7 +32,7 @@ def destroy_window():
     top_level = None
 
 if __name__ == '__main__':
-    import datos
+    from . import datos
     datos.vp_start_gui()
 
 

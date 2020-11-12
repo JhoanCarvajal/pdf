@@ -7,6 +7,9 @@ import select_restaurante, llenar_excel, pdf2img
 import detectar_proveedor
 import analizar_datos
 import insert
+from templates_ocr.datos.datos import create_editar
+import os
+import threading
 
 import tkinter.font as tkFont
 
@@ -85,6 +88,9 @@ def seleccionar():
     else:
         nombre_pdf["text"] = "Ninguno"
 
+def abrir_ventana():
+    w, top = create_editar(rt=ventana, matriz=matriz_datos[0])
+
 def analizar():
     if entry_matricula.get() == "":
         entry_matricula.config(bg="red")
@@ -98,6 +104,7 @@ def analizar():
         datos = analizar_datos.analisis(matriz_datos[0], entry_causa.get(), entry_doc_pag.get(), entry_doc_aj.get())
         del matriz_datos[:]
         matriz_datos.append(datos)
+        abrir_ventana()
     btn_guardar.config(state=NORMAL)
 
 def guardar():
