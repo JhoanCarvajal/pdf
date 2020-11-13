@@ -316,14 +316,12 @@ class Editar:
         self.lista.append(self.entry_vr_kw.get())
         self.lista.append(self.entry_contribucion.get())
         self.lista.append(self.entry_alumbrado.get())
-        datos_buenos = analizar_datos.analisis2(self.lista)
+        datos_buenos = analizar_datos.analisis(lista=self.lista)
         insert.insert(datos_buenos)
         datos_support.destroy_window()
 
 if __name__ == '__main__':
     vp_start_gui()
-
-
 
 
 

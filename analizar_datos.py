@@ -62,64 +62,47 @@ def numero_decimal(dato):
         print("Hubo un error innesperado al convertir numero a decimal")
     
 
-def analisis(lista,causa,doc_pag,doc_aj):
+def analisis(lista=[],causa=0,doc_pag=0,doc_aj=0,booleano=False):
     try:
         matricula = numero_entero(lista[0])
         if matricula < 0:
             matricula *= -1
-        fecha_inicial, fecha_final = validar_fecha(lista[1])
-        vr_paga = numero_entero(lista[2])
-        kw = numero_entero(lista[3])
-        vr_kw = numero_decimal(lista[4])
-        alumbrado = numero_entero(lista[5])
-        direccion = lista[6]
-        consumo_activa, consumo_reactiva, contribucion = retornar_totales(lista[7], lista[8])
+        if booleano:
+            fecha_inicial, fecha_final = validar_fecha(lista[1])
+            vr_paga = numero_entero(lista[2])
+            kw = numero_entero(lista[3])
+            vr_kw = numero_decimal(lista[4])
+            alumbrado = numero_entero(lista[5])
+            direccion = lista[6]
+            consumo_activa, consumo_reactiva, contribucion = retornar_totales(lista[7], lista[8])
 
-        consumo_activa = numero_entero(consumo_activa)
-        consumo_reactiva = numero_entero(consumo_reactiva)
-        contribucion = numero_entero(contribucion)
+            consumo_activa = numero_entero(consumo_activa)
+            consumo_reactiva = numero_entero(consumo_reactiva)
+            contribucion = numero_entero(contribucion)
 
-        causa = int(causa)
-        paga = vr_paga - contribucion
-        ajuste = paga - causa
-        doc_pag = int(doc_pag)
-        doc_aj = int(doc_aj)
+            causa = int(causa)
+            paga = vr_paga - contribucion
+            ajuste = paga - causa
+            doc_pag = int(doc_pag)
+            doc_aj = int(doc_aj)
+        else:
+            fecha_inicial = lista[1]
+            fecha_final = lista[2]
+            vr_paga = numero_entero(lista[3])
+            kw = numero_entero(lista[9])
+            vr_kw = numero_decimal(lista[10])
+            alumbrado = numero_entero(lista[12])
 
-        datos = [matricula, fecha_inicial, fecha_final, causa, paga, ajuste, doc_pag, doc_aj, consumo_activa,\
-            consumo_reactiva, kw, vr_kw, contribucion, alumbrado, vr_paga]
+            consumo_activa = numero_entero(lista[7])
+            consumo_reactiva = numero_entero(lista[8])
+            contribucion = numero_entero(lista[11])
 
-        print("__________________________________________________________________________________________________________")
-        print("ESTOS SON LOS DATOS DESPUES DE MANDARLOS AL ANALISIS ESPERO Y ESTEN BIEN")
-        print(datos)
-        print("__________________________________________________________________________________________________________")
-
-        return datos
-    
-    except ValueError:
-        print("error en el analisis")
-
-def analisis2(lista):
-    try:
-        matricula = numero_entero(lista[0])
-        if matricula < 0:
-            matricula *= -1
-        fecha_inicial = lista[1]
-        fecha_final = lista[2]
-        vr_paga = numero_entero(lista[3])
-        kw = numero_entero(lista[9])
-        vr_kw = numero_decimal(lista[10])
-        alumbrado = numero_entero(lista[12])
-
-        consumo_activa = numero_entero(lista[7])
-        consumo_reactiva = numero_entero(lista[8])
-        contribucion = numero_entero(lista[11])
-
-        causa = int(lista[4])
-        paga = vr_paga - contribucion
-        ajuste = paga - causa
-        doc_pag = int(lista[5])
-        doc_aj = int(lista[6])
-
+            causa = int(lista[4])
+            paga = vr_paga - contribucion
+            ajuste = paga - causa
+            doc_pag = int(lista[5])
+            doc_aj = int(lista[6])
+            
         datos = [matricula, fecha_inicial, fecha_final, causa, paga, ajuste, doc_pag, doc_aj, consumo_activa,\
             consumo_reactiva, kw, vr_kw, contribucion, alumbrado, vr_paga]
 

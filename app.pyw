@@ -101,7 +101,7 @@ def analizar():
     elif entry_doc_aj.get() == "":
         entry_doc_aj.config(bg="red")
     else:
-        datos = analizar_datos.analisis(matriz_datos[0], entry_causa.get(), entry_doc_pag.get(), entry_doc_aj.get())
+        datos = analizar_datos.analisis(matriz_datos[0], entry_causa.get(), entry_doc_pag.get(), entry_doc_aj.get(),True)
         del matriz_datos[:]
         matriz_datos.append(datos)
         abrir_ventana()
