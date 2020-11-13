@@ -1,8 +1,10 @@
 import datetime
 
+# si hay una letra en el dia ej I5 
 def letra_a_numero(dato):
     dato = dato.lower()
     dato_corregido = ""
+    # si hay una letra la convertimos al numero que mas se parece
     for d in range(len(dato)):
         r = dato[d]
         if r == "o":
@@ -20,35 +22,42 @@ def letra_a_numero(dato):
         dato_corregido += r
     return dato_corregido
 
-
+# mes FEB = 2 
 def mes_letra_a_numero(dato):
+    #lista de meses
     meses = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"]
     mes=dato.lower()
+    # por si el mes tiene punto al final
     if len(mes) == 4:
         mes = mes[:len(mes) - 1]
+    # por si el mes tiene un 0 lo pasamos a una "o"
     mes_corregido = ""
     for letra in mes:
         if letra == "0":
             letra = "o"
         mes_corregido += letra
+    # identificamos si el mes esta en la lista de meses
     for m in meses:
         if m == mes_corregido:
+            # sacamos el numero del mes
             mes_corregido = meses.index(m) + 1
     return mes_corregido
 
-
+# para crear una fecha
 def crear_fecha(dato):
     datos_fecha = dato.split("/")
     for i in range(len(datos_fecha)):
         datos_fecha[i] = datos_fecha[i].strip()
-
+    # datos de la fecha
     dia = letra_a_numero(datos_fecha[0])
     mes = mes_letra_a_numero(datos_fecha[1])
     año = letra_a_numero(datos_fecha[2])
-    
+    # por si el dia es mayor a 31
     if int(dia) > 31:
         dia = 31
+    # creamos el string de la fecha
     fecha = año + "-" + str(mes) + "-" + dia
+    # intentamos convertir a datetime
     try:
         fecha = datetime.datetime.strptime(fecha,"%Y-%m-%d")
     except ValueError:
@@ -56,6 +65,7 @@ def crear_fecha(dato):
     return fecha
 
 def comparar_fechas(fechas):
+    # separo los datos de las dos fechas
     dia1 = int(fechas[0].strftime('%d'))
     mes1 = int(fechas[0].strftime('%m'))
     año1 = int(fechas[0].strftime('%Y'))
@@ -63,17 +73,23 @@ def comparar_fechas(fechas):
     mes2 = int(fechas[1].strftime('%m'))
     año2 = int(fechas[1].strftime('%Y'))
     fechas = []
-
+    # comparo los meses para saber si el primero es dic y el segundo ene
     if mes1 == 12 and mes2 == 1:
+        # por si el primer año es diferente al segundo - 1 año
         if año2-1 != año1:
             año1 = año2-1
+    # si no se cumple lo de los meses
+    # los años tienen que ser iguales 
     elif año1 != año2:
         año1 = año2
+    #creo los strings de cada fecha y los convierto a datetime
     fecha1 = str(año1) + "-" + str(mes1) + "-" + str(dia1)
     fecha1 = datetime.datetime.strptime(fecha1,"%Y-%m-%d")
+    # guardo la fecha en la lista
     fechas.append(fecha1)
     fecha2 = str(año2) + "-" + str(mes2) + "-" + str(dia2)
     fecha2 = datetime.datetime.strptime(fecha2,"%Y-%m-%d")
+    # guardo la fecha en la lista
     fechas.append(fecha2)
 
     return fechas

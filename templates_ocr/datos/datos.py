@@ -58,6 +58,7 @@ class Editar:
         top.title("Datos")
         top.configure(background="#d9d9d9")
 
+        # Frame
         self.contenedor = tk.Frame(top)
         self.contenedor.place(relx=0.0, rely=0.0, relheight=0.997, relwidth=1.0)
         self.contenedor.configure(relief='groove')
@@ -65,6 +66,7 @@ class Editar:
         self.contenedor.configure(relief="groove")
         self.contenedor.configure(background="#d9d9d9")
 
+        # creación de widgets
         self.lb_matricula = tk.Label(self.contenedor)
         self.lb_matricula.place(relx=0.0, rely=0.026, height=20, width=100)
         self.lb_matricula.configure(anchor='w')
@@ -284,7 +286,7 @@ class Editar:
         self.entry_alumbrado.configure(selectbackground="blue")
         self.entry_alumbrado.configure(selectforeground="white")
 
-
+        # recuperamos la lista que viene en **kwargs
         self.lista_vieja = []
         for _, value in kwargs.items():
             self.lista_vieja = value
