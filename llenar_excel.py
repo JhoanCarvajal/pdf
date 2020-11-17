@@ -12,7 +12,7 @@ def consulta(resultado):
         fecha = datetime.datetime.now()
         fecha = fecha.strftime("%m_%d_%Y_%H_%M_%S")
         # creamos un excel en la siguiente ruta
-        wb = xlsxwriter.Workbook(f'{directorio}/excel/R_C_{fecha}.xlsx')
+        wb = xlsxwriter.Workbook(f'{directorio}/R_C_{fecha}.xlsx')
         # añadimos una hoja de trabajo
         ws = wb.add_worksheet()
 
@@ -41,7 +41,7 @@ def consulta(resultado):
 
         # abrimos el archivo en un subproceso para visualizar el excel
         def abrir_excel():
-            os.system(f"{directorio}/excel/R_C_{fecha}.xlsx")
+            os.system(f"{directorio}/R_C_{fecha}.xlsx")
         t = threading.Thread(target=abrir_excel)
         t.start()
     else:

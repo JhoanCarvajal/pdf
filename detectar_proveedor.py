@@ -35,7 +35,6 @@ def proveedor(ruta):
         palabras = texto.split()
         #las ponemos todas en minusculas
         palabras = [element.lower() for element in palabras]
-        print(palabras)
         #comparamos para determinar que proveedor es
         if "www.eep.com.co" in palabras:
             lista_datos = ocr_eep.ocr_eep(ruta)

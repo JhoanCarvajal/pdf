@@ -12,7 +12,7 @@ except ImportError:
     import tkinter.ttk as ttk
     py3 = True
 
-from . import datos_support
+import datos_support
 import analizar_datos
 import insert
 

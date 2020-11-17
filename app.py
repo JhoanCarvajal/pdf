@@ -7,7 +7,7 @@ import select_restaurante, llenar_excel, pdf2img
 import detectar_proveedor
 import analizar_datos
 import insert
-from templates_ocr.datos.datos import create_editar
+from datos import create_editar
 import os
 import threading
 import tkinter.font as tkFont
