@@ -7,7 +7,7 @@ import select_restaurante, llenar_excel, pdf2img
 import detectar_proveedor
 import analizar_datos
 import insert
-from datos import create_editar
+import datos
 import os
 import threading
 import tkinter.font as tkFont
@@ -139,7 +139,7 @@ class Ventana:
             self.nombre_pdf["text"] = "Ninguno"
 
     def abrir_ventana(self):
-        w, top = create_editar(rt=self.ventana, matriz=self.matriz_datos[0])
+        w, top = datos.create_editar(rt=self.ventana, matriz=self.matriz_datos[0])
 
     def analizar(self):
         if self.entry_matricula.get() == "":
