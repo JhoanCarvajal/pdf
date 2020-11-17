@@ -47,7 +47,7 @@ def ocr_eep(ruta):
         i += 1
         print("--------------------------------")
 
-    #recorremos la lista de rois para mostrarlos en una ventana
+    # recorremos la lista de rois para mostrarlos en una ventana
     # for i in range(len(lista_rois)):
     #     cv2.imshow(f"ROI{i}", lista_rois[i])
     # cv2.waitKey(0)

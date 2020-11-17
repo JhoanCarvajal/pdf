@@ -159,7 +159,7 @@ class Editar:
         self.btn_enviar.configure(highlightbackground="#d9d9d9")
         self.btn_enviar.configure(highlightcolor="black")
         self.btn_enviar.configure(pady="0")
-        self.btn_enviar.configure(text='''Enviar''')
+        self.btn_enviar.configure(text='''Guardar''')
 
         self.entry_matricula = tk.Entry(self.contenedor)
         self.entry_matricula.place(relx=0.502, rely=0.026, height=20
