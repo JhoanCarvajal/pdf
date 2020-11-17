@@ -10,7 +10,6 @@ import insert
 from templates_ocr.datos.datos import create_editar
 import os
 import threading
-
 import tkinter.font as tkFont
 
 class Ventana:

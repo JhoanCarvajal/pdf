@@ -99,16 +99,12 @@ def comparar_fechas(fechas):
 def validar_fecha(fechas):
     try:
         fechas = fechas.split("-")
-        print(fechas)
         #creo las fechas
         for i in range(len(fechas)):
-            print(fechas[i])
             fechas[i] = crear_fecha(fechas[i])
 
         #comparo los años
         fechas = comparar_fechas(fechas)
-
-        print(f"retornamos estas fechas: {fechas}")
 
         #separo las fechas
         fecha_inicio = fechas[0]
@@ -116,5 +112,5 @@ def validar_fecha(fechas):
 
         return fecha_inicio, fecha_final
     except ValueError:
-        print("error en validar fecha")
+        pass
     

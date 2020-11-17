@@ -11,7 +11,6 @@ def consulta(resultado):
         directorio = os.getcwd()
         fecha = datetime.datetime.now()
         fecha = fecha.strftime("%m_%d_%Y_%H_%M_%S")
-        print(fecha)
         # creamos un excel en la siguiente ruta
         wb = xlsxwriter.Workbook(f'{directorio}/excel/R_C_{fecha}.xlsx')
         # añadimos una hoja de trabajo
@@ -46,4 +45,4 @@ def consulta(resultado):
         t = threading.Thread(target=abrir_excel)
         t.start()
     else:
-        print("No hay ningun restaurante con factura en esta fecha")
+        pass

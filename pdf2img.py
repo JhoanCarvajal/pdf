@@ -12,11 +12,10 @@ def pdf2img(pdf):
         nombre = nombre[0]
         fecha = datetime.datetime.now()
         fecha = fecha.strftime("%H_%M_%S")
-        print(carpeta, nombre)
         paginas = convert_from_path(pdf, 500)
         for pagina in paginas:
             pagina.save(f'{carpeta}/{nombre}{fecha}.jpg', 'JPEG')
             lista_imagenes.append(f'{carpeta}/{nombre}{fecha}.jpg')
         return lista_imagenes
     except ValueError:
-        print("Error en pdf2img")
+        pass

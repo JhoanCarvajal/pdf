@@ -9,10 +9,7 @@ def retornar_totales(codigos, totales):
         lista_cod[i] = letra_a_numero(lista_cod[i])
     for i in range(len(lista_totales)):
         lista_totales[i] = letra_a_numero(lista_totales[i])
-    print("____________________________________________________________")
-    print(lista_cod)
-    print(lista_totales)
-    print("____________________________________________________________")
+
     pos_consumo_activa = None
     pos_contribuciones = None
     pos_consumo_reactiva = None
@@ -27,7 +24,7 @@ def retornar_totales(codigos, totales):
     if pos_consumo_activa != None:
         consumo_activa = lista_totales[pos_consumo_activa]
     else:
-        consumo = "0"
+        consumo_activa = "0"
     if pos_consumo_reactiva != None:
         consumo_reactiva = lista_totales[pos_consumo_reactiva]
     else:

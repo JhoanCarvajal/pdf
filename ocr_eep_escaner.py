@@ -43,9 +43,7 @@ def ocr_eep(ruta):
             dato = pytesseract.image_to_string(roi)
         dato = dato[:len(dato) - 2]
         lista_datos.append(dato)
-        print(dato)
         i += 1
-        print("--------------------------------")
 
     # recorremos la lista de rois para mostrarlos en una ventana
     # for i in range(len(lista_rois)):

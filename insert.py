@@ -30,12 +30,9 @@ def insert(lista):
                     consumo_activa, consumo_reactiva, kw, valor_kw, contribucion, alumbrado) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
                 datos=(max_id, id_restaurante, lista[0], lista[1], lista[2], lista[3], lista[4], lista[5], \
                     lista[6], lista[7], lista[8], lista[9], lista[10], lista[11], lista[12], lista[13])
-                print(datos)
                 cursor.execute(sql, datos)
-            else:
-                print(f"No se ha encontrado el restaurante con esta matricula {lista[0]}")
         # cerramos la coneccion
         con.commit()
         con.close()
     except ValueError:
-        print("error al guardar los datos en la base de datos")
+        pass

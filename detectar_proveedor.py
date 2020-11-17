@@ -42,9 +42,8 @@ def proveedor(ruta):
         elif not palabras:
             lista_datos = ocr_eep_escaner.ocr_eep(ruta)
         else:
-            print("no se reconoce el proveedor")
             lista_datos = []
             os.remove(ruta)
         return lista_datos
     except ValueError:
-        print("Error en el codigo de detectar proveedor")
+        pass

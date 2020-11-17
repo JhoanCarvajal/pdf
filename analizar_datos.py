@@ -26,7 +26,7 @@ def numero_entero(dato):
             numero *= -1
         return numero
     except ValueError:
-        print("hubo un error al combertir a numero")
+        pass
 
 def numero_decimal(dato):
     try:
@@ -62,13 +62,12 @@ def numero_decimal(dato):
                                     numero = numero[1:len(numero)]
                                     numero = float(numero)
                                 except:
-                                    print(numero)
+                                    pass
             return numero
         else:
             numero = 0
-            print("No hay un numero para combertir a decimal")
     except ValueError:
-        print("Hubo un error innesperado al convertir numero a decimal")
+        pass
     
 
 def analisis(lista=[],causa=0,doc_pag=0,doc_aj=0,booleano=False):
@@ -114,12 +113,12 @@ def analisis(lista=[],causa=0,doc_pag=0,doc_aj=0,booleano=False):
         datos = [matricula, fecha_inicial, fecha_final, causa, paga, ajuste, doc_pag, doc_aj, consumo_activa,\
             consumo_reactiva, kw, vr_kw, contribucion, alumbrado, vr_paga]
 
-        print("__________________________________________________________________________________________________________")
-        print("ESTOS SON LOS DATOS DESPUES DE MANDARLOS AL ANALISIS ESPERO Y ESTEN BIEN")
-        print(datos)
-        print("__________________________________________________________________________________________________________")
+        # print("__________________________________________________________________________________________________________")
+        # print("ESTOS SON LOS DATOS DESPUES DE MANDARLOS AL ANALISIS ESPERO Y ESTEN BIEN")
+        # print(datos)
+        # print("__________________________________________________________________________________________________________")
 
         return datos
     
     except ValueError:
-        print("error en el analisis")
+        pass
