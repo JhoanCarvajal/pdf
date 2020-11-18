@@ -8,9 +8,9 @@ build_exe_options = {"packages": [],
                      "include_files":[]}
 
 cx_Freeze.setup(
-    name = "Prueba",
+    name = "App",
     version = "1.0",
-    description = "Prueba",
+    description = "App",
     options = {"build_exe": build_exe_options},
     executables = executables
     )
