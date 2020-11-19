@@ -179,6 +179,8 @@ class Ventana:
         llenar_excel.consulta(resultado)
 
 if __name__ == '__main__':
+    import models
+    models.crear_tablas()
     root = Tk()
     Ventana(root)
     root.mainloop()
