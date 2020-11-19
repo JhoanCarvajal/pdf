@@ -12,6 +12,8 @@ import os
 import threading
 import tkinter.font as tkFont
 
+import controlador
+
 class Ventana:
 
     def __init__(self, root):
@@ -56,7 +58,7 @@ class Ventana:
         self.frame_consultas.columnconfigure(1, weight=1)
         self.frame_consultas.rowconfigure(1, weight=1)
 
-        self.restaurantes = select_restaurante.lista_restaurantes()
+        self.restaurantes = controlador.lista_restaurantes()
         fecha_actual = datetime.now()
         año = fecha_actual.year
         self.años = []
@@ -139,7 +141,7 @@ class Ventana:
             self.nombre_pdf["text"] = "Ninguno"
 
     def abrir_ventana(self):
-        w, top = datos.create_editar(rt=self.ventana, matriz=self.matriz_datos[0])
+        _, _ = datos.create_editar(rt=self.ventana, matriz=self.matriz_datos[0])
 
     def analizar(self):
         if self.entry_matricula.get() == "":
@@ -167,15 +169,18 @@ class Ventana:
         for m in self.meses:
             if m == mes:
                 mes = self.meses.index(m) + 1
-        resultado = select_restaurante.info_restaurante(mes,self.cb_restaurantes.get(),self.cb_años.get())
+        resultado = controlador.info_restaurante(mes,self.cb_restaurantes.get(),self.cb_años.get())
+        print(resultado)
         llenar_excel.consulta(resultado)
 
     def consultar_año(self):
-        resultado = select_restaurante.info_todo_año(self.cb_restaurantes.get(),self.cb_años.get())
+        resultado = controlador.info_todo_año(self.cb_restaurantes.get(),self.cb_años.get())
+        print(resultado)
         llenar_excel.consulta(resultado)
 
     def consultar_todo(self):
-        resultado = select_restaurante.todo()
+        resultado = controlador.todo()
+        print(resultado)
         llenar_excel.consulta(resultado)
 
 if __name__ == '__main__':
