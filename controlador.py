@@ -1,4 +1,4 @@
-from models import Restaurante, Factura, db
+from models import Restaurante, Factura, db, SQL
 import datetime
 
 # guardar nuevos registros en la tabla de facturas
@@ -18,36 +18,22 @@ def guardar_factura(lista):
 
 # consulta sobre las facturas del restaurante dependiendo de un mes y un año
 def info_restaurante(mes,nombre,año):
-    ids_restaurantes = Restaurante.select(Restaurante.id).where(Restaurante.nombre == nombre)
-    final_facturas = Factura.select(Factura.final).where(Factura.id_restaurante == ids_restaurantes[0].id)
+    restaurantes = Restaurante.raw("SELECT * FROM facturas WHERE id_restaurante = \
+        (SELECT id FROM restaurantes WHERE nombre = ?) AND (SELECT EXTRACT(MONTH FROM final)) = ? \
+            AND (SELECT EXTRACT(YEAR FROM final)) = ? ORDER BY id ASC ", (nombre, mes, año))
 
-    # restaurantes = Restaurante.raw("""SELECT * FROM facturas WHERE
-    #     id_restaurante = (SELECT id FROM restaurantes WHERE nombre = '%s')
-    #     AND (SELECT EXTRACT(MONTH FROM final)) = %s AND (SELECT EXTRACT(YEAR FROM final)) = %s
-    #     ORDER BY id ASC """ % (nombre,mes,año))
+    print(restaurantes)
 
-    print(ids_restaurantes[0].id)
-    print(final_facturas)
-    for final_factura in final_facturas:
-        print(str(final_factura.final))
-        fecha = datetime.datetime.strptime(str(final_factura.final), "%Y-%m-%d")
-        print(fecha)
-        m = fecha.month()
-        a = fecha.year()
-        print(m, a)
-        restaurantes = Factura.select().where((Factura.id_restaurante == ids_restaurantes[0].id) &
-        (m == mes) & (a == año))
-        print(restaurantes)
-        for r in restaurantes:
-            print(r.matricula)
+    for resta in restaurantes:
+        print(resta)
     return []
 
 # Consulta sobre las facturas del restaurante dependiendo de un año
 def info_todo_año(nombre, año):
     restaurantes = Restaurante.raw("""SELECT * FROM facturas WHERE 
-        id_restaurante = (SELECT id FROM restaurantes WHERE nombre = '?')
-        AND (SELECT EXTRACT(YEAR FROM final)) = '?'
-        ORDER BY id ASC""", (nombre, año))
+        id_restaurante = (SELECT id FROM restaurantes WHERE nombre = ?)
+        AND (SELECT EXTRACT(YEAR FROM final)) = ?
+        ORDER BY id ASC""",[nombre, año])
 
     print(restaurantes)
     return restaurantes
