@@ -15,6 +15,7 @@ except ImportError:
 import datos_support
 import analizar_datos
 import insert
+import controlador
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
@@ -319,7 +320,7 @@ class Editar:
         self.lista.append(self.entry_contribucion.get())
         self.lista.append(self.entry_alumbrado.get())
         datos_buenos = analizar_datos.analisis(lista=self.lista)
-        insert.insert(datos_buenos)
+        controlador.guardar_factura(datos_buenos)
         datos_support.destroy_window()
 
 if __name__ == '__main__':

@@ -170,17 +170,14 @@ class Ventana:
             if m == mes:
                 mes = self.meses.index(m) + 1
         resultado = controlador.info_restaurante(mes,self.cb_restaurantes.get(),self.cb_años.get())
-        print(resultado)
         llenar_excel.consulta(resultado)
 
     def consultar_año(self):
         resultado = controlador.info_todo_año(self.cb_restaurantes.get(),self.cb_años.get())
-        print(resultado)
         llenar_excel.consulta(resultado)
 
     def consultar_todo(self):
         resultado = controlador.todo()
-        print(resultado)
         llenar_excel.consulta(resultado)
 
 if __name__ == '__main__':

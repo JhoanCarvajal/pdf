@@ -23,7 +23,7 @@ def insert(lista):
         resultados = cursor.fetchall()
         # recorremos la lista donde estan los ids
         for datos in resultados:
-            if datos[1]== lista[0]:
+            if datos[1] == lista[0]:
                 # si existe ese id lo asignamos y insertamos en la base de datos
                 id_restaurante = datos[0]
                 sql="insert into facturas(id, id_restaurante, matricula, inicial, final, causa, paga, ajuste, doc_pag, doc_aj, \
