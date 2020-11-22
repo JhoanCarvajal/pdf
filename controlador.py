@@ -1,5 +1,6 @@
 from models import Restaurante, Factura, db, SQL
 import datetime
+import sqlite3
 
 # guardar nuevos registros en la tabla de facturas
 def guardar_factura(lista):
@@ -18,24 +19,27 @@ def guardar_factura(lista):
 
 # consulta sobre las facturas del restaurante dependiendo de un mes y un año
 def info_restaurante(mes,nombre,año):
-    restaurantes = Restaurante.raw("SELECT * FROM facturas WHERE id_restaurante = \
-        (SELECT id FROM restaurantes WHERE nombre = ?) AND (SELECT EXTRACT(MONTH FROM final)) = ? \
-            AND (SELECT EXTRACT(YEAR FROM final)) = ? ORDER BY id ASC ", (nombre, mes, año))
-
-    print(restaurantes)
-
-    for resta in restaurantes:
-        print(resta)
-    return []
+    con = sqlite3.connect("database.db")
+    cursor = con.cursor()
+    sql = "SELECT * FROM factura WHERE id_restaurante_id = \
+        (SELECT id FROM restaurante WHERE nombre = ?) AND (SELECT strftime('%m', DATE(final))) = ? \
+            AND (SELECT strftime('%Y', DATE(final))) = ? ORDER BY id ASC"
+    datos = (str(nombre), str(mes), str(año))
+    cursor.execute(sql, datos)
+    restaurantes = cursor.fetchall()
+    return restaurantes
 
 # Consulta sobre las facturas del restaurante dependiendo de un año
 def info_todo_año(nombre, año):
-    restaurantes = Restaurante.raw("""SELECT * FROM facturas WHERE 
-        id_restaurante = (SELECT id FROM restaurantes WHERE nombre = ?)
-        AND (SELECT EXTRACT(YEAR FROM final)) = ?
-        ORDER BY id ASC""",[nombre, año])
-
-    print(restaurantes)
+    con = sqlite3.connect("database.db")
+    cursor = con.cursor()
+    sql = "SELECT * FROM factura WHERE \
+        id_restaurante_id = (SELECT id FROM restaurante WHERE nombre = ?) \
+        AND (SELECT strftime('%Y', DATE(final))) = ? \
+        ORDER BY id ASC"
+    datos = (str(nombre), str(año))
+    cursor.execute(sql, datos)
+    restaurantes = cursor.fetchall()
     return restaurantes
 
 # Consulta sobre todas las facturas
@@ -51,3 +55,4 @@ def lista_restaurantes():
     for restaurante in restaurantes:
         lista.append(restaurante.nombre)
     return lista
+
