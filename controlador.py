@@ -27,6 +27,7 @@ def info_restaurante(mes,nombre,año):
     datos = (str(nombre), str(mes), str(año))
     cursor.execute(sql, datos)
     restaurantes = cursor.fetchall()
+    cursor.close()
     return restaurantes
 
 # Consulta sobre las facturas del restaurante dependiendo de un año
@@ -40,6 +41,7 @@ def info_todo_año(nombre, año):
     datos = (str(nombre), str(año))
     cursor.execute(sql, datos)
     restaurantes = cursor.fetchall()
+    cursor.close
     return restaurantes
 
 # Consulta sobre todas las facturas
