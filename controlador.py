@@ -5,7 +5,7 @@ import sqlite3
 # guardar nuevos registros en la tabla de facturas
 def guardar_factura(lista):
     try:
-        restaurantes = Restaurante.select(Restaurante.id,Restaurante.matricula)
+        restaurantes = Restaurante.select()
         for restaurante in restaurantes:
             if lista[0] == restaurante.matricula:
                 factura = Factura(id_restaurante=restaurante.id, matricula=lista[0], inicial=lista[1], 

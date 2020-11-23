@@ -1,7 +1,6 @@
 # codigo para detectar quien es el provedor de energia 
 import cv2
 import pytesseract
-import insert
 import os
 import ocr_eep
 import ocr_eep_escaner

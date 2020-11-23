@@ -1,6 +1,5 @@
 import cv2
 import pytesseract
-import insert
 import os
 from resaltar_color import *
 import imutils

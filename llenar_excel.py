@@ -1,5 +1,4 @@
 import xlsxwriter
-import insert
 import datetime
 import os
 from subprocess import call

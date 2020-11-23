@@ -3,10 +3,9 @@ from tkinter import *
 from tkinter import ttk
 from datetime import date
 from datetime import datetime
-import select_restaurante, llenar_excel, pdf2img
+import llenar_excel, pdf2img
 import detectar_proveedor
 import analizar_datos
-import insert
 import datos
 import os
 import threading
@@ -59,6 +58,8 @@ class Ventana:
         self.frame_consultas.rowconfigure(1, weight=1)
 
         self.restaurantes = controlador.lista_restaurantes()
+        if not self.restaurantes:
+            self.restaurantes.append("Ninguno")
         fecha_actual = datetime.now()
         año = fecha_actual.year
         self.años = []
@@ -181,8 +182,8 @@ class Ventana:
         llenar_excel.consulta(resultado)
 
 if __name__ == '__main__':
-    import models
-    models.crear_tablas()
+    # import models
+    # models.crear_tablas()
     root = Tk()
     Ventana(root)
     root.mainloop()

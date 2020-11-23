@@ -14,7 +14,6 @@ except ImportError:
 
 import datos_support
 import analizar_datos
-import insert
 import controlador
 
 def vp_start_gui():
