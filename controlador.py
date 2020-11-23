@@ -17,7 +17,6 @@ def guardar_factura(lista):
 
                 r = factura.save()
         if r != 1:
-            print(lista)
             ans = crear_restaurante.nombre_restaurante()
             restaurante = Restaurante(nombre = ans, matricula = lista[0], direccion = lista[15])
             restaurante.save()
