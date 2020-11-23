@@ -6,6 +6,7 @@ import sqlite3
 def guardar_factura(lista):
     try:
         restaurantes = Restaurante.select()
+        r = 0
         for restaurante in restaurantes:
             if lista[0] == restaurante.matricula:
                 factura = Factura(id_restaurante=restaurante.id, matricula=lista[0], inicial=lista[1], 
@@ -13,7 +14,11 @@ def guardar_factura(lista):
                 doc_aj=lista[7], consumo_activa=lista[8], consumo_reactiva=lista[9], kw=lista[10],
                 valor_kw=lista[11], contribucion=lista[12], alumbrado=lista[13])
 
-                factura.save()
+                r = factura.save()
+        if r != 1:
+            restaurante = Restaurante(nombre = lista[0], matricula = lista[0], direccion = lista[14])
+            restaurante.save()
+            guardar_factura(lista)
     except:
         pass
 

@@ -158,10 +158,11 @@ class Ventana:
             del self.matriz_datos[:]
             self.matriz_datos.append(datos)
             self.abrir_ventana()
+            self.btn_analizar.config(state=DISABLED)
         self.btn_guardar.config(state=NORMAL)
 
     def guardar(self):
-        insert.insert(self.matriz_datos[0])
+        controlador.guardar_factura(self.matriz_datos[0])
         self.btn_analizar.config(state=DISABLED)
         self.btn_guardar.config(state=DISABLED)
 
@@ -182,8 +183,8 @@ class Ventana:
         llenar_excel.consulta(resultado)
 
 if __name__ == '__main__':
-    # import models
-    # models.crear_tablas()
+    import models
+    models.crear_tablas()
     root = Tk()
     Ventana(root)
     root.mainloop()

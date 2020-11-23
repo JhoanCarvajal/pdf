@@ -105,13 +105,14 @@ def analisis(lista=[],causa=0,doc_pag=0,doc_aj=0,booleano=False):
             causa = int(lista[4])
             doc_pag = int(lista[5])
             doc_aj = int(lista[6])
+            direccion = lista[13]
             
         paga = vr_paga - contribucion
         ajuste = paga - causa
         
         # creamos la lista que vamos a retornar
         datos = [matricula, fecha_inicial, fecha_final, causa, paga, ajuste, doc_pag, doc_aj, consumo_activa,\
-            consumo_reactiva, kw, vr_kw, contribucion, alumbrado, vr_paga]
+            consumo_reactiva, kw, vr_kw, contribucion, alumbrado, vr_paga, direccion]
 
         # print("__________________________________________________________________________________________________________")
         # print("ESTOS SON LOS DATOS DESPUES DE MANDARLOS AL ANALISIS ESPERO Y ESTEN BIEN")

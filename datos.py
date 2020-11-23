@@ -318,6 +318,7 @@ class Editar:
         self.lista.append(self.entry_vr_kw.get())
         self.lista.append(self.entry_contribucion.get())
         self.lista.append(self.entry_alumbrado.get())
+        self.lista.append(self.lista_vieja[15])
         datos_buenos = analizar_datos.analisis(lista=self.lista)
         controlador.guardar_factura(datos_buenos)
         datos_support.destroy_window()
