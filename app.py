@@ -179,8 +179,8 @@ class Ventana:
         llenar_excel.consulta(resultado)
 
     def consultar_todo(self):
-        resultado = controlador.todo()
-        llenar_excel.consulta(resultado)
+        restaurantes, facturas = controlador.todo()
+        llenar_excel.consulta2(restaurantes, facturas)
 
 if __name__ == '__main__':
     import models

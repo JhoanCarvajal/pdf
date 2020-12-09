@@ -53,9 +53,11 @@ def info_todo_año(nombre, año):
 
 # Consulta sobre todas las facturas
 def todo():
-    sql = Factura.select()
+    sql = Restaurante.select()
+    restaurantes = db.execute(sql)
+    sql = Factura.select().group_by(Factura.id_restaurante).order_by(Factura.inicial)
     facturas = db.execute(sql)
-    return facturas
+    return restaurantes, facturas
 
 # Consulta sobre los restaurantes
 def lista_restaurantes():
