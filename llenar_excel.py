@@ -7,9 +7,9 @@ import threading
 import excel_energia
 
 def consulta2(restaurantes, facturas):
-    libro = xlsxwriter.Workbook('prueba.xlsx')
-    excel_energia.energia(libro, restaurantes, facturas)
-    libro.close()
+    # libro = xlsxwriter.Workbook('prueba.xlsx')
+    excel_energia.energia('prueba.xlsx', restaurantes, facturas)
+    # libro.close()
 
 def consulta(resultado):
     if resultado:
