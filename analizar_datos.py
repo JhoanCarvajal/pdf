@@ -73,7 +73,7 @@ def numero_decimal(dato):
 def analisis(lista=[],causa=0,doc_pag=0,doc_aj=0,booleano=False):
     try:
         # Matricula de la factura
-        matricula = numero_entero(lista[0])
+        matricula = numero_entero(str(lista[0]))
         if matricula < 0:
             matricula *= -1
         # si existe viene del app.pyw
@@ -91,17 +91,17 @@ def analisis(lista=[],causa=0,doc_pag=0,doc_aj=0,booleano=False):
             causa = int(causa)
             doc_pag = int(doc_pag)
             doc_aj = int(doc_aj)
-        # si no viene del archivo templates/datos/datos.py
+        # si no, viene del archivo templates/datos/datos.py
         else:
             fecha_inicial = lista[1]
             fecha_final = lista[2]
-            vr_paga = numero_entero(lista[3])
-            kw = numero_entero(lista[9])
+            vr_paga = numero_entero(str(lista[3]))
+            kw = numero_entero(str(lista[9]))
             vr_kw = numero_decimal(lista[10])
-            alumbrado = numero_entero(lista[12])
-            consumo_activa = numero_entero(lista[7])
-            consumo_reactiva = numero_entero(lista[8])
-            contribucion = numero_entero(lista[11])
+            alumbrado = numero_entero(str(lista[12]))
+            consumo_activa = numero_entero(str(lista[7]))
+            consumo_reactiva = numero_entero(str(lista[8]))
+            contribucion = numero_entero(str(lista[11]))
             causa = int(lista[4])
             doc_pag = int(lista[5])
             doc_aj = int(lista[6])
