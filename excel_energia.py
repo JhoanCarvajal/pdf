@@ -47,14 +47,14 @@ class energia():
         self.wb.save(self.libro)
 
     def llenar_datos(self, ws):
-        row = 5
+        row = 12
         col = 2
         for factura in self.facturas:
             print(f'if {str(factura[1])} == {ws}')
             if str(factura[1]) == ws:
                 hoja = self.wb[ws]
                 print(f' hoja: {hoja}')
-                for dato in factura[3:]:
+                for dato in factura[2:]:
                     hoja.cell(row=row, column=col, value=dato)
                     col += 1
                 col = 2

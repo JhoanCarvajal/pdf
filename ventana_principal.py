@@ -1,4 +1,5 @@
-from  plantillas.principal_ui import *
+# from  plantillas.principal_ui import *
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
 from datetime import date
 from datetime import datetime
@@ -10,6 +11,7 @@ import os
 import threading
 import controlador
 import ventana_datos
+import ventana_crear_restaurante
 
 
 class VentanaPrincipal(QtWidgets.QMainWindow):
@@ -49,6 +51,7 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         self.btn_consultar_mes.clicked.connect(self.consultar_mes)
         self.btn_consultar_anho.clicked.connect(self.consultar_anho)
         self.btn_consultar_todo.clicked.connect(self.consultar_todo)
+        self.btn_nuevo_restaurante.clicked.connect(self.abrir_ventana_restaurante)
 
     def limpiar_le(self):
         self.le_matricula.clear()
@@ -70,10 +73,14 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         else:
             self.lb_ruta.setText("Ninguno")
 
-    def abrir_ventana(self):
+    def abrir_ventana_datos(self):
         matriz = self.matriz_datos[0]
         # self.hide()
         ventana = ventana_datos.VentanaDatos(parent=self, matriz=matriz)
+        ventana.show()
+    
+    def abrir_ventana_restaurante(self):
+        ventana = ventana_crear_restaurante.VentanaCrearRestaurante(parent=self)
         ventana.show()
 
     def analizar(self):
@@ -86,10 +93,10 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         elif self.le_doc_aj.text() == "":
             self.le_doc_aj.setFocus()
         else:
-            datos = analizar_datos.analisis(self.matriz_datos[0], str(self.le_causa.text()), str(self.le_doc_pag.text()), str(self.le_doc_aj.text()),True)
+            datos = analizar_datos.analisis(self.matriz_datos[0], self.le_causa.text(), self.le_doc_pag.text(), self.le_doc_aj.text(),True)
             del self.matriz_datos[:]
             self.matriz_datos.append(datos)
-            self.abrir_ventana()
+            self.abrir_ventana_datos()
 
     def guardar(self):
         controlador.guardar_factura(self.matriz_datos[0])

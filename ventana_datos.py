@@ -1,4 +1,5 @@
-from plantillas.datos_ui import *
+# from plantillas.datos_ui import *
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
 import analizar_datos
 import controlador
@@ -36,19 +37,19 @@ class VentanaDatos(QtWidgets.QMainWindow):
 
     def enviar_datos(self):
         self.lista = []
-        self.lista.append(self.le_matricula.text)
-        self.lista.append(self.le_inicio.text)
-        self.lista.append(self.le_final.text)
-        self.lista.append(self.le_valor_pagar.text)
+        self.lista.append(self.le_matricula.text())
+        self.lista.append(self.le_inicio.text())
+        self.lista.append(self.le_final.text())
+        self.lista.append(self.le_valor_pagar.text())
         self.lista.append(self.lista_vieja[3])
         self.lista.append(self.lista_vieja[6])
         self.lista.append(self.lista_vieja[7])
-        self.lista.append(self.le_consumo_activa.text)
-        self.lista.append(self.le_consumo_reactiva.text)
-        self.lista.append(self.le_kw.text)
-        self.lista.append(self.le_valor_kw.text)
-        self.lista.append(self.le_contribucion.text)
-        self.lista.append(self.le_alumbrado.text)
+        self.lista.append(self.le_consumo_activa.text())
+        self.lista.append(self.le_consumo_reactiva.text())
+        self.lista.append(self.le_kw.text())
+        self.lista.append(self.le_valor_kw.text())
+        self.lista.append(self.le_contribucion.text())
+        self.lista.append(self.le_alumbrado.text())
         self.lista.append(self.lista_vieja[15])
         datos_buenos = analizar_datos.analisis(lista=self.lista)
         controlador.guardar_factura(datos_buenos)

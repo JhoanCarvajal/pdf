@@ -17,7 +17,6 @@ class Operador(BaseModel):
     nombre = CharField(max_length=40)
     nit = CharField(max_length=40)
     servicio = CharField(max_length=40)
-    medidor_telefono = CharField(max_length=40)
 
 
 class Restaurante(BaseModel):
@@ -29,6 +28,7 @@ class Restaurante(BaseModel):
 class Restaurantes_operadores(BaseModel):
     id_operador = ForeignKeyField(Operador, backref="operador_restaurante")
     id_restaurante = ForeignKeyField(Restaurante, backref="restaurante_operador")
+    medidor_telefono = CharField(max_length=40)
 
 
 class Factura(BaseModel):
