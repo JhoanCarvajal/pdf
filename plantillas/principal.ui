@@ -177,6 +177,22 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>btn_seleccionar</tabstop>
+  <tabstop>btn_nuevo_restaurante</tabstop>
+  <tabstop>btn_analizar</tabstop>
+  <tabstop>le_matricula</tabstop>
+  <tabstop>le_causa</tabstop>
+  <tabstop>le_doc_pag</tabstop>
+  <tabstop>le_doc_aj</tabstop>
+  <tabstop>btn_guardar</tabstop>
+  <tabstop>cb_meses</tabstop>
+  <tabstop>cb_restaurantes</tabstop>
+  <tabstop>cb_anhos</tabstop>
+  <tabstop>btn_consultar_mes</tabstop>
+  <tabstop>btn_consultar_anho</tabstop>
+  <tabstop>btn_consultar_todo</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

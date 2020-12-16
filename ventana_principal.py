@@ -104,15 +104,15 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         controlador.guardar_factura(self.matriz_datos[0])
 
     def consultar_mes(self):
-        mes = self.cb_mes.get()
+        mes = self.cb_meses.currentText()
         for m in self.meses:
             if m == mes:
                 mes = self.meses.index(m) + 1
-        resultado = controlador.info_restaurante(mes,self.cb_restaurantes.get(),self.cb_años.get())
+        resultado = controlador.info_restaurante(mes,self.cb_restaurantes.currentText(),self.cb_anhos.currentText())
         llenar_excel.consulta(resultado)
 
     def consultar_anho(self):
-        resultado = controlador.info_todo_año(self.cb_restaurantes.get(),self.cb_años.get())
+        resultado = controlador.info_todo_año(self.cb_restaurantes.currentText(),self.cb_anhos.currentText())
         llenar_excel.consulta(resultado)
 
     def consultar_todo(self):

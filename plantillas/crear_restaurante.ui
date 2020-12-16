@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>502</width>
-    <height>255</height>
+    <width>672</width>
+    <height>236</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -18,96 +18,157 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="1">
-     <widget class="QLabel" name="lb_restauarante">
+    <item row="4" column="5">
+     <widget class="QLabel" name="lb_nit_operador_2">
       <property name="text">
-       <string>Restaurante</string>
+       <string>Nit del operador</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="lb_nombre_restaurante">
-      <property name="text">
-       <string>Nombre</string>
+    <item row="0" column="5" rowspan="2" colspan="3">
+     <widget class="QFrame" name="frame_operador">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
       </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="1" column="0">
+        <widget class="QLabel" name="lb_nit_operador">
+         <property name="text">
+          <string>Nit</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="lb_servicio">
+         <property name="text">
+          <string>Servicio</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLineEdit" name="le_nit_operador"/>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLineEdit" name="le_servicio_operador"/>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="lb_nombre_operador_2">
+         <property name="text">
+          <string>Nombre</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="le_nombre_operador"/>
+       </item>
+       <item row="3" column="1" colspan="2">
+        <widget class="QPushButton" name="btn_guardar_operador">
+         <property name="text">
+          <string>Guardar Operador</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="2">
+        <widget class="QLabel" name="lb_operador">
+         <property name="text">
+          <string>Operador</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
-    <item row="7" column="0">
-     <widget class="QLineEdit" name="le_nit_operador"/>
-    </item>
-    <item row="6" column="0">
-     <widget class="QLabel" name="lb_nit_operador">
-      <property name="text">
-       <string>Nit</string>
+    <item row="0" column="2" rowspan="2" colspan="3">
+     <widget class="QFrame" name="frame_restaurante">
+      <property name="autoFillBackground">
+       <bool>false</bool>
       </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="2" column="1">
+        <widget class="QLabel" name="lb_direccion_restaurante">
+         <property name="text">
+          <string>Dirección</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QComboBox" name="cb_region"/>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="lb_region">
+         <property name="text">
+          <string>Región</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="lb_nombre_restaurante">
+         <property name="text">
+          <string>Nombre</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="le_direccion_restaurante"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLineEdit" name="le_nombre_restaurante"/>
+       </item>
+       <item row="1" column="0" colspan="3">
+        <widget class="QLabel" name="lb_restauarante">
+         <property name="text">
+          <string>Restaurante</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QPushButton" name="btn_guardar_restaurante">
+         <property name="text">
+          <string>Guardar Restaurante</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
-    <item row="7" column="2">
-     <widget class="QLineEdit" name="le_servicio_operador"/>
-    </item>
-    <item row="6" column="2">
-     <widget class="QLabel" name="lb_servicio">
-      <property name="text">
-       <string>Servicio</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="QLabel" name="lb_operador">
-      <property name="text">
-       <string>Operador</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1" colspan="2">
+    <item row="5" column="3">
      <widget class="QLineEdit" name="le_medidor_telefono"/>
     </item>
-    <item row="3" column="1" colspan="2">
-     <widget class="QLabel" name="lb_direccion_restaurante">
+    <item row="5" column="4">
+     <widget class="QLineEdit" name="le_nombre_restaurante_2"/>
+    </item>
+    <item row="4" column="4">
+     <widget class="QLabel" name="lb_nombre_restaurante_2">
       <property name="text">
-       <string>Dirección</string>
+       <string>Nombre del restaurante</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="1">
+    <item row="5" column="6">
+     <widget class="QPushButton" name="btn_guardar_relacion">
+      <property name="text">
+       <string>Guardar Relacion</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="3">
      <widget class="QLabel" name="lb_matricula">
       <property name="text">
        <string>Medidor o Telefono</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="0">
-     <widget class="QLineEdit" name="le_nombre_restaurante"/>
-    </item>
-    <item row="4" column="1" colspan="2">
-     <widget class="QLineEdit" name="le_direccion_restaurante"/>
-    </item>
-    <item row="6" column="1">
-     <widget class="QLabel" name="lb_nombre_operador_2">
-      <property name="text">
-       <string>Nombre</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="lb_region">
-      <property name="text">
-       <string>Región</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QComboBox" name="cb_region"/>
-    </item>
-    <item row="7" column="1">
-     <widget class="QLineEdit" name="le_nombre_operador"/>
-    </item>
-    <item row="8" column="1">
-     <widget class="QPushButton" name="btn_guardar_restaurante">
-      <property name="text">
-       <string>Guardar</string>
-      </property>
-     </widget>
+    <item row="5" column="5">
+     <widget class="QLineEdit" name="le_nit_operador_2"/>
     </item>
    </layout>
   </widget>
@@ -116,13 +177,27 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>502</width>
+     <width>672</width>
      <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>le_nombre_restaurante</tabstop>
+  <tabstop>le_direccion_restaurante</tabstop>
+  <tabstop>cb_region</tabstop>
+  <tabstop>btn_guardar_restaurante</tabstop>
+  <tabstop>le_nit_operador</tabstop>
+  <tabstop>le_nombre_operador</tabstop>
+  <tabstop>le_servicio_operador</tabstop>
+  <tabstop>btn_guardar_operador</tabstop>
+  <tabstop>le_medidor_telefono</tabstop>
+  <tabstop>le_nombre_restaurante_2</tabstop>
+  <tabstop>le_nit_operador_2</tabstop>
+  <tabstop>btn_guardar_relacion</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

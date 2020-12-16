@@ -140,6 +140,19 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>le_matricula</tabstop>
+  <tabstop>le_inicio</tabstop>
+  <tabstop>le_final</tabstop>
+  <tabstop>le_valor_pagar</tabstop>
+  <tabstop>le_consumo_activa</tabstop>
+  <tabstop>le_consumo_reactiva</tabstop>
+  <tabstop>le_kw</tabstop>
+  <tabstop>le_valor_kw</tabstop>
+  <tabstop>le_contribucion</tabstop>
+  <tabstop>le_alumbrado</tabstop>
+  <tabstop>btn_guardar</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
