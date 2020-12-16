@@ -84,7 +84,9 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         ventana.show()
 
     def analizar(self):
-        if self.le_matricula.text() == "":
+        if not self.matriz_datos[0]:
+            print('No ha cargado un pdf')
+        elif self.le_matricula.text() == "":
             self.le_matricula.setFocus()
         elif self.le_causa.text() == "":
             self.le_causa.setFocus()

@@ -27,7 +27,7 @@ def guardar_factura(lista):
             # restaurante.save()
             # guardar_factura(lista)
     except:
-        print('Hubo un puto error')
+        print('Hubo un error')
 
 # consulta sobre las facturas del restaurante dependiendo de un mes y un año
 def info_restaurante(mes,nombre,año):
@@ -75,3 +75,61 @@ def lista_restaurantes():
         lista.append(restaurante.nombre)
     return lista
 
+def lista_regiones():
+    lista = []
+    regiones = Region.select()
+    for region in regiones:
+        lista.append(region.nombre)
+    return lista
+
+def id_region(nombre):
+    region = Region.get(Region.nombre == nombre)
+    print(region.nombre, region.id)
+    return region.id
+
+def buscar_operador(nit):
+    try:
+        operador = Operador.get(Operador.nit == nit)
+        if operador:
+            return operador
+        else:
+            return None
+    except:
+        pass
+
+def buscar_restaurate_operador(medidor_telefono):
+    try:
+        restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.medidor_telefono == medidor_telefono)
+    except:
+        restaurante_operador = None
+    
+    if restaurante_operador:
+        id_restaurante = restaurante_operador.id_restaurante
+        id_operador = restaurante_operador.id_operador
+        restaurante = Restaurante.get(Restaurante.id == id_restaurante)
+        operador = Operador.get(Operador.id == id_operador)
+    else:
+        restaurante = None
+        operador = None
+    
+    return restaurante, operador
+
+
+def guardar_restaurante(lista):
+    try:
+        try:
+            restaurante = Restaurante.get(Restaurante.nombre == lista[0])
+        except:
+            restaurante = None
+
+        if not restaurante:
+            restaurante = Restaurante(nombre=lista[0], direccion=lista[1], id_region=lista[2])
+            r = restaurante.save()
+            if r != 1:
+                print('No se creo el restaurante')
+            else:
+                print('restaurate creado')
+        else:
+            print('el restaurante ya existe', restaurante.id)
+    except:
+        print('error al crear un restaurante')

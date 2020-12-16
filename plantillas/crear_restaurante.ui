@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>497</width>
-    <height>226</height>
+    <width>502</width>
+    <height>255</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -18,26 +18,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QLabel" name="lb_region">
-      <property name="text">
-       <string>Región</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="lb_matricula">
-      <property name="text">
-       <string>Medidor o Telefono</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QComboBox" name="cb_region"/>
-    </item>
-    <item row="1" column="1" colspan="2">
-     <widget class="QLineEdit" name="lineEdit_6"/>
-    </item>
     <item row="2" column="1">
      <widget class="QLabel" name="lb_restauarante">
       <property name="text">
@@ -52,39 +32,18 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="1" colspan="2">
-     <widget class="QLabel" name="lb_direccion_restaurante">
-      <property name="text">
-       <string>Dirección</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLineEdit" name="lineEdit"/>
-    </item>
-    <item row="4" column="1" colspan="2">
-     <widget class="QLineEdit" name="lineEdit_2"/>
-    </item>
-    <item row="5" column="1">
-     <widget class="QLabel" name="lb_operador">
-      <property name="text">
-       <string>Operador</string>
-      </property>
-     </widget>
+    <item row="7" column="0">
+     <widget class="QLineEdit" name="le_nit_operador"/>
     </item>
     <item row="6" column="0">
-     <widget class="QLabel" name="lb_nombre_operador">
-      <property name="text">
-       <string>Nombre</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1">
      <widget class="QLabel" name="lb_nit_operador">
       <property name="text">
        <string>Nit</string>
       </property>
      </widget>
+    </item>
+    <item row="7" column="2">
+     <widget class="QLineEdit" name="le_servicio_operador"/>
     </item>
     <item row="6" column="2">
      <widget class="QLabel" name="lb_servicio">
@@ -93,14 +52,62 @@
       </property>
      </widget>
     </item>
-    <item row="7" column="0">
-     <widget class="QLineEdit" name="lineEdit_3"/>
+    <item row="5" column="1">
+     <widget class="QLabel" name="lb_operador">
+      <property name="text">
+       <string>Operador</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1" colspan="2">
+     <widget class="QLineEdit" name="le_medidor_telefono"/>
+    </item>
+    <item row="3" column="1" colspan="2">
+     <widget class="QLabel" name="lb_direccion_restaurante">
+      <property name="text">
+       <string>Dirección</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="lb_matricula">
+      <property name="text">
+       <string>Medidor o Telefono</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLineEdit" name="le_nombre_restaurante"/>
+    </item>
+    <item row="4" column="1" colspan="2">
+     <widget class="QLineEdit" name="le_direccion_restaurante"/>
+    </item>
+    <item row="6" column="1">
+     <widget class="QLabel" name="lb_nombre_operador_2">
+      <property name="text">
+       <string>Nombre</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="lb_region">
+      <property name="text">
+       <string>Región</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QComboBox" name="cb_region"/>
     </item>
     <item row="7" column="1">
-     <widget class="QLineEdit" name="lineEdit_4"/>
+     <widget class="QLineEdit" name="le_nombre_operador"/>
     </item>
-    <item row="7" column="2">
-     <widget class="QLineEdit" name="lineEdit_5"/>
+    <item row="8" column="1">
+     <widget class="QPushButton" name="btn_guardar_restaurante">
+      <property name="text">
+       <string>Guardar</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -109,7 +116,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>497</width>
+     <width>502</width>
      <height>21</height>
     </rect>
    </property>
