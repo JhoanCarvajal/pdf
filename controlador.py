@@ -1,7 +1,6 @@
 from models import Region, Operador, Restaurante, Restaurantes_operadores, Factura, db, SQL
 import datetime
 import sqlite3
-import crear_restaurante
 
 # guardar nuevos registros en la tabla de facturas
 def guardar_factura(lista):

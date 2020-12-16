@@ -39,14 +39,15 @@ def ocr_eep(ruta):
             else:
                 dato = pytesseract.image_to_string(roi)
             dato = dato[:len(dato) - 2]
+            print(dato)
             lista_datos.append(dato)
             i += 1
 
         # recorremos la lista de rois para mostrarlos en una ventana
-        for i in range(len(lista_rois)):
-            cv2.imshow(f"ROI{i}", lista_rois[i])
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # for i in range(len(lista_rois)):
+        #     cv2.imshow(f"ROI{i}", lista_rois[i])
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
 
         #eliminanos la imagen contenida en la ruta
         os.remove(ruta)

@@ -6,7 +6,6 @@ from datetime import datetime
 import llenar_excel, pdf2img
 import detectar_proveedor
 import analizar_datos
-import datos
 import os
 import threading
 import controlador
@@ -108,7 +107,9 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         for m in self.meses:
             if m == mes:
                 mes = self.meses.index(m) + 1
-        resultado = controlador.info_restaurante(mes,self.cb_restaurantes.currentText(),self.cb_anhos.currentText())
+        print(mes, self.cb_restaurantes.currentText(), self.cb_anhos.currentText())
+        resultado = controlador.info_restaurante(mes, self.cb_restaurantes.currentText(), self.cb_anhos.currentText())
+        print(resultado)
         llenar_excel.consulta(resultado)
 
     def consultar_anho(self):
