@@ -51,12 +51,19 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         self.btn_consultar_anho.clicked.connect(self.consultar_anho)
         self.btn_consultar_todo.clicked.connect(self.consultar_todo)
         self.btn_nuevo_restaurante.clicked.connect(self.abrir_ventana_restaurante)
+        self.le_matricula.textChanged.connect(self.buscar_causalidad)
 
     def limpiar_le(self):
         self.le_matricula.clear()
         self.le_causa.clear()
         self.le_doc_pag.clear()
         self.le_doc_aj.clear()
+    
+    def buscar_causalidad(self, text):
+        causalidad = controlador.buscar_causalidad(text)
+        self.le_causa.clear()
+        if causalidad:
+            self.le_causa.setText(causalidad)
 
     def seleccionar(self):
         pdf_ruta, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Abrir pdf", None, "pdf files (*.pdf)")

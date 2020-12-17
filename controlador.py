@@ -130,6 +130,28 @@ def buscar_restaurate_operador(medidor_telefono):
     
     return restaurante, operador
 
+def buscar_causalidad(matricula):
+    try:
+        restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.medidor_telefono == matricula)
+    except:
+        restaurante_operador = None
+
+    if restaurante_operador:
+        id_restaurante = restaurante_operador.id_restaurante
+        facturas = Factura.select().where(Factura.id_restaurante == id_restaurante)
+        for factura in facturas:
+            print(factura.inicial)
+            fecha_inicial = factura.inicial
+            mes = fecha_inicial.strftime('%m')
+            print(mes)
+            if mes == '01':
+                causalidad = str(factura.causa)
+            else:
+                causalidad = None
+                print('Existe la factura de enero')
+    else:
+        causalidad = None
+    return causalidad
 
 def guardar_restaurante(lista):
     try:
