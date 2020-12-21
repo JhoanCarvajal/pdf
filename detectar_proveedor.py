@@ -22,9 +22,9 @@ def proveedor(ruta):
             roi_texto = image[4821:4821+661,1:1+1365]
 
         #mostramos el roi de la informacion
-        # cv2.imshow('ROI10', roi_texto)
-        # cv2.waitKey(0)
-        # cv2.destroyAllWindows()
+        cv2.imshow('ROI10', roi_texto)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
 
         #leemos el texto del roi
         texto = pytesseract.image_to_string(roi_texto)
@@ -34,10 +34,11 @@ def proveedor(ruta):
         palabras = texto.split()
         #las ponemos todas en minusculas
         palabras = [element.lower() for element in palabras]
+        print(palabras)
         #comparamos para determinar que proveedor es
         if "www.eep.com.co" in palabras:
             lista_datos = ocr_eep.ocr_eep(ruta)
-        elif not palabras:
+        elif not palabras or 'eep.com.co' in palabras:
             lista_datos = ocr_eep_escaner.ocr_eep(ruta)
         else:
             lista_datos = []

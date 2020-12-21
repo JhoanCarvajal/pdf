@@ -75,7 +75,7 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
                 lista_datos = detectar_proveedor.proveedor(ruta_img)
                 self.matriz_datos.append(lista_datos)
                 self.limpiar_le()
-                self.le_matricula.setText(str(lista_datos[0]))
+                # self.le_matricula.setText(str(lista_datos[0]))
         else:
             self.lb_ruta.setText("Ninguno")
 
