@@ -7,21 +7,25 @@ import imutils
 def ocr(ruta):
     try:
         #imagen donde solo se ve el color negro
-        image = solo_negro(ruta)
+        # image = solo_negro(ruta)
+        
+        imagen = cv2.imread(ruta, 0)
+        #transformamos a escala de grises
+        image = 255 - cv2.threshold(imagen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
         #lista de los rois
         lista_rois = []
 
         #agregamos cada roi(region de interes) a nuestra lista
-        lista_rois.append(image[142:142+76,3173:3173+966])#matricula
-        lista_rois.append(image[1745:1745+88,413:413+590])#fechas de periodo de facturacion
-        lista_rois.append(image[685:685+81,3795:3795+315])#valor a pagar
-        lista_rois.append(image[1555:1555+75,2051:2051+337])#kw
+        lista_rois.append(image[515:515+111,2186:2186+427])#matricula
+        lista_rois.append(image[1:1+1,2:2+3])#fechas de periodo de facturacion
+        lista_rois.append(image[363:363+93,2162:2162+419])#valor a pagar
+        lista_rois.append(image[722:722+53,1868:1868+327])#kw
         lista_rois.append(image[1853:1853+79,293:293+317])#valor de kw
-        lista_rois.append(image[1227:1227+57,3854:3854+268])#alumbrado
-        lista_rois.append(image[340:340+96,300:300+1628])#direccion
-        lista_rois.append(image[3898:3898+600,375:375+125])#cod de concepto empresa de energia
-        lista_rois.append(image[3898:3898+600,2033:2033+280])#totales de los conceptos de la empresa de energia
+        lista_rois.append(image[2606:2606+69,1617:1617+501])#alumbrado
+        lista_rois.append(image[519:519+63,1855:1855+675])#direccion
+        lista_rois.append(image[730:730+105,183:183+387])#cod de concepto empresa de energia
+        lista_rois.append(image[726:726+105,3151:3151+327])#totales de los conceptos de la empresa de energia
 
         #redimensionamos los que no se leen bien
         # lista_rois[7] = imutils.resize(lista_rois[7], width=600)
@@ -33,7 +37,7 @@ def ocr(ruta):
         i = 0
         #sacamos el texto de cada uno de los rois y lo agregamos a la lista
         for roi in lista_rois:
-            if i > 6:
+            if i > 7:
                 dato = pytesseract.image_to_string(roi, config='--psm 6 -c \
                     tessedit_char_whitelist=.,-0123456789')
             else:
@@ -55,5 +59,5 @@ def ocr(ruta):
         return lista_datos
     except ValueError:
         #mostramos esto en caso de que ocurra un error
-        print("Error en ocr_eep.py")
+        print("Error en ocr_dicel.py")
 
