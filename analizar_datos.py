@@ -81,34 +81,45 @@ def analisis(lista=[],causa=0,doc_pag=0,doc_aj=0,booleano=False):
             fecha_inicial, fecha_final = validar_fecha(lista[1])
             vr_paga = numero_entero(lista[2])
             kw = numero_entero(lista[3])
-            vr_kw = numero_decimal(lista[4])
-            alumbrado = numero_entero(lista[5])
-            direccion = lista[6]
-            consumo_activa, consumo_reactiva, contribucion = retornar_totales(lista[7], lista[8])
+            alumbrado = numero_entero(lista[4])
+            direccion = lista[5]
+            consumo_activa, consumo_reactiva, contribucion = retornar_totales(lista[6], lista[7])
             consumo_activa = numero_entero(consumo_activa)
             consumo_reactiva = numero_entero(consumo_reactiva)
             contribucion = numero_entero(contribucion)
             causa = int(causa)
-            doc_pag = int(doc_pag)
-            doc_aj = int(doc_aj)
+            if doc_pag:
+                doc_pag = doc_pag
+            else:
+                doc_pag = None
+            if doc_aj:
+                doc_aj = doc_aj
+            else:
+                doc_aj = None
         # si no viene del archivo templates/datos/datos.py
         else:
             fecha_inicial = lista[1]
             fecha_final = lista[2]
             vr_paga = numero_entero(lista[3])
             kw = numero_entero(lista[9])
-            vr_kw = numero_decimal(lista[10])
-            alumbrado = numero_entero(lista[12])
+            alumbrado = numero_entero(lista[11])
             consumo_activa = numero_entero(lista[7])
             consumo_reactiva = numero_entero(lista[8])
-            contribucion = numero_entero(lista[11])
+            contribucion = numero_entero(lista[10])
             causa = int(lista[4])
-            doc_pag = int(lista[5])
-            doc_aj = int(lista[6])
-            direccion = lista[13]
+            if doc_pag:
+                doc_pag = doc_pag
+            else:
+                doc_pag = lista[5]
+            if doc_aj:
+                doc_aj = lista[6]
+            else:
+                doc_aj = None
+            direccion = lista[12]
             
         paga = vr_paga - contribucion
         ajuste = paga - causa
+        vr_kw = consumo_activa / kw
         
         # creamos la lista que vamos a retornar
         datos = [matricula, fecha_inicial, fecha_final, causa, paga, ajuste, doc_pag, doc_aj, consumo_activa,\

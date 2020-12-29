@@ -16,12 +16,12 @@ class Region(BaseModel):
 class Operador(BaseModel):
     nombre = CharField(max_length=40)
     nit = CharField(max_length=40)
-    servicio = CharField(max_length=40)
+    servicio = CharField(max_length=40, null=True)
 
 
 class Restaurante(BaseModel):
     nombre = CharField(max_length=40)
-    direccion = TextField()
+    direccion = TextField(null=True)
     id_region = ForeignKeyField(Region, backref="restaurante_region")
 
 
@@ -38,8 +38,8 @@ class Factura(BaseModel):
     causa = IntegerField()
     paga = IntegerField()
     ajuste = IntegerField()
-    doc_pag = IntegerField()
-    doc_aj = IntegerField()
+    doc_pag = CharField(max_length=40, null=True)
+    doc_aj = CharField(max_length=40, null=True)
     consumo_activa = IntegerField()
     consumo_reactiva = IntegerField()
     kw = IntegerField()

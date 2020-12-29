@@ -17,7 +17,7 @@ def proveedor(ruta):
         image = 255 - cv2.threshold(imagen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
         rois = [image[8:8+114,1032:1032+649], #eep pdf
-        image[3469:3469+244,86:86+698], #eep escaner
+        image[3400:3400+300,86:86+698], #eep escaner
         image[197:197+737,417:417+941], # dicel
         image[5:5+1033,2829:2829+1405], #epm
         image[2123:2123+845,221:221+3221], # enel
@@ -57,10 +57,10 @@ def proveedor(ruta):
         if "web-www.eep.com.co" in lista_palabras[0]:
             print("## EEP ##")
             lista_datos = ocr_eep.ocr(ruta)
-        elif "empresa" in lista_palabras[1] and "de" in lista_palabras[1] and "energia" in lista_palabras[1] and "pereira" in lista_palabras[1]:
+        elif "empresa de energia de pereira" in lista_palabras[1] or "lnergia de pereira" in lista_palabras[1]:
             print("## EEP Scaner")
             lista_datos = ocr_eep_escaner.ocr(ruta)
-        elif "www.dicel.com.co" in lista_palabras[2] or "dicel" in lista_palabras[2] or "dicel." in lista_palabras[2] or "diel" in lista_palabras[2]:
+        elif "www.dicel.com.co" in lista_palabras[2] or "dicel" in lista_palabras[2] or "dicel." in lista_palabras[2] or "diel" in lista_palabras[2] or "deel.com" in lista_palabras[2]:
             print("## DICEL ##")
             lista_datos = ocr_dicel.ocr(ruta)
         elif "contrato" in lista_palabras[3]:

@@ -9,20 +9,23 @@ def ocr(ruta):
     #imagen donde solo se ve el color negro
     image = resaltar_color.solo_negro(ruta)
     # image = cv2.imread(ruta, 1) #Si se quiere usar la imagen original
+    
+    # imagen = cv2.imread(ruta, 0)
+    # #transformamos a escala de grises
+    # image = 255 - cv2.threshold(imagen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
     #lista de los rois
     lista_rois = []
 
     #agregamos cada roi(region de interes) a nuestra lista
-    lista_rois.append(image[120:120+162,3096:3096+1114])#matricula
-    lista_rois.append(image[1766:1766+123,405:405+798])#fechas de periodo de facturacion
-    lista_rois.append(image[710:710+148,3454:3454+735])#valor a pagar
-    lista_rois.append(image[1566:1566+146,2000:2000+383])#kw
-    lista_rois.append(image[1877:1877+115,295:295+711])#valor de kw
-    lista_rois.append(image[1219:1219+155,3815:3815+273])#alumbrado
-    lista_rois.append(image[379:379+139,269:269+1719])#direccion
-    lista_rois.append(image[3963:3963+600,297:297+163])#cod de concepto empresa de energia
-    lista_rois.append(image[3963:3963+600,1937:1937+425])#totales de los conceptos de la empresa de energia
+    lista_rois.append(image[137:137+105,3109:3109+1077])#matricula
+    lista_rois.append(image[1715:1715+113,389:389+597])#fechas de periodo de facturacion
+    lista_rois.append(image[693:693+105,3465:3465+709])#valor a pagar
+    lista_rois.append(image[1529:1529+99,2015:2015+381])#kw
+    lista_rois.append(image[1224:1224+163,3831:3831+329])#alumbrado
+    lista_rois.append(image[300:300+140,185:185+1797])#direccion
+    lista_rois.append(image[3894:3894+743,257:257+207])#cod de concepto empresa de energia
+    lista_rois.append(image[3911:3911+703,1923:1923+425])#totales de los conceptos de la empresa de energia
 
     #redimensionamos los que no se leen bien 
     lista_rois[1] = imutils.resize(lista_rois[1], width=800)
@@ -36,7 +39,7 @@ def ocr(ruta):
     #sacamos el texto de cada uno de los rois y lo agregamos a la lista
     i = 0
     for roi in lista_rois:
-        if i > 6:
+        if i > 5:
             dato = pytesseract.image_to_string(roi, config='--psm 6 -c \
                 tessedit_char_whitelist=.,-0123456789')
         else:

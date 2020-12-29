@@ -131,6 +131,7 @@ def buscar_restaurate_operador(medidor_telefono):
     return restaurante, operador
 
 def buscar_causalidad(matricula):
+    causalidad = None
     try:
         restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.medidor_telefono == matricula)
     except:
@@ -146,9 +147,10 @@ def buscar_causalidad(matricula):
             print(mes)
             if mes == '01':
                 causalidad = str(factura.causa)
+                break
             else:
                 causalidad = None
-                print('Existe la factura de enero')
+                print('No existe la factura de enero')
     else:
         causalidad = None
     return causalidad

@@ -19,7 +19,7 @@ def ocr(ruta):
         #agregamos cada roi(region de interes) a nuestra lista
         lista_rois.append(image[239:239+75,2005:2005+515])#matricula
         lista_rois.append(image[693:693+45,2568:2568+319])#fechas de periodo de facturacion
-        lista_rois.append(image[321:321+99,3164:3164+321])#valor a pagar
+        lista_rois.append(image[321:321+99,3164:3164+451])#valor a pagar
         lista_rois.append(image[1154:1154+49,1814:1814+457])#kw
         lista_rois.append(image[1853:1853+79,293:293+317])#valor de kw
         lista_rois.append(image[2606:2606+69,1617:1617+501])#alumbrado

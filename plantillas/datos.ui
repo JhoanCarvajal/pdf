@@ -17,15 +17,18 @@
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="9" column="0">
-       <widget class="QLabel" name="lb_alumbrado">
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="le_valor_pagar"/>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLineEdit" name="le_contribucion"/>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="lb_contribucion">
         <property name="text">
-         <string>Alumbrado</string>
+         <string>Contribucion</string>
         </property>
        </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="le_inicio"/>
       </item>
       <item row="5" column="0">
        <widget class="QLabel" name="lb_consumo_reactiva">
@@ -34,45 +37,15 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="lb_matricula">
+      <item row="9" column="0" colspan="2">
+       <widget class="QPushButton" name="btn_guardar">
         <property name="text">
-         <string>Matricula</string>
+         <string>Guardar</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="le_valor_pagar"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="lb_valor_pagar">
-        <property name="text">
-         <string>Valor a Pagar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="le_matricula"/>
-      </item>
-      <item row="6" column="1">
-       <widget class="QLineEdit" name="le_kw"/>
-      </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="lb_kw">
-        <property name="text">
-         <string>Kw/h</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="lb_inicio">
-        <property name="text">
-         <string>Fecha Inicio</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="le_final"/>
+      <item row="8" column="1">
+       <widget class="QLineEdit" name="le_alumbrado"/>
       </item>
       <item row="4" column="0">
        <widget class="QLabel" name="lb_consumo_activa">
@@ -81,19 +54,6 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
-       <widget class="QLineEdit" name="le_consumo_reactiva"/>
-      </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="lb_valor_kw">
-        <property name="text">
-         <string>Valor Kw</string>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="1">
-       <widget class="QLineEdit" name="le_contribucion"/>
-      </item>
       <item row="2" column="0">
        <widget class="QLabel" name="lb_final">
         <property name="text">
@@ -101,28 +61,58 @@
         </property>
        </widget>
       </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="lb_kw">
+        <property name="text">
+         <string>Kw/h</string>
+        </property>
+       </widget>
+      </item>
       <item row="4" column="1">
        <widget class="QLineEdit" name="le_consumo_activa"/>
       </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="lb_matricula">
+        <property name="text">
+         <string>Matricula</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="lb_valor_pagar">
+        <property name="text">
+         <string>Valor a Pagar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLineEdit" name="le_consumo_reactiva"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="le_matricula"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="le_inicio"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="lb_inicio">
+        <property name="text">
+         <string>Fecha Inicio</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLineEdit" name="le_kw"/>
+      </item>
       <item row="8" column="0">
-       <widget class="QLabel" name="lb_contribucion">
+       <widget class="QLabel" name="lb_alumbrado">
         <property name="text">
-         <string>Contribucion</string>
+         <string>Alumbrado</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="1">
-       <widget class="QLineEdit" name="le_valor_kw"/>
-      </item>
-      <item row="9" column="1">
-       <widget class="QLineEdit" name="le_alumbrado"/>
-      </item>
-      <item row="10" column="0" colspan="2">
-       <widget class="QPushButton" name="btn_guardar">
-        <property name="text">
-         <string>Guardar</string>
-        </property>
-       </widget>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="le_final"/>
       </item>
      </layout>
     </item>
@@ -148,7 +138,6 @@
   <tabstop>le_consumo_activa</tabstop>
   <tabstop>le_consumo_reactiva</tabstop>
   <tabstop>le_kw</tabstop>
-  <tabstop>le_valor_kw</tabstop>
   <tabstop>le_contribucion</tabstop>
   <tabstop>le_alumbrado</tabstop>
   <tabstop>btn_guardar</tabstop>

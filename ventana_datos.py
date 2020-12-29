@@ -27,7 +27,6 @@ class VentanaDatos(QtWidgets.QMainWindow):
         self.le_consumo_activa.setText(str(self.lista_vieja[8]))
         self.le_consumo_reactiva.setText(str(self.lista_vieja[9]))
         self.le_kw.setText(str(self.lista_vieja[10]))
-        self.le_valor_kw.setText(str(self.lista_vieja[11]))
         self.le_contribucion.setText(str(self.lista_vieja[12]))
         self.le_alumbrado.setText(str(self.lista_vieja[13]))
 
@@ -47,7 +46,6 @@ class VentanaDatos(QtWidgets.QMainWindow):
         self.lista.append(self.le_consumo_activa.text())
         self.lista.append(self.le_consumo_reactiva.text())
         self.lista.append(self.le_kw.text())
-        self.lista.append(self.le_valor_kw.text())
         self.lista.append(self.le_contribucion.text())
         self.lista.append(self.le_alumbrado.text())
         self.lista.append(self.lista_vieja[15])

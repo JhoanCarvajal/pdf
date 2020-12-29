@@ -73,9 +73,12 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
             lista_imagenes = pdf2img.pdf2img(pdf_ruta)
             for ruta_img in lista_imagenes:
                 lista_datos = detectar_proveedor.proveedor(ruta_img)
-                self.matriz_datos.append(lista_datos)
-                self.limpiar_le()
-                # self.le_matricula.setText(str(lista_datos[0]))
+                if lista_datos:
+                    self.matriz_datos.append(lista_datos)
+                    self.limpiar_le()
+                    self.le_matricula.setText(str(lista_datos[0]))
+                else:
+                    self.statusBar().showMessage('No se tiene una lista de datos')
         else:
             self.lb_ruta.setText("Ninguno")
 
@@ -92,14 +95,11 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
     def analizar(self):
         if not self.matriz_datos[0]:
             print('No ha cargado un pdf')
+            self.statusBar().showMessage('No ha cargado un pdf')
         elif self.le_matricula.text() == "":
             self.le_matricula.setFocus()
         elif self.le_causa.text() == "":
             self.le_causa.setFocus()
-        elif self.le_doc_pag.text() == "":
-            self.le_doc_pag.setFocus()
-        elif self.le_doc_aj.text() == "":
-            self.le_doc_aj.setFocus()
         else:
             datos = analizar_datos.analisis(self.matriz_datos[0], self.le_causa.text(), self.le_doc_pag.text(), self.le_doc_aj.text(),True)
             del self.matriz_datos[:]
