@@ -114,6 +114,8 @@ def buscar_operador(nit):
         pass
 
 def buscar_restaurate_operador(medidor_telefono):
+    restaurante = None
+    operador = None
     try:
         restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.medidor_telefono == medidor_telefono)
     except:

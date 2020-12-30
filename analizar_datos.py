@@ -70,13 +70,16 @@ def numero_decimal(dato):
         pass
     
 
-def analisis(lista=[],causa=0,doc_pag=0,doc_aj=0,booleano=False):
+def analisis(lista=[], booleano=False):
     try:
         # Matricula de la factura
-        matricula = numero_entero(lista[0])
-        if matricula < 0:
-            matricula *= -1
-        # si existe viene del app.pyw
+        if type(lista[0]) == str:
+            matricula = numero_entero(lista[0])
+            if matricula < 0:
+                matricula *= -1
+        else:
+            matricula = lista[0]
+        # si existe viene del ventana_principal.py
         if booleano:
             fecha_inicial, fecha_final = validar_fecha(lista[1])
             vr_paga = numero_entero(lista[2])
@@ -87,37 +90,26 @@ def analisis(lista=[],causa=0,doc_pag=0,doc_aj=0,booleano=False):
             consumo_activa = numero_entero(consumo_activa)
             consumo_reactiva = numero_entero(consumo_reactiva)
             contribucion = numero_entero(contribucion)
-            causa = int(causa)
-            if doc_pag:
-                doc_pag = doc_pag
-            else:
-                doc_pag = None
-            if doc_aj:
-                doc_aj = doc_aj
-            else:
-                doc_aj = None
+            causa = 0
+            doc_pag = None
+            doc_aj = None
+            paga = vr_paga - contribucion
         # si no viene del archivo templates/datos/datos.py
         else:
             fecha_inicial = lista[1]
             fecha_final = lista[2]
-            vr_paga = numero_entero(lista[3])
+            causa = int(lista[3])
+            paga = numero_entero(lista[4])
             kw = numero_entero(lista[9])
             alumbrado = numero_entero(lista[11])
             consumo_activa = numero_entero(lista[7])
             consumo_reactiva = numero_entero(lista[8])
             contribucion = numero_entero(lista[10])
-            causa = int(lista[4])
-            if doc_pag:
-                doc_pag = doc_pag
-            else:
-                doc_pag = lista[5]
-            if doc_aj:
-                doc_aj = lista[6]
-            else:
-                doc_aj = None
+            doc_pag = lista[5]
+            doc_aj = lista[6]
             direccion = lista[12]
+            vr_paga = paga + contribucion
             
-        paga = vr_paga - contribucion
         ajuste = paga - causa
         vr_kw = consumo_activa / kw
         
@@ -125,12 +117,6 @@ def analisis(lista=[],causa=0,doc_pag=0,doc_aj=0,booleano=False):
         datos = [matricula, fecha_inicial, fecha_final, causa, paga, ajuste, doc_pag, doc_aj, consumo_activa,\
             consumo_reactiva, kw, vr_kw, contribucion, alumbrado, vr_paga, direccion]
 
-        # print("__________________________________________________________________________________________________________")
-        # print("ESTOS SON LOS DATOS DESPUES DE MANDARLOS AL ANALISIS ESPERO Y ESTEN BIEN")
-        # print(datos)
-        # print("__________________________________________________________________________________________________________")
-
         return datos
-    
     except ValueError:
-        pass
+        return None

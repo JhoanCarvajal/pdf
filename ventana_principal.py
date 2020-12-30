@@ -18,9 +18,7 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         super(VentanaPrincipal, self).__init__(*args, **kwargs)
         loadUi('plantillas/principal.ui', self)
 
-        # QtWidgets.QMainWindow.__init__(self, *args, **kwargs)
-        # self.setupUi(self)
-
+        self.boolean = True
         self.restaurantes = controlador.lista_restaurantes()
         if not self.restaurantes:
             self.restaurantes.append("Ninguno")
@@ -46,24 +44,20 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         ####################################      eventos             ################################
         self.btn_seleccionar.clicked.connect(self.seleccionar)
         self.btn_analizar.clicked.connect(self.analizar)
-        self.btn_guardar.clicked.connect(self.guardar)
         self.btn_consultar_mes.clicked.connect(self.consultar_mes)
         self.btn_consultar_anho.clicked.connect(self.consultar_anho)
         self.btn_consultar_todo.clicked.connect(self.consultar_todo)
         self.btn_nuevo_restaurante.clicked.connect(self.abrir_ventana_restaurante)
-        self.le_matricula.textChanged.connect(self.buscar_causalidad)
+        self.le_matricula.textChanged.connect(self.buscar_restaurante_operador)
 
     def limpiar_le(self):
         self.le_matricula.clear()
-        self.le_causa.clear()
-        self.le_doc_pag.clear()
-        self.le_doc_aj.clear()
-    
-    def buscar_causalidad(self, text):
-        causalidad = controlador.buscar_causalidad(text)
-        self.le_causa.clear()
-        if causalidad:
-            self.le_causa.setText(causalidad)
+
+    def buscar_restaurante_operador(self, text):
+        restaurante, operador = controlador.buscar_restaurate_operador(text)
+        if restaurante and operador:
+            self.lb_nombre_restaurante.setText(restaurante.nombre)
+            self.lb_nombre_operador.setText(operador.nombre)
 
     def seleccionar(self):
         pdf_ruta, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Abrir pdf", None, "pdf files (*.pdf)")
@@ -77,6 +71,8 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
                     self.matriz_datos.append(lista_datos)
                     self.limpiar_le()
                     self.le_matricula.setText(str(lista_datos[0]))
+                    self.statusBar().showMessage('Se cargo el pdf')
+                    self.boolean = True
                 else:
                     self.statusBar().showMessage('No se tiene una lista de datos')
         else:
@@ -98,16 +94,12 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
             self.statusBar().showMessage('No ha cargado un pdf')
         elif self.le_matricula.text() == "":
             self.le_matricula.setFocus()
-        elif self.le_causa.text() == "":
-            self.le_causa.setFocus()
         else:
-            datos = analizar_datos.analisis(self.matriz_datos[0], self.le_causa.text(), self.le_doc_pag.text(), self.le_doc_aj.text(),True)
+            datos = analizar_datos.analisis(self.matriz_datos[0], self.boolean)
+            self.boolean = False
             del self.matriz_datos[:]
             self.matriz_datos.append(datos)
             self.abrir_ventana_datos()
-
-    def guardar(self):
-        controlador.guardar_factura(self.matriz_datos[0])
 
     def consultar_mes(self):
         mes = self.cb_meses.currentText()
