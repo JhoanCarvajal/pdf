@@ -6,66 +6,31 @@ from validar_fechas import *
 #funcion para convertir string ej 1,234,432 a numero
 def numero_entero(dato):
     try:
-        # string para almacenar solo numeros
-        numero = ""
-        negativo = False
-        for digito in dato:
-            # print(digito) #mostramos cada digito del string
-            if digito == "B":
-                digito = "8"
-            # si el digito es un numero lo concatenamos con la variable numero
-            if digito.isdigit():
-                numero += str(digito)
-            # si el digito es un - ó ~ el numero es negativo
-            elif digito == "-" or digito =="~":
-                negativo = True
-        # convertimos el string a int
-        numero = int(numero)
-        # miramos si es negativo y lo convertimos
-        if negativo:
-            numero *= -1
-        return numero
-    except ValueError:
-        pass
-
-def numero_decimal(dato):
-    try:
-        # preguntamos si existe un dato
         if dato:
-            # string para almacenar los numeros
-            numero = ""
-            lista = dato.split(",")
-            # cojemos la primera parte y la concatenamos con la ultima
-            if len(lista) > 2:
-                for digito in lista[0]:
+            if type(dato) == int or type(dato) == float:
+                return dato
+            else:
+                # string para almacenar solo numeros
+                numero = ""
+                negativo = False
+                for digito in dato:
+                    # print(digito) #mostramos cada digito del string
+                    if digito == "B":
+                        digito = "8"
+                    # si el digito es un numero lo concatenamos con la variable numero
                     if digito.isdigit():
                         numero += str(digito)
-                numero += "." + lista[-1]
-            else:
-                try:
-                    numero = float(dato)
-                except:
-                    numero = dato
-                    # se ejecuta mientras la variable numero sea string
-                    while isinstance(numero, str):
-                        # le quitamos el ultimo digito o letra
-                        numero = numero[:len(numero) - 1]
-                        try:
-                            # intentamos convertir a float
-                            numero = float(numero)
-                        except:
-                            # por si no pudo convertir a float
-                            if len(numero) <= 0:
-                                try:
-                                    numero = dato
-                                    # quitamos la primera letra o digito
-                                    numero = numero[1:len(numero)]
-                                    numero = float(numero)
-                                except:
-                                    pass
-            return numero
+                    # si el digito es un - ó ~ el numero es negativo
+                    elif digito == "-" or digito =="~":
+                        negativo = True
+                # convertimos el string a int
+                numero = int(numero)
+                # miramos si es negativo y lo convertimos
+                if negativo:
+                    numero *= -1
+                return numero
         else:
-            numero = 0
+            return 0
     except ValueError:
         pass
     
