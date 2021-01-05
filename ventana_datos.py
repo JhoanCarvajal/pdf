@@ -17,6 +17,8 @@ class VentanaDatos(QtWidgets.QMainWindow):
         for _, value in kwargs.items():
             self.lista_vieja = value
 
+        print(self.lista_vieja)
+
         self.buscar_causalidad(str(self.lista_vieja[0]))
 
         #llenar los input con datos

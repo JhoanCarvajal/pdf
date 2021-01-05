@@ -9,7 +9,7 @@ import ocr_epm
 import ocr_enel
 import ocr_chec
 
-def proveedor(ruta):
+def proveedor(self, ruta):
     try:
         #cargamos la imagen contenida en ruta
         imagen = cv2.imread(ruta, 0)
@@ -56,15 +56,19 @@ def proveedor(ruta):
         #comparamos para determinar que proveedor es
         if "web-www.eep.com.co" in lista_palabras[0]:
             print("## EEP ##")
+            self.proveedor = "eep"
             lista_datos = ocr_eep.ocr(ruta)
         elif "empresa de energia de pereira" in lista_palabras[1] or "lnergia de pereira" in lista_palabras[1]:
             print("## EEP Scaner")
+            self.proveedor = "eep_escaner"
             lista_datos = ocr_eep_escaner.ocr(ruta)
         elif "www.dicel.com.co" in lista_palabras[2] or "dicel" in lista_palabras[2] or "dicel." in lista_palabras[2] or "diel" in lista_palabras[2] or "deel.com" in lista_palabras[2]:
             print("## DICEL ##")
+            self.proveedor = "dicel"
             lista_datos = ocr_dicel.ocr(ruta)
         elif "contrato" in lista_palabras[3]:
             print("## EPM ##")
+            self.proveedor = "epm"
             lista_datos = ocr_epm.ocr_epm(ruta)
         elif "enel-codensa" in lista_palabras[4]:
             print("## ENEL ##")

@@ -19,6 +19,7 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         loadUi('plantillas/principal.ui', self)
 
         self.boolean = True
+        self.proveedor = ""
         self.restaurantes = controlador.lista_restaurantes()
         if not self.restaurantes:
             self.restaurantes.append("Ninguno")
@@ -66,7 +67,8 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
             del self.matriz_datos[:]
             lista_imagenes = pdf2img.pdf2img(pdf_ruta)
             for ruta_img in lista_imagenes:
-                lista_datos = detectar_proveedor.proveedor(ruta_img)
+                lista_datos = detectar_proveedor.proveedor(self, ruta_img)
+                print(self.proveedor)
                 if lista_datos:
                     self.matriz_datos.append(lista_datos)
                     self.limpiar_le()
@@ -95,7 +97,7 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         elif self.le_matricula.text() == "":
             self.le_matricula.setFocus()
         else:
-            datos = analizar_datos.analisis(self.matriz_datos[0], self.boolean)
+            datos = analizar_datos.analisis(self.proveedor, self.matriz_datos[0], self.boolean)
             self.boolean = False
             del self.matriz_datos[:]
             self.matriz_datos.append(datos)

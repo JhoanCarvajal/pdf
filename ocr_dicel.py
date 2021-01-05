@@ -21,7 +21,7 @@ def ocr(ruta):
         lista_rois.append(image[693:693+45,2568:2568+319])#fechas de periodo de facturacion
         lista_rois.append(image[321:321+99,3164:3164+451])#valor a pagar
         lista_rois.append(image[1154:1154+49,1814:1814+457])#kw
-        lista_rois.append(image[1853:1853+79,293:293+317])#valor de kw
+        # lista_rois.append(image[1853:1853+79,293:293+317])#valor de kw
         lista_rois.append(image[2606:2606+69,1617:1617+501])#alumbrado
         lista_rois.append(image[519:519+63,1855:1855+675])#direccion
         lista_rois.append(image[1092:1092+533,2279:2279+729])#cod de concepto empresa de energia
@@ -46,7 +46,7 @@ def ocr(ruta):
             print(dato)
             lista_datos.append(dato)
             i += 1
-
+        i = 0
         # recorremos la lista de rois para mostrarlos en una ventana
         for i in range(len(lista_rois)):
             cv2.imshow(f"ROI{i}", lista_rois[i])

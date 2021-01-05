@@ -21,7 +21,7 @@ def ocr(ruta):
         lista_rois.append(image[1:1+1,2:2+3])#fechas de periodo de facturacion
         lista_rois.append(image[363:363+93,2162:2162+419])#valor a pagar
         lista_rois.append(image[722:722+53,1868:1868+327])#kw
-        lista_rois.append(image[1853:1853+79,293:293+317])#valor de kw
+        # lista_rois.append(image[1853:1853+79,293:293+317])#valor de kw
         lista_rois.append(image[2606:2606+69,1617:1617+501])#alumbrado
         lista_rois.append(image[519:519+63,1855:1855+675])#direccion
         lista_rois.append(image[730:730+105,183:183+387])#cod de concepto empresa de energia

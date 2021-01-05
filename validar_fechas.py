@@ -107,21 +107,28 @@ def comparar_fechas(fechas):
         pass
 
 
-def validar_fecha(fechas):
+def validar_fecha(proveedor, fechas):
     try:
-        fechas = fechas.split("-")
-        #creo las fechas
-        for i in range(len(fechas)):
-            fechas[i] = crear_fecha(fechas[i])
+        if "eep" in proveedor:
+            fechas = fechas.split("-")
+            #creo las fechas
+            for i in range(len(fechas)):
+                fechas[i] = crear_fecha(fechas[i])
 
-        #comparo los años
-        fechas = comparar_fechas(fechas)
+            #comparo los años
+            fechas = comparar_fechas(fechas)
 
-        #separo las fechas
-        fecha_inicio = fechas[0]
-        fecha_final = fechas[1]
+            #separo las fechas
+            fecha_inicio = fechas[0]
+            fecha_final = fechas[1]
 
-        return fecha_inicio, fecha_final
+            return fecha_inicio, fecha_final
+        elif "dicel" in proveedor:
+            fechas = fechas.split()
+            print(fechas)
+
+            return '2020-12-12', '2020-01-01'
+
     except ValueError:
         pass
     
