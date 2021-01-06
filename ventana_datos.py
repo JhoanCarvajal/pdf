@@ -18,11 +18,15 @@ class VentanaDatos(QtWidgets.QMainWindow):
             self.lista_vieja = value
 
         print(self.lista_vieja)
+        matricula = str(self.lista_vieja[0])
+        matricula = matricula[:len(matricula) - 2]
 
-        self.buscar_causalidad(str(self.lista_vieja[0]))
+        self.buscar_causalidad(matricula)
 
-        #llenar los input con datos
-        self.le_matricula.setText(str(self.lista_vieja[0]))
+        #llenar los input con datos dato[:len(dato) - 2]
+        matricula = str(self.lista_vieja[0])
+        matricula = matricula[:len(matricula) - 2]
+        self.le_matricula.setText(matricula)
         self.le_inicio.setText(str(self.lista_vieja[1]))
         self.le_final.setText(str(self.lista_vieja[2]))
         self.le_paga.setText(str(self.lista_vieja[4]))
@@ -63,7 +67,7 @@ class VentanaDatos(QtWidgets.QMainWindow):
             self.lista.append(self.le_contribucion.text()) # contribucion
             self.lista.append(self.le_alumbrado.text()) # alumbrado
             self.lista.append(self.lista_vieja[15]) # direccion
-            datos_buenos = analizar_datos.analisis(lista=self.lista)
+            datos_buenos = analizar_datos.analisis(None, lista=self.lista)
             controlador.guardar_factura(datos_buenos)
             self.abrir_ventana_principal()
         else:
