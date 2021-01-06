@@ -15,6 +15,25 @@ def numero_decimal(dato):
             dato = dato.replace('\n', '.')
             numero = float(dato)
             numero = round(numero, 2)
+        elif puntos == comas:
+            print("###################### punto == comas")
+            cantidad = len(dato)
+            lista = list(dato)
+            print(cantidad)
+            decimal = False
+            for i in range(cantidad-1, -1, -1):
+                print(lista)
+                if decimal == True and (dato[i] == "," or dato[i] == "."):
+                    lista[i] = ""
+                if decimal == False and (dato[i] == "," or dato[i] == "."):
+                    lista[i] = "."
+                    decimal = True
+            separador = ""
+            dato = separador.join(lista)
+            print(dato)
+            numero = float(dato)
+            numero = round(numero, 2)
+            print(numero)
         else:
             # "4,523,256.56234"
             dato = dato.replace(',', '')
