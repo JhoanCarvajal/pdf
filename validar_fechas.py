@@ -127,7 +127,15 @@ def validar_fecha(proveedor, fechas):
             fechas = fechas.split()
             print(fechas)
 
-            return '2020-12-12', '2020-01-01'
+            mes = mes_letra_a_numero(fechas[3])
+
+            fecha_inicio = fechas[5] + "-" + str(mes) + "-" + str(fechas[0])
+            fecha_inicio = datetime.datetime.strptime(fecha_inicio,"%Y-%m-%d")
+
+            fecha_final = fechas[5] + "-" + str(mes) + "-" + str(fechas[2])
+            fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
+
+            return fecha_inicio, fecha_final
 
     except ValueError:
         pass
