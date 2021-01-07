@@ -109,6 +109,8 @@ def comparar_fechas(fechas):
 
 def validar_fecha(proveedor, fechas):
     try:
+        fecha_inicio = None
+        fecha_final = None
         if "eep" in proveedor:
             fechas = fechas.split("-")
             #creo las fechas
@@ -122,20 +124,22 @@ def validar_fecha(proveedor, fechas):
             fecha_inicio = fechas[0]
             fecha_final = fechas[1]
 
-            return fecha_inicio, fecha_final
         elif "dicel" in proveedor:
             fechas = fechas.split()
             print(fechas)
 
             mes = mes_letra_a_numero(fechas[3])
+            dia_inicio = letra_a_numero(fechas[0])
+            dia_final = letra_a_numero(fechas[2])
+            año = letra_a_numero(fechas[5])
 
-            fecha_inicio = fechas[5] + "-" + str(mes) + "-" + str(fechas[0])
+            fecha_inicio = str(año) + "-" + str(mes) + "-" + str(dia_inicio)
             fecha_inicio = datetime.datetime.strptime(fecha_inicio,"%Y-%m-%d")
 
-            fecha_final = fechas[5] + "-" + str(mes) + "-" + str(fechas[2])
+            fecha_final = str(año) + "-" + str(mes) + "-" + str(dia_final)
             fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
 
-            return fecha_inicio, fecha_final
+        return fecha_inicio, fecha_final
 
     except ValueError:
         pass

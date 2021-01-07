@@ -123,6 +123,7 @@ def analisis(proveedor, lista=[], booleano=False):
         # Matricula de la factura
         if type(lista[0]) == str:
             matricula = numero_entero(lista[0])
+            matricula = int(matricula)
             if matricula < 0:
                 matricula *= -1
         else:

@@ -24,9 +24,7 @@ class VentanaDatos(QtWidgets.QMainWindow):
         self.buscar_causalidad(matricula)
 
         #llenar los input con datos dato[:len(dato) - 2]
-        matricula = str(self.lista_vieja[0])
-        matricula = matricula[:len(matricula) - 2]
-        self.le_matricula.setText(matricula)
+        self.le_matricula.setText(str(self.lista_vieja[0]))
         self.le_inicio.setText(str(self.lista_vieja[1]))
         self.le_final.setText(str(self.lista_vieja[2]))
         self.le_paga.setText(str(self.lista_vieja[4]))

@@ -55,10 +55,10 @@ def retornar_totales(proveedor, codigos, totales):
     return consumo_activa, consumo_reactiva, contribuciones
 
 def eliminar_espacios_blanco(lista):
-    while "" in lista:
+    while "" in lista or " " in lista:
         hasta = len(lista)
         for i in range(hasta):
-            if lista[i] == '':
+            if lista[i] == '' or lista[i] == ' ':
                 lista.pop(i)
                 break
 
