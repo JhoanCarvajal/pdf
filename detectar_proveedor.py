@@ -72,9 +72,11 @@ def proveedor(self, ruta):
             lista_datos = ocr_epm.ocr_epm(ruta)
         elif "enel-codensa" in lista_palabras[4]:
             print("## ENEL ##")
+            self.proveedor = "enel"
             lista_datos = ocr_enel.ocr(ruta)
         elif "chec" in lista_palabras[5]:
             print("## CHEC ##")
+            self.proveedor = "chec"
             lista_datos = ocr_chec.ocr(ruta)
         else:
             lista_datos = []

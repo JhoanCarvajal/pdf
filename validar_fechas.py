@@ -111,7 +111,7 @@ def validar_fecha(proveedor, fechas):
     try:
         fecha_inicio = None
         fecha_final = None
-        if "eep" in proveedor:
+        if "eep" in proveedor or "chec" in proveedor:
             fechas = fechas.split("-")
             #creo las fechas
             for i in range(len(fechas)):
@@ -138,6 +138,10 @@ def validar_fecha(proveedor, fechas):
 
             fecha_final = str(año) + "-" + str(mes) + "-" + str(dia_final)
             fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
+        
+        elif "enel" in proveedor:
+            fecha_inicio = datetime.datetime.now()
+            fecha_final = datetime.datetime.now()
 
         return fecha_inicio, fecha_final
 

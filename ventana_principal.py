@@ -97,6 +97,7 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         elif self.le_matricula.text() == "":
             self.le_matricula.setFocus()
         else:
+            self.matriz_datos[0][0] = self.le_matricula.text()
             datos = analizar_datos.analisis(self.proveedor, self.matriz_datos[0], self.boolean)
             self.boolean = False
             del self.matriz_datos[:]

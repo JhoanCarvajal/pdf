@@ -5,6 +5,7 @@ from validar_fechas import *
 
 #funcion para convertir string ej 1,234,432 a numero
 def numero_decimal(dato):
+    numero = 0
     if "." in dato and "," in dato:
         puntos = dato.count(".")
         comas = dato.count(",")

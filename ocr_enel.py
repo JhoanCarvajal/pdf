@@ -7,23 +7,23 @@ import imutils
 def ocr(ruta):
     try:
         #imagen donde solo se ve el color negro
-        # image = solo_negro(ruta)
+        image = solo_negro(ruta)
         
-        imagen = cv2.imread(ruta, 0)
+        # imagen = cv2.imread(ruta, 0)
         #transformamos a escala de grises
-        image = 255 - cv2.threshold(imagen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+        # image = 255 - cv2.threshold(imagen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
         #lista de los rois
         lista_rois = []
 
         #agregamos cada roi(region de interes) a nuestra lista
-        lista_rois.append(image[515:515+111,2186:2186+427])#matricula
+        lista_rois.append(image[515:515+110,2186:2186+427])#matricula
         lista_rois.append(image[1:1+1,2:2+3])#fechas de periodo de facturacion
         lista_rois.append(image[363:363+93,2162:2162+419])#valor a pagar
         lista_rois.append(image[722:722+53,1868:1868+327])#kw
         # lista_rois.append(image[1853:1853+79,293:293+317])#valor de kw
-        lista_rois.append(image[2606:2606+69,1617:1617+501])#alumbrado
-        lista_rois.append(image[519:519+63,1855:1855+675])#direccion
+        lista_rois.append(image[1:1+1,2:2+3])#alumbrado
+        lista_rois.append(image[1:1+1,2:2+3])#direccion
         lista_rois.append(image[730:730+105,183:183+387])#cod de concepto empresa de energia
         lista_rois.append(image[726:726+105,3151:3151+327])#totales de los conceptos de la empresa de energia
 
