@@ -3,15 +3,21 @@ import pytesseract
 import os
 from resaltar_color import *
 import imutils
+import alinear
 
 def ocr_epm(ruta):
     try:
         #imagen donde solo se ve el color negro
         # image = solo_negro(ruta)
-        
+        #esto es supuestamente para alinear la imagen pero no me da
+        # img_alineada = alinear.alinear(ruta)
+
         imagen = cv2.imread(ruta, 0)
+
         #transformamos a escala de grises
         image = 255 - cv2.threshold(imagen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+
+        image = cv2.fastNlMeansDenoising(image,None,10,7,21)
 
         #lista de los rois
         lista_rois = []
@@ -19,9 +25,9 @@ def ocr_epm(ruta):
         #agregamos cada roi(region de interes) a nuestra lista
         lista_rois.append(image[1039:1039+75,797:797+467])#matricula
         lista_rois.append(image[1040:1040+77,1287:1287+656])#fechas de periodo de facturacion
-        lista_rois.append(image[1639:1639+63,1058:1058+439])#valor a pagar
-        lista_rois.append(image[1113:1113+104,2125:2125+241])#kw
-        lista_rois.append(image[1853:1853+79,293:293+317])#valor de kw
+        lista_rois.append(image[2199:2199+69,3789:3789+397])#valor a pagar
+        lista_rois.append(image[1123:1123+82,2142:2142+214])#kw
+        # lista_rois.append(image[1853:1853+79,293:293+317])#valor de kw
         lista_rois.append(image[4007:4007+67,937:937+451])#alumbrado
         lista_rois.append(image[611:611+88,2929:2929+664])#direccion
         lista_rois.append(image[1462:1462+182,182:182+532])#cod de concepto empresa de energia

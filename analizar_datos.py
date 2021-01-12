@@ -122,13 +122,13 @@ def analisis(proveedor, lista=[], booleano=False):
     try:
         print(lista)
         # Matricula de la factura
-        if type(lista[0]) == str:
-            matricula = numero_entero(lista[0])
-            matricula = int(matricula)
-            if matricula < 0:
-                matricula *= -1
-        else:
-            matricula = lista[0]
+        # if type(lista[0]) == str:
+        #     matricula = numero_entero(lista[0])
+        #     matricula = int(matricula)
+        #     if matricula < 0:
+        #         matricula *= -1
+        # else:
+        matricula = lista[0]
         # si existe viene del ventana_principal.py
         if booleano:
             fecha_inicial, fecha_final = validar_fecha(proveedor, lista[1])
@@ -136,10 +136,11 @@ def analisis(proveedor, lista=[], booleano=False):
             kw = numero_entero(lista[3])
             alumbrado = numero_entero(lista[4])
             direccion = lista[5]
-            consumo_activa, consumo_reactiva, contribucion = retornar_totales(proveedor, lista[6], lista[7])
+            consumo_activa, consumo_reactiva, contribucion, contribucion_reactiva = retornar_totales(proveedor, lista[6], lista[7])
             consumo_activa = numero_entero(consumo_activa)
             consumo_reactiva = numero_entero(consumo_reactiva)
             contribucion = numero_entero(contribucion)
+            contribucion_reactiva = numero_entero(contribucion_reactiva)
             causa = 0
             doc_pag = None
             doc_aj = None
@@ -151,21 +152,24 @@ def analisis(proveedor, lista=[], booleano=False):
             causa = int(lista[3])
             paga = float(lista[4])
             kw = float(lista[9])
-            alumbrado = float(lista[11])
+            alumbrado = float(lista[12])
             consumo_activa = float(lista[7])
             consumo_reactiva = float(lista[8])
             contribucion = float(lista[10])
             doc_pag = lista[5]
             doc_aj = lista[6]
-            direccion = lista[12]
+            direccion = lista[13]
             vr_paga = paga + contribucion
             
         ajuste = paga - causa
-        vr_kw = consumo_activa / kw
+        if consumo_activa != 0 and kw:
+            vr_kw = consumo_activa / kw
+        else:
+            vr_kw = 0
         
         # creamos la lista que vamos a retornar
         datos = [matricula, fecha_inicial, fecha_final, causa, paga, ajuste, doc_pag, doc_aj, consumo_activa,\
-            consumo_reactiva, kw, vr_kw, contribucion, alumbrado, vr_paga, direccion]
+            consumo_reactiva, kw, vr_kw, contribucion, contribucion_reactiva, alumbrado, vr_paga, direccion]
 
         print(datos)
 

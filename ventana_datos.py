@@ -32,7 +32,8 @@ class VentanaDatos(QtWidgets.QMainWindow):
         self.le_consumo_reactiva.setText(str(self.lista_vieja[9]))
         self.le_kw.setText(str(self.lista_vieja[10]))
         self.le_contribucion.setText(str(self.lista_vieja[12]))
-        self.le_alumbrado.setText(str(self.lista_vieja[13]))
+        self.le_contribucion_reactiva.setText(str(self.lista_vieja[13]))
+        self.le_alumbrado.setText(str(self.lista_vieja[14]))
 
         # Eventos
         self.le_matricula.textChanged.connect(self.buscar_causalidad)
@@ -63,6 +64,7 @@ class VentanaDatos(QtWidgets.QMainWindow):
             self.lista.append(self.le_consumo_reactiva.text()) # consumo reaciva
             self.lista.append(self.le_kw.text()) # kw/h
             self.lista.append(self.le_contribucion.text()) # contribucion
+            self.lista.append(self.le_contribucion_reactiva.text()) #Contribucion reactiva
             self.lista.append(self.le_alumbrado.text()) # alumbrado
             self.lista.append(self.lista_vieja[15]) # direccion
             datos_buenos = analizar_datos.analisis(None, lista=self.lista)

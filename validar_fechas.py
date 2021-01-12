@@ -143,6 +143,22 @@ def validar_fecha(proveedor, fechas):
             fecha_inicio = datetime.datetime.now()
             fecha_final = datetime.datetime.now()
 
+        elif "epm" in proveedor:
+            fechas = fechas.split()
+            print(fechas)
+
+            dia_inicio = letra_a_numero(fechas[2])
+            mes_inicio = mes_letra_a_numero(fechas[3])
+            dia_final = letra_a_numero(fechas[5])
+            mes_final = mes_letra_a_numero(fechas[6])
+            año = datetime.datetime.now().year
+
+            fecha_inicio = str(año) + "-" + str(mes_inicio) + "-" + str(dia_inicio)
+            fecha_inicio = datetime.datetime.strptime(fecha_inicio,"%Y-%m-%d")
+
+            fecha_final = str(año) + "-" + str(mes_final) + "-" + str(dia_final)
+            fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
+
         return fecha_inicio, fecha_final
 
     except ValueError:
