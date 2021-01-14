@@ -1,4 +1,4 @@
-from models import Region, Operador, Restaurante, Restaurantes_operadores, Factura, db, SQL
+from models import Region, Operador, Restaurante, Restaurantes_operadores, Factura, db, SQL, RoiOperador, RoiDatos
 import datetime
 import sqlite3
 
@@ -215,5 +215,10 @@ def guardar_restaurante_operador(lista):
     except:
         print('Error al crear la relacion')
 
-def regiones_interes():
-    pass
+def regiones_interes_operadores():
+    lista = []
+    sql = RoiOperador.select(RoiOperador.id_operador, RoiOperador.roi, RoiOperador.palabra_clave)
+    roi_operadores = db.execute(sql)
+    for roi_operador in roi_operadores:
+        lista.append(roi_operador)
+    return lista
