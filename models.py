@@ -48,6 +48,23 @@ class Factura(BaseModel):
     alumbrado = FloatField()
 
 
+class RoiOperador(BaseModel):
+    id_operador = ForeignKeyField(Operador, backref="roiOperador_operadores")
+    roi = CharField(max_length=40, null=True)
+    palabra_clave = CharField(max_length=40, null=True)
+
+
+class RoiDatos(BaseModel):
+    id_operador = ForeignKeyField(Operador, backref="roiDatos_operadores")
+    matricula = CharField(max_length=40)
+    periodo = CharField(max_length=40)
+    valor = CharField(max_length=40)
+    kw = CharField(max_length=40)
+    alumbrado = CharField(max_length=40)
+    direccion = CharField(max_length=40)
+    codigos = CharField(max_length=40)
+    totales = CharField(max_length=40)
+
 def crear_tablas():
     with db:
-        db.create_tables([Region, Operador, Restaurante, Restaurantes_operadores, Factura])
+        db.create_tables([Region, Operador, Restaurante, Restaurantes_operadores, Factura, RoiOperador, RoiDatos])

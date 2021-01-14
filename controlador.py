@@ -214,3 +214,6 @@ def guardar_restaurante_operador(lista):
             print('la relacion ya existe')
     except:
         print('Error al crear la relacion')
+
+def regiones_interes():
+    pass

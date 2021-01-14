@@ -60,7 +60,7 @@ def ocr_epm(ruta):
         cv2.destroyAllWindows()
 
         #eliminanos la imagen contenida en la ruta
-        os.remove(ruta)
+        # os.remove(ruta)
         # retornamos la lista de datos
         return lista_datos
     except ValueError:
