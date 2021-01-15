@@ -222,3 +222,11 @@ def regiones_interes_operadores():
     for roi_operador in roi_operadores:
         lista.append(roi_operador)
     return lista
+
+def regiones_interes_datos(id_operador):
+    lista = []
+    sql = RoiDatos.select().where(RoiDatos.id_operador == id_operador)
+    resultados = db.execute(sql)
+    for dato in resultados:
+        lista.append(dato)
+    return lista

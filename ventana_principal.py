@@ -19,7 +19,7 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         loadUi('plantillas/principal.ui', self)
 
         self.boolean = True
-        self.proveedor = ""
+        self.proveedor = None
         self.restaurantes = controlador.lista_restaurantes()
         if not self.restaurantes:
             self.restaurantes.append("Ninguno")
