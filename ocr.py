@@ -6,17 +6,22 @@ import imutils
 import numpy as np
 import controlador
 
-def ocr(id_operador, ruta):
+def ocr(id_operador, ruta, bool_solo_negro):
     try:
-        #imagen donde solo se ve el color negro
-        # image = solo_negro(ruta)
-        imagen = cv2.imread(ruta, 0)
-        #transformamos a escala de grises
-        image = 255 - cv2.threshold(imagen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+        print(bool_solo_negro)
+        if bool_solo_negro == True:
+            print("solo negrooooooooooooooooooooooooo")
+            # imagen donde solo se ve el color negro
+            image = solo_negro(ruta)
+        else:
+            print("normalllllllllllllllllllllllll")
+            imagen = cv2.imread(ruta, 0)
+            # transformamos a escala de grises
+            image = 255 - cv2.threshold(imagen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
+        info_rois = controlador.regiones_interes_datos(id_operador)
         #lista de los rois
         lista_rois = []
-        info_rois = controlador.regiones_interes_datos(id_operador)
         for string in info_rois:
             lista = list(string)
             for i in range(2, len(lista)):
@@ -31,7 +36,7 @@ def ocr(id_operador, ruta):
         i = 0
         #sacamos el texto de cada uno de los rois y lo agregamos a la lista
         for roi in lista_rois:
-            if i > 7:
+            if i > 6:
                 dato = pytesseract.image_to_string(roi, config='--psm 6 -c \
                     tessedit_char_whitelist=$.,-0123456789')
             else:

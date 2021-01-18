@@ -217,7 +217,7 @@ def guardar_restaurante_operador(lista):
 
 def regiones_interes_operadores():
     lista = []
-    sql = RoiOperador.select(RoiOperador.id_operador, RoiOperador.roi, RoiOperador.palabra_clave)
+    sql = RoiOperador.select(RoiOperador.id_operador, RoiOperador.roi, RoiOperador.palabra_clave, RoiOperador.solo_negro)
     roi_operadores = db.execute(sql)
     for roi_operador in roi_operadores:
         lista.append(roi_operador)

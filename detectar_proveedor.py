@@ -12,6 +12,7 @@ def proveedor(self, ruta):
         #transformamos a escala de grises
         image = 255 - cv2.threshold(imagen, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
+        bool_solo_negro = None
         rois = []
         lista_string_rois = controlador.regiones_interes_operadores()
         for string in lista_string_rois:
@@ -43,8 +44,9 @@ def proveedor(self, ruta):
             if lista_string_rois[i][2] in lista_palabras[i]:
                 print(lista_string_rois[i][2])
                 self.proveedor = lista_string_rois[i][0]
+                bool_solo_negro = lista_string_rois[i][3]
                 break
-        lista_datos = ocr.ocr(self.proveedor, ruta)
+        lista_datos = ocr.ocr(self.proveedor, ruta, bool_solo_negro)
         
         if lista_datos:
             return lista_datos

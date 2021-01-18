@@ -20,7 +20,7 @@ def retornar_totales(proveedor, codigos, totales):
     for i in range(len(lista_totales)):
         lista_totales[i] = letra_a_numero(lista_totales[i])
 
-    if proveedor == "eep" or proveedor == "eep_escaner":
+    if proveedor == 2 or proveedor == 4:
         for i in range(len(lista_cod)):
             lista_cod[i] = letra_a_numero(lista_cod[i])
 
@@ -33,7 +33,7 @@ def retornar_totales(proveedor, codigos, totales):
                 pos_contribuciones = i
             if lista_cod[i] == "559":
                 pos_contribucion_reactiva = i
-    elif proveedor == "dicel":
+    elif proveedor == 1:
         for i in range(len(lista_cod)):
             if "Energia Activa" in lista_cod[i]:
                 pos_consumo_activa = i
@@ -43,7 +43,7 @@ def retornar_totales(proveedor, codigos, totales):
                 pos_contribuciones = i
             if "Reactiva Contribucion" in lista_cod[i]:
                 pos_contribucion_reactiva = i
-    elif proveedor == "enel":
+    elif proveedor == 5:
         for i in range(len(lista_cod)):
             if "ENERGIA" in lista_cod[i]:
                 pos_consumo_activa = i
@@ -53,7 +53,7 @@ def retornar_totales(proveedor, codigos, totales):
                 pos_contribuciones = i
             if "CONTRIBUCION REACTIVA" in lista_cod[i]:
                 pos_contribucion_reactiva = i
-    elif proveedor == "chec":
+    elif proveedor == 6:
         for i in range(len(lista_cod)):
             if "Consumo activa" in lista_cod[i]:
                 pos_consumo_activa = i
@@ -63,7 +63,7 @@ def retornar_totales(proveedor, codigos, totales):
                 pos_contribuciones = i
             if "Contribucion reactiva" in lista_cod[i]:
                 pos_contribucion_reactiva = i
-    elif proveedor == "epm":
+    elif proveedor == 3:
         for i in range(len(lista_cod)):
             if "Energia" in lista_cod[i]:
                 pos_consumo_activa = i

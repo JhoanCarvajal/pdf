@@ -52,6 +52,7 @@ class RoiOperador(BaseModel):
     id_operador = ForeignKeyField(Operador, backref="roiOperador_operadores")
     roi = CharField(max_length=40, null=True)
     palabra_clave = CharField(max_length=40, null=True)
+    solo_negro = BooleanField(default=False)
 
 
 class RoiDatos(BaseModel):
