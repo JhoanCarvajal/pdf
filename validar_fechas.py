@@ -111,8 +111,11 @@ def validar_fecha(proveedor, fechas):
     try:
         fecha_inicio = None
         fecha_final = None
-        if proveedor == 2 or proveedor == 4 or proveedor == 6:
-            fechas = fechas.split("-")
+        if proveedor == 2 or proveedor == 4 or proveedor == 6 or proveedor == 9 or proveedor == 10:
+            if "-" in fechas:
+                fechas = fechas.split("-")
+            else:
+                fechas = fechas.split("a")
             #creo las fechas
             for i in range(len(fechas)):
                 fechas[i] = crear_fecha(fechas[i])
@@ -138,10 +141,6 @@ def validar_fecha(proveedor, fechas):
 
             fecha_final = str(año) + "-" + str(mes) + "-" + str(dia_final)
             fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
-        
-        elif proveedor == 5:
-            fecha_inicio = datetime.datetime.now()
-            fecha_final = datetime.datetime.now()
 
         elif proveedor == 3:
             fechas = fechas.split()
@@ -158,6 +157,11 @@ def validar_fecha(proveedor, fechas):
 
             fecha_final = str(año) + "-" + str(mes_final) + "-" + str(dia_final)
             fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
+
+        # proveedor == 5
+        else:
+            fecha_inicio = datetime.datetime.now()
+            fecha_final = datetime.datetime.now()
 
         return fecha_inicio, fecha_final
 
