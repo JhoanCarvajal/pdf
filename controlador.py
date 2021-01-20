@@ -1,4 +1,4 @@
-from models import Region, Operador, Restaurante, Restaurantes_operadores, Factura, db, SQL, RoiOperador, RoiDatos
+from models import Region, Operador, Restaurante, Restaurantes_operadores, Factura, db, SQL, RoiOperador, RoiDatos, IdentificadorTotales
 import datetime
 import sqlite3
 
@@ -226,6 +226,14 @@ def regiones_interes_operadores():
 def regiones_interes_datos(id_operador):
     lista = []
     sql = RoiDatos.select().where(RoiDatos.id_operador == id_operador)
+    resultados = db.execute(sql)
+    for dato in resultados:
+        lista.append(dato)
+    return lista
+
+def identificador_totales(id_operador):
+    lista = []
+    sql = IdentificadorTotales.select().where(IdentificadorTotales.id_operador == id_operador)
     resultados = db.execute(sql)
     for dato in resultados:
         lista.append(dato)

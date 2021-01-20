@@ -66,6 +66,13 @@ class RoiDatos(BaseModel):
     codigos = CharField(max_length=40)
     totales = CharField(max_length=40)
 
+class IdentificadorTotales(BaseModel):
+    id_operador = ForeignKeyField(Operador, backref="identificadorTotales_operadores")
+    consumo_activa = CharField(max_length=40)
+    contribucion_activa = CharField(max_length=40)
+    consumo_reactiva = CharField(max_length=40)
+    contribucion_reactiva = CharField(max_length=40)
+
 def crear_tablas():
     with db:
-        db.create_tables([Region, Operador, Restaurante, Restaurantes_operadores, Factura, RoiOperador, RoiDatos])
+        db.create_tables([Region, Operador, Restaurante, Restaurantes_operadores, Factura, RoiOperador, RoiDatos, IdentificadorTotales])
