@@ -24,15 +24,16 @@ def retornar_totales(proveedor, codigos, totales):
     if proveedor:
         identificadores_totales = controlador.identificador_totales(proveedor)
         print(identificadores_totales)
-        for i in range(len(lista_cod)):
-            if identificadores_totales[0][2] in lista_cod[i]:
-                pos_consumo_activa = i
-            if lista_cod[i] == identificadores_totales[0][3]:
-                pos_contribucion_activa = i
-            if identificadores_totales[0][4] in lista_cod[i]:
-                pos_consumo_reactiva = i
-            if identificadores_totales[0][5] in lista_cod[i]:
-                pos_contribucion_reactiva = i
+        if identificadores_totales:
+            for i in range(len(lista_cod)):
+                if identificadores_totales[0][2] in lista_cod[i]:
+                    pos_consumo_activa = i
+                if lista_cod[i] == identificadores_totales[0][3]:
+                    pos_contribucion_activa = i
+                if identificadores_totales[0][4] in lista_cod[i]:
+                    pos_consumo_reactiva = i
+                if identificadores_totales[0][5] in lista_cod[i]:
+                    pos_contribucion_reactiva = i
 
     if pos_consumo_activa != None and lista_totales:
         consumo_activa = lista_totales[pos_consumo_activa]
