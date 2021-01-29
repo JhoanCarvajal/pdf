@@ -5,7 +5,7 @@ from PIL import Image
 
 def solo_negro(ruta):
     negro_bajo = np.array([0, 0, 0], np.uint8)
-    negro_alto = np.array([179, 255, 140], np.uint8)
+    negro_alto = np.array([179, 255, 110], np.uint8)
     # Leer la imagen
     image = cv2.imread(ruta)
     # Pasamos las imágenes de BGR a: GRAY (esta a BGR nuevamente) y a HSV
@@ -19,5 +19,5 @@ def solo_negro(ruta):
     # Fondo en grises
     invMask = cv2.bitwise_not(mask_negro)
     #por si la quiero guardar
-    #cv2.imwrite('Grises.png',invMask)
-    return invMask
+    cv2.imwrite('Grises.png',invMask)
+    return invMask 
