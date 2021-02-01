@@ -13,9 +13,11 @@ def pdf2img(pdf):
         fecha = datetime.datetime.now()
         fecha = fecha.strftime("%H_%M_%S")
         paginas = convert_from_path(pdf, 500)
+        cont = 1
         for pagina in paginas:
-            pagina.save(f'{carpeta}/{nombre}{fecha}.jpg', 'JPEG')
-            lista_imagenes.append(f'{carpeta}/{nombre}{fecha}.jpg')
+            pagina.save(f'{carpeta}/{nombre}{fecha}_{cont}.jpg', 'JPEG')
+            lista_imagenes.append(f'{carpeta}/{nombre}{fecha}_{cont}.jpg')
+            cont += 1
         return lista_imagenes
     except ValueError:
         pass

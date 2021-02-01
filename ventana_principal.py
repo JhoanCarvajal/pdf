@@ -66,6 +66,7 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         if self.lb_ruta.text() != "":
             del self.matriz_datos[:]
             lista_imagenes = pdf2img.pdf2img(pdf_ruta)
+            print(lista_imagenes)
             for ruta_img in lista_imagenes:
                 lista_datos = detectar_proveedor.proveedor(self, ruta_img)
                 print(self.proveedor)
