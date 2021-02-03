@@ -156,6 +156,7 @@ def analisis(proveedor, lista=[], booleano=False):
             consumo_activa = float(lista[7])
             consumo_reactiva = float(lista[8])
             contribucion = float(lista[10])
+            contribucion_reactiva = float(lista[11])
             doc_pag = lista[5]
             doc_aj = lista[6]
             direccion = lista[13]

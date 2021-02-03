@@ -20,6 +20,8 @@ def letra_a_numero(dato):
                 r = "8"
             if r == "q":
                 r = "0"
+            if r == ",":
+                r = ""
             dato_corregido += r
         return dato_corregido
     except ValueError:
@@ -115,7 +117,7 @@ def validar_fecha(proveedor, fechas):
     try:
         fecha_inicio = None
         fecha_final = None
-        if proveedor == 2 or proveedor == 4 or proveedor == 6 or proveedor == 9 or proveedor == 10 or proveedor == 14:
+        if proveedor == 2 or proveedor == 4 or proveedor == 6 or proveedor == 9 or proveedor == 10 or proveedor == 14 or proveedor == 16 or proveedor == 17:
             if "-" in fechas:
                 fechas = fechas.split("-")
             else:
@@ -184,7 +186,29 @@ def validar_fecha(proveedor, fechas):
 
             fecha_final = str(año) + "-" + str(mes_final) + "-" + str(dia_final)
             fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
+        # Sep 30 - Oct 30, 2020
+        elif proveedor == 15:
+            fechas = fechas.split(" ")
+            print(fechas)
 
+            dia_inicio = letra_a_numero(fechas[1])
+            mes_inicio = mes_letra_a_numero(fechas[0])
+            dia_final = letra_a_numero(fechas[4])
+            mes_final = mes_letra_a_numero(fechas[3])
+            año = letra_a_numero(fechas[5])
+
+            fecha_inicio = str(año) + "-" + str(mes_inicio) + "-" + str(dia_inicio)
+            fecha_inicio = datetime.datetime.strptime(fecha_inicio,"%Y-%m-%d")
+
+            fecha_final = str(año) + "-" + str(mes_final) + "-" + str(dia_final)
+            fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
+        # #15/10/2020 - 18/11/2020
+        # elif proveedor == 16 or proveedor == 17:
+        #     fechas = fechas.split("-")
+        #     fecha_inicio = fechas[0].replace("/", "-")
+        #     fecha_final = fechas[1].replace("/", "-")
+        #     fecha_inicio = datetime.datetime.strptime(fecha_inicio, "%d-%m-%Y")
+        #     fecha_final = datetime.datetime.strptime(fecha_final, "%d-%m-%Y")
         # proveedor == 5
         else:
             fecha_inicio = datetime.datetime.now()
