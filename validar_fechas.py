@@ -128,16 +128,26 @@ def r(proveedor, fechas):
 
         dia_inicio = letra_a_numero(fechas[lista_datos[4]])
         dia_final = letra_a_numero(fechas[lista_datos[5]])
+        
         try:
             mes_inicio = int(fechas[lista_datos[6]])
         except ValueError:
             mes_inicio = mes_letra_a_numero(fechas[lista_datos[6]])
+
         try:
             mes_final = int(fechas[lista_datos[7]])
         except ValueError:
             mes_final = mes_letra_a_numero(fechas[lista_datos[7]])
-        año_inicio = letra_a_numero(fechas[lista_datos[8]])
-        año_final = letra_a_numero(fechas[lista_datos[9]])
+
+        if lista_datos[8]:
+            año_inicio = letra_a_numero(fechas[lista_datos[8]])
+        else:
+            año_inicio = datetime.datetime.now().year
+
+        if lista_datos[9]:
+            año_final = letra_a_numero(fechas[lista_datos[9]])
+        else:
+            año_final = datetime.datetime.now().year
 
         fecha_inicio = str(año_inicio) + "-" + str(mes_inicio) + "-" + str(dia_inicio)
         fecha_inicio = datetime.datetime.strptime(fecha_inicio,"%Y-%m-%d")
@@ -147,113 +157,120 @@ def r(proveedor, fechas):
 
         print(fecha_inicio)
         print(fecha_final)
+        return fecha_inicio, fecha_final
 
 
 def validar_fecha(proveedor, fechas):
     try:
         fecha_inicio = None
         fecha_final = None
-        if proveedor == 2 or proveedor == 4 or proveedor == 6 or proveedor == 9 or proveedor == 10 or proveedor == 14 or proveedor == 16 or proveedor == 17:
-            
-            r(proveedor, fechas)
-            if "-" in fechas:
-                fechas = fechas.split("-")
-            else:
-                fechas = fechas.split("a")
-            print(fechas)
-            #creo las fechas
-            for i in range(len(fechas)):
-                fechas[i] = crear_fecha(fechas[i])
-
-            #comparo los años
-            fechas = comparar_fechas(fechas)
-
-            #separo las fechas
-            fecha_inicio = fechas[0]
-            fecha_final = fechas[1]
-
-        elif proveedor == 1:
-            print("#")
-            r(proveedor, fechas)
-            print("#")
-            fechas = fechas.split()
-            print(fechas)
-
-            mes = mes_letra_a_numero(fechas[3])
-            dia_inicio = letra_a_numero(fechas[0])
-            dia_final = letra_a_numero(fechas[2])
-            año = letra_a_numero(fechas[5])
-
-            fecha_inicio = str(año) + "-" + str(mes) + "-" + str(dia_inicio)
-            fecha_inicio = datetime.datetime.strptime(fecha_inicio,"%Y-%m-%d")
-
-            fecha_final = str(año) + "-" + str(mes) + "-" + str(dia_final)
-            fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
-
-        elif proveedor == 3:
-            fechas = fechas.split()
-            print(fechas)
-
-            dia_inicio = letra_a_numero(fechas[2])
-            mes_inicio = mes_letra_a_numero(fechas[3])
-            dia_final = letra_a_numero(fechas[5])
-            mes_final = mes_letra_a_numero(fechas[6])
-            año = datetime.datetime.now().year
-
-            fecha_inicio = str(año) + "-" + str(mes_inicio) + "-" + str(dia_inicio)
-            fecha_inicio = datetime.datetime.strptime(fecha_inicio,"%Y-%m-%d")
-
-            fecha_final = str(año) + "-" + str(mes_final) + "-" + str(dia_final)
-            fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
-        # 10-01-2020/10-02-2020
-        elif proveedor == 11:
-            fechas = fechas.split("/")
-            fecha_inicio = fechas[0]
-            fecha_final = fechas[1]
-            fecha_inicio = datetime.datetime.strptime(fecha_inicio, "%d-%m-%Y")
-            fecha_final = datetime.datetime.strptime(fecha_final, "%d-%m-%Y")
-        # oct 03 a nov 03
-        elif proveedor == 13:
-            fechas = fechas.split(" ")
-            print(fechas)
-            dia_inicio = letra_a_numero(fechas[1])
-            mes_inicio = mes_letra_a_numero(fechas[0])
-            dia_final = letra_a_numero(fechas[4])
-            mes_final = mes_letra_a_numero(fechas[3])
-            año = datetime.datetime.now().year
-
-            fecha_inicio = str(año) + "-" + str(mes_inicio) + "-" + str(dia_inicio)
-            fecha_inicio = datetime.datetime.strptime(fecha_inicio,"%Y-%m-%d")
-
-            fecha_final = str(año) + "-" + str(mes_final) + "-" + str(dia_final)
-            fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
-        # Sep 30 - Oct 30, 2020
-        elif proveedor == 15:
-            fechas = fechas.split(" ")
-            print(fechas)
-
-            dia_inicio = letra_a_numero(fechas[1])
-            mes_inicio = mes_letra_a_numero(fechas[0])
-            dia_final = letra_a_numero(fechas[4])
-            mes_final = mes_letra_a_numero(fechas[3])
-            año = letra_a_numero(fechas[5])
-
-            fecha_inicio = str(año) + "-" + str(mes_inicio) + "-" + str(dia_inicio)
-            fecha_inicio = datetime.datetime.strptime(fecha_inicio,"%Y-%m-%d")
-
-            fecha_final = str(año) + "-" + str(mes_final) + "-" + str(dia_final)
-            fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
-        # #15/10/2020 - 18/11/2020
-        # elif proveedor == 16 or proveedor == 17:
-        #     fechas = fechas.split("-")
-        #     fecha_inicio = fechas[0].replace("/", "-")
-        #     fecha_final = fechas[1].replace("/", "-")
-        #     fecha_inicio = datetime.datetime.strptime(fecha_inicio, "%d-%m-%Y")
-        #     fecha_final = datetime.datetime.strptime(fecha_final, "%d-%m-%Y")
-        # proveedor == 5
+        if fechas != "":
+            fecha_inicio, fecha_final = r(proveedor, fechas)
         else:
             fecha_inicio = datetime.datetime.now()
             fecha_final = datetime.datetime.now()
+
+        # if proveedor == 2 or proveedor == 4 or proveedor == 6 or proveedor == 9 or proveedor == 10 or proveedor == 14 or proveedor == 16 or proveedor == 17:
+            
+        #     r(proveedor, fechas)
+        #     if "-" in fechas:
+        #         fechas = fechas.split("-")
+        #     else:
+        #         fechas = fechas.split("a")
+        #     print(fechas)
+        #     #creo las fechas
+        #     for i in range(len(fechas)):
+        #         fechas[i] = crear_fecha(fechas[i])
+
+        #     #comparo los años
+        #     fechas = comparar_fechas(fechas)
+
+        #     #separo las fechas
+        #     fecha_inicio = fechas[0]
+        #     fecha_final = fechas[1]
+
+        # elif proveedor == 1:
+        #     print("#")
+        #     r(proveedor, fechas)
+        #     print("#")
+        #     fechas = fechas.split()
+        #     print(fechas)
+
+        #     mes = mes_letra_a_numero(fechas[3])
+        #     dia_inicio = letra_a_numero(fechas[0])
+        #     dia_final = letra_a_numero(fechas[2])
+        #     año = letra_a_numero(fechas[5])
+
+        #     fecha_inicio = str(año) + "-" + str(mes) + "-" + str(dia_inicio)
+        #     fecha_inicio = datetime.datetime.strptime(fecha_inicio,"%Y-%m-%d")
+
+        #     fecha_final = str(año) + "-" + str(mes) + "-" + str(dia_final)
+        #     fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
+
+        # elif proveedor == 3:
+        #     fechas = fechas.split()
+        #     print(fechas)
+
+        #     dia_inicio = letra_a_numero(fechas[2])
+        #     mes_inicio = mes_letra_a_numero(fechas[3])
+        #     dia_final = letra_a_numero(fechas[5])
+        #     mes_final = mes_letra_a_numero(fechas[6])
+        #     año = datetime.datetime.now().year
+
+        #     fecha_inicio = str(año) + "-" + str(mes_inicio) + "-" + str(dia_inicio)
+        #     fecha_inicio = datetime.datetime.strptime(fecha_inicio,"%Y-%m-%d")
+
+        #     fecha_final = str(año) + "-" + str(mes_final) + "-" + str(dia_final)
+        #     fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
+        # # 10-01-2020/10-02-2020
+        # elif proveedor == 11:
+        #     fechas = fechas.split("/")
+        #     fecha_inicio = fechas[0]
+        #     fecha_final = fechas[1]
+        #     fecha_inicio = datetime.datetime.strptime(fecha_inicio, "%d-%m-%Y")
+        #     fecha_final = datetime.datetime.strptime(fecha_final, "%d-%m-%Y")
+        # # oct 03 a nov 03
+        # elif proveedor == 13:
+        #     fechas = fechas.split(" ")
+        #     print(fechas)
+        #     dia_inicio = letra_a_numero(fechas[1])
+        #     mes_inicio = mes_letra_a_numero(fechas[0])
+        #     dia_final = letra_a_numero(fechas[4])
+        #     mes_final = mes_letra_a_numero(fechas[3])
+        #     año = datetime.datetime.now().year
+
+        #     fecha_inicio = str(año) + "-" + str(mes_inicio) + "-" + str(dia_inicio)
+        #     fecha_inicio = datetime.datetime.strptime(fecha_inicio,"%Y-%m-%d")
+
+        #     fecha_final = str(año) + "-" + str(mes_final) + "-" + str(dia_final)
+        #     fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
+        # # Sep 30 - Oct 30, 2020
+        # elif proveedor == 15:
+        #     fechas = fechas.split(" ")
+        #     print(fechas)
+
+        #     dia_inicio = letra_a_numero(fechas[1])
+        #     mes_inicio = mes_letra_a_numero(fechas[0])
+        #     dia_final = letra_a_numero(fechas[4])
+        #     mes_final = mes_letra_a_numero(fechas[3])
+        #     año = letra_a_numero(fechas[5])
+
+        #     fecha_inicio = str(año) + "-" + str(mes_inicio) + "-" + str(dia_inicio)
+        #     fecha_inicio = datetime.datetime.strptime(fecha_inicio,"%Y-%m-%d")
+
+        #     fecha_final = str(año) + "-" + str(mes_final) + "-" + str(dia_final)
+        #     fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
+        # # #15/10/2020 - 18/11/2020
+        # # elif proveedor == 16 or proveedor == 17:
+        # #     fechas = fechas.split("-")
+        # #     fecha_inicio = fechas[0].replace("/", "-")
+        # #     fecha_final = fechas[1].replace("/", "-")
+        # #     fecha_inicio = datetime.datetime.strptime(fecha_inicio, "%d-%m-%Y")
+        # #     fecha_final = datetime.datetime.strptime(fecha_final, "%d-%m-%Y")
+        # # proveedor == 5
+        # else:
+        #     fecha_inicio = datetime.datetime.now()
+        #     fecha_final = datetime.datetime.now()
 
         return fecha_inicio, fecha_final
 
