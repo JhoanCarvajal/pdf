@@ -73,6 +73,17 @@ class IdentificadorTotales(BaseModel):
     consumo_reactiva = CharField(max_length=40)
     contribucion_reactiva = CharField(max_length=40)
 
+class ValidarFechas(BaseModel):
+    id_operador = ForeignKeyField(Operador, backref="ValidarFechas_operadores")
+    remplazar = CharField(max_length=40, null=True)
+    separadores = CharField(max_length=40)
+    posicion_dia_inicio = IntegerField(null=True)
+    posicion_dia_final = IntegerField(null=True)
+    posicion_mes_inicio = IntegerField(null=True)
+    posicion_mes_final = IntegerField(null=True)
+    posicion_anho_inicio = IntegerField(null=True)
+    posicion_anho_final = IntegerField(null=True)
+
 def crear_tablas():
     with db:
-        db.create_tables([Region, Operador, Restaurante, Restaurantes_operadores, Factura, RoiOperador, RoiDatos, IdentificadorTotales])
+        db.create_tables([Region, Operador, Restaurante, Restaurantes_operadores, Factura, RoiOperador, RoiDatos, IdentificadorTotales, ValidarFechas])

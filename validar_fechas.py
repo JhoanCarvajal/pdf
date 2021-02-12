@@ -1,4 +1,5 @@
 import datetime
+import controlador
 
 # si hay una letra en el dia ej I5 
 def letra_a_numero(dato):
@@ -112,12 +113,49 @@ def comparar_fechas(fechas):
     except ValueError:
         pass
 
+def r(proveedor, fechas):
+    lista_datos = controlador.validar_fechas(proveedor)
+    if lista_datos:
+        print(lista_datos)
+        print(fechas)
+        if lista_datos[2]:
+            fechas = fechas.replace(lista_datos[2], lista_datos[3])
+        print(fechas)
+        fechas = fechas.split(lista_datos[3])
+
+        for i in range(len(fechas)):
+            fechas[i] = fechas[i].strip()
+
+        dia_inicio = letra_a_numero(fechas[lista_datos[4]])
+        dia_final = letra_a_numero(fechas[lista_datos[5]])
+        try:
+            mes_inicio = int(fechas[lista_datos[6]])
+        except ValueError:
+            mes_inicio = mes_letra_a_numero(fechas[lista_datos[6]])
+        try:
+            mes_final = int(fechas[lista_datos[7]])
+        except ValueError:
+            mes_final = mes_letra_a_numero(fechas[lista_datos[7]])
+        año_inicio = letra_a_numero(fechas[lista_datos[8]])
+        año_final = letra_a_numero(fechas[lista_datos[9]])
+
+        fecha_inicio = str(año_inicio) + "-" + str(mes_inicio) + "-" + str(dia_inicio)
+        fecha_inicio = datetime.datetime.strptime(fecha_inicio,"%Y-%m-%d")
+
+        fecha_final = str(año_final) + "-" + str(mes_final) + "-" + str(dia_final)
+        fecha_final = datetime.datetime.strptime(fecha_final,"%Y-%m-%d")
+
+        print(fecha_inicio)
+        print(fecha_final)
+
 
 def validar_fecha(proveedor, fechas):
     try:
         fecha_inicio = None
         fecha_final = None
         if proveedor == 2 or proveedor == 4 or proveedor == 6 or proveedor == 9 or proveedor == 10 or proveedor == 14 or proveedor == 16 or proveedor == 17:
+            
+            r(proveedor, fechas)
             if "-" in fechas:
                 fechas = fechas.split("-")
             else:
@@ -135,6 +173,9 @@ def validar_fecha(proveedor, fechas):
             fecha_final = fechas[1]
 
         elif proveedor == 1:
+            print("#")
+            r(proveedor, fechas)
+            print("#")
             fechas = fechas.split()
             print(fechas)
 

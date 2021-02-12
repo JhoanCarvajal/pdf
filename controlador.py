@@ -1,4 +1,5 @@
-from models import Region, Operador, Restaurante, Restaurantes_operadores, Factura, db, SQL, RoiOperador, RoiDatos, IdentificadorTotales
+from models import Region, Operador, Restaurante, Restaurantes_operadores, Factura, db, SQL
+from models import RoiOperador, RoiDatos, IdentificadorTotales, ValidarFechas
 import datetime
 import sqlite3
 
@@ -237,4 +238,13 @@ def identificador_totales(id_operador):
     resultados = db.execute(sql)
     for dato in resultados:
         lista.append(dato)
+    return lista
+
+def validar_fechas(id_operador):
+    lista = []
+    sql = ValidarFechas.select().where(ValidarFechas.id_operador == id_operador)
+    resultados = db.execute(sql)
+    for dato in resultados:
+        for d in dato:
+            lista.append(d)
     return lista
