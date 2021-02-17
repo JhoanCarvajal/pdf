@@ -2,6 +2,7 @@ import os
 from pdf2image import convert_from_path
 import detectar_proveedor
 import datetime
+
 def pdf2img(pdf):
     try:
         lista_imagenes = []
