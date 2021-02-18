@@ -15,12 +15,14 @@ def proveedor(self, ruta):
         bool_solo_negro = None
         rois = []
         lista_string_rois = controlador.regiones_interes_operadores()
+        print(lista_string_rois)
         for string in lista_string_rois:
-            lista = list(string)
-            info_roi = lista[1].split(",")
-            info_roi = [int(i) for i in info_roi]
-            x,y,w,h = info_roi
-            rois.append(image[y:y+h,x:x+w])
+            print(string)
+            # lista = list(string)
+            # info_roi = lista[1].split(",")
+            # info_roi = [int(i) for i in info_roi]
+            # x,y,w,h = info_roi
+            # rois.append(image[y:y+h,x:x+w])
 
         # i = 1
         # for roi in rois:
@@ -30,23 +32,23 @@ def proveedor(self, ruta):
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
 
-        lista_palabras = []
-        #leemos el texto del roi
-        for roi in rois:
-            texto = pytesseract.image_to_string(roi)
-            texto = texto[:len(texto) - 2]
-            #las ponemos todas en minusculas
-            palabras = texto.lower() # [element.lower() for element in palabras]
-            lista_palabras.append(palabras)
-        print(lista_palabras)
-        #comparamos para determinar que proveedor es
-        for i in range(len(lista_string_rois)):
-            if lista_string_rois[i][2] in lista_palabras[i]:
-                print(lista_string_rois[i][2])
-                self.proveedor = lista_string_rois[i][0]
-                bool_solo_negro = lista_string_rois[i][3]
-                break
-        lista_datos = ocr.ocr(self.proveedor, ruta, bool_solo_negro)
+        # lista_palabras = []
+        # #leemos el texto del roi
+        # for roi in rois:
+        #     texto = pytesseract.image_to_string(roi)
+        #     texto = texto[:len(texto) - 2]
+        #     #las ponemos todas en minusculas
+        #     palabras = texto.lower() # [element.lower() for element in palabras]
+        #     lista_palabras.append(palabras)
+        # print(lista_palabras)
+        # #comparamos para determinar que proveedor es
+        # for i in range(len(lista_string_rois)):
+        #     if lista_string_rois[i][2] in lista_palabras[i]:
+        #         print(lista_string_rois[i][2])
+        #         self.proveedor = lista_string_rois[i][0]
+        #         bool_solo_negro = lista_string_rois[i][3]
+        #         break
+        # lista_datos = ocr.ocr(self.proveedor, ruta, bool_solo_negro)
         
         if lista_datos:
             return lista_datos

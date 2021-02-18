@@ -51,8 +51,14 @@ class Factura(BaseModel):
 
 class RoiOperador(BaseModel):
     id_operador = ForeignKeyField(Operador, backref="roiOperador_operadores")
-    roi = CharField(max_length=40, null=True)
-    palabra_clave = CharField(max_length=40, null=True)
+    primer_roi = CharField(max_length=40, null=True)
+    primera_palabra_clave = CharField(max_length=40, null=True)
+    segundo_roi = CharField(max_length=40, null=True)
+    segunda_palabra_clave = CharField(max_length=40, null=True)
+    tercer_roi = CharField(max_length=40, null=True)
+    tercera_palabra_clave = CharField(max_length=40, null=True)
+    cuarto_roi = CharField(max_length=40, null=True)
+    cuarta_palabra_clave = CharField(max_length=40, null=True)
     solo_negro = BooleanField(default=False)
 
 
