@@ -19,10 +19,13 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         loadUi('plantillas/principal.ui', self)
 
         self.boolean = True
-        self.proveedor = None
+        self.operador = None
         self.restaurantes = controlador.lista_restaurantes()
+        self.operadores = controlador.lista_operadores()
         if not self.restaurantes:
             self.restaurantes.append("Ninguno")
+        if not self.operadores:
+            self.operadores.append("Operador")
         fecha_actual = datetime.now()
         año = fecha_actual.year
         self.años = []
@@ -35,10 +38,14 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         self.cb_meses.clear()
         self.cb_restaurantes.clear()
         self.cb_anhos.clear()
+        self.cb_operador.clear()
 
         self.cb_meses.addItems(self.meses)
         self.cb_restaurantes.addItems(self.restaurantes)
         self.cb_anhos.addItems(self.años)
+        self.cb_operador.addItems(self.operadores)
+
+        self.buscar_operador_nombre(self.cb_operador.currentText())
 
         self.matriz_datos = []
 
@@ -50,6 +57,7 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         self.btn_consultar_todo.clicked.connect(self.consultar_todo)
         self.btn_nuevo_restaurante.clicked.connect(self.abrir_ventana_restaurante)
         self.le_matricula.textChanged.connect(self.buscar_restaurante_operador)
+        self.cb_operador.activated[str].connect(self.buscar_operador_nombre)
 
     def limpiar_le(self):
         self.le_matricula.clear()
@@ -60,35 +68,46 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
             self.lb_nombre_restaurante.setText(restaurante.nombre)
             self.lb_nombre_operador.setText(operador.nombre)
 
+    def buscar_operador_nombre(self, text):
+        id_operador = controlador.id_operador_nombre(text)
+        if id_operador:
+            print(id_operador)
+            self.operador = id_operador
+
     def seleccionar(self):
+        self.statusBar().showMessage('seleccionando archivo')
         pdf_ruta, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Abrir pdf", None, "pdf files (*.pdf)")
         self.lb_ruta.setText(pdf_ruta)
         if self.lb_ruta.text() != "":
+            self.statusBar().showMessage('Cargando el pdf seleccionado...')
             del self.matriz_datos[:]
             lista_imagenes = pdf2img.pdf2img(pdf_ruta)
             print(lista_imagenes)
             for ruta_img in lista_imagenes:
                 lista_datos = detectar_proveedor.proveedor(self, ruta_img)
-                print(self.proveedor)
+                print(self.operador)
                 if lista_datos:
                     self.matriz_datos.append(lista_datos)
                     self.limpiar_le()
                     self.le_matricula.setText(str(lista_datos[0]))
-                    self.statusBar().showMessage('Se cargo el pdf')
+                    self.statusBar().showMessage('Se cargo el pdf correctamente')
                     self.boolean = True
                 else:
-                    self.statusBar().showMessage('No se tiene una lista de datos')
+                    self.statusBar().showMessage('Este pdf no es del proveedor seleccionado o esta mal escaneado!')
         else:
+            self.statusBar().showMessage('No se ha seleccionado un pdf')
             self.lb_ruta.setText("Ninguno")
 
     def abrir_ventana_datos(self):
         matriz = self.matriz_datos[0]
         # self.hide()
         ventana = ventana_datos.VentanaDatos(parent=self, matriz=matriz)
+        self.statusBar().showMessage('Ventana de datos en ejecución')
         ventana.show()
     
     def abrir_ventana_restaurante(self):
         ventana = ventana_crear_restaurante.VentanaCrearRestaurante(parent=self)
+        self.statusBar().showMessage('Ventana de para crear restaurantes en ejecución')
         ventana.show()
 
     def analizar(self):
@@ -97,9 +116,11 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
             self.statusBar().showMessage('No ha cargado un pdf')
         elif self.le_matricula.text() == "":
             self.le_matricula.setFocus()
+            self.statusBar().showMessage('No hay una matricula')
         else:
+            self.statusBar().showMessage('Analisando datos del pdf...')
             self.matriz_datos[0][0] = self.le_matricula.text()
-            datos = analizar_datos.analisis(self.proveedor, self.matriz_datos[0], self.boolean)
+            datos = analizar_datos.analisis(self.operador, self.matriz_datos[0], self.boolean)
             self.boolean = False
             del self.matriz_datos[:]
             self.matriz_datos.append(datos)

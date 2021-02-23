@@ -83,6 +83,13 @@ def lista_regiones():
         lista.append(region.nombre)
     return lista
 
+def lista_operadores():
+    lista = []
+    operadores = Operador.select()
+    for operador in operadores:
+        lista.append(operador.nombre)
+    return lista
+
 def id_region(nombre):
     try:
         region = Region.get(Region.nombre == nombre)
@@ -100,6 +107,13 @@ def id_restaurante(nombre):
 def id_operador(nit):
     try:
         operador = Operador.get(Operador.nit == nit)
+        return operador.id
+    except:
+        return None
+
+def id_operador_nombre(nombre):
+    try:
+        operador = Operador.get(Operador.nombre == nombre)
         return operador.id
     except:
         return None
@@ -216,12 +230,12 @@ def guardar_restaurante_operador(lista):
     except:
         print('Error al crear la relacion')
 
-def regiones_interes_operadores():
+def regiones_interes_operadores(id):
     lista = []
-    sql = RoiOperador.select()
-    roi_operadores = db.execute(sql)
-    for roi_operador in roi_operadores:
-        lista.append(roi_operador)
+    sql = RoiOperador.select().where(RoiOperador.id_operador == id)
+    resultados = db.execute(sql)
+    for dato in resultados:
+        lista.append(dato)
     return lista
 
 def regiones_interes_datos(id_operador):

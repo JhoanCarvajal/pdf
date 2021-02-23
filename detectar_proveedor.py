@@ -14,8 +14,8 @@ def proveedor(self, ruta):
 
         bool_solo_negro = None
         rois = []
-        lista_string_rois = controlador.regiones_interes_operadores()
-        # print(lista_string_rois)
+        lista_string_rois = controlador.regiones_interes_operadores(self.operador)
+        print(lista_string_rois)
         for operador in lista_string_rois:
             lista = list(operador)
 
@@ -39,13 +39,13 @@ def proveedor(self, ruta):
             x,y,w,h = info_roi
             rois.append(image[y:y+h,x:x+w])
 
-        # i = 1
-        # for roi in rois:
-        #     titulo = str(i)
-        #     cv2.imshow(titulo, roi)
-        #     i+=1
-        # cv2.waitKey(0)
-        # cv2.destroyAllWindows()
+        i = 1
+        for roi in rois:
+            titulo = str(i)
+            cv2.imshow(titulo, roi)
+            i+=1
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
 
         lista_palabras = []
         #leemos el texto del roi
@@ -59,10 +59,10 @@ def proveedor(self, ruta):
 
         #comparamos para determinar que proveedor es
         for i in range(len(lista_string_rois)):
-            print(lista_string_rois[i])
+            # print(lista_string_rois[i])
             cont = 0
             for p in range(len(lista_palabras)):
-                print(lista_palabras[p])
+                # print(lista_palabras[p])
                 if lista_string_rois[i][3] in lista_palabras[p]:
                     # print(lista_string_rois[i][3])
                     cont += 1
@@ -76,12 +76,15 @@ def proveedor(self, ruta):
                     # print(lista_string_rois[i][9])
                     cont += 1
             if cont == 4:
-                self.proveedor = lista_string_rois[i][1]
+                self.operador = lista_string_rois[i][1]
+                print(f"id del operadorrrrrr= {self.operador}")
                 bool_solo_negro = lista_string_rois[i][10]
-                break
-        lista_datos = ocr.ocr(self.proveedor, ruta, bool_solo_negro)
+                print(f"bool solo negroooooo= {bool_solo_negro}")
+                lista_datos = ocr.ocr(self.operador, ruta, bool_solo_negro)
+            else:
+                lista_datos = []
+                os.remove(ruta)
 
-        # lista_datos = []
         if lista_datos:
             return lista_datos
         else:
