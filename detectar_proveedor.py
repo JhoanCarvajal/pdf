@@ -39,13 +39,13 @@ def proveedor(self, ruta):
             x,y,w,h = info_roi
             rois.append(image[y:y+h,x:x+w])
 
-        i = 1
-        for roi in rois:
-            titulo = str(i)
-            cv2.imshow(titulo, roi)
-            i+=1
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # i = 1
+        # for roi in rois:
+        #     titulo = str(i)
+        #     cv2.imshow(titulo, roi)
+        #     i+=1
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
 
         lista_palabras = []
         #leemos el texto del roi
