@@ -14,16 +14,27 @@ class Region(BaseModel):
     nombre = CharField(max_length=40)
 
 
+class Departamento(BaseModel):
+    departamento = CharField(max_length=40, null=False, default='')
+
+
+class Municipio(BaseModel):
+    municipio = CharField(max_length=40, null=False, default='')
+    estado = IntegerField(null=False)
+    id_departamento = ForeignKeyField(Departamento, backref="municipios_departamentos")
+
+
 class Operador(BaseModel):
     nombre = CharField(max_length=40)
     nit = CharField(max_length=40)
-    servicio = CharField(max_length=40, null=True)
+    direccion = CharField(max_length=99, null=True)
 
 
 class Restaurante(BaseModel):
     nombre = CharField(max_length=40)
     direccion = TextField(null=True)
     id_region = ForeignKeyField(Region, backref="restaurante_region")
+    id_municipio = ForeignKeyField(Municipio, backref="restaurante_municipio")
 
 
 class Restaurantes_operadores(BaseModel):
@@ -96,4 +107,5 @@ class ValidarFechas(BaseModel):
 
 def crear_tablas():
     with db:
-        db.create_tables([Region, Operador, Restaurante, Restaurantes_operadores, Factura, RoiOperador, RoiDatos, IdentificadorTotales, ValidarFechas])
+        db.create_tables([Region, Departamento, Municipio, Operador, Restaurante, 
+        Restaurantes_operadores, Factura, RoiOperador, RoiDatos, IdentificadorTotales, ValidarFechas])

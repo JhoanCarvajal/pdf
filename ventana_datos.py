@@ -71,7 +71,8 @@ class VentanaDatos(QtWidgets.QMainWindow):
             controlador.guardar_factura(datos_buenos)
             self.abrir_ventana_principal()
         else:
-            self.le_matricula.setFocus()
+            self.le_causalidad.setFocus()
+            self.statusBar().showMessage('Por favor llene el campo de causalidad.')
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
