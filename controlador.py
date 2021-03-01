@@ -262,3 +262,11 @@ def validar_fechas(id_operador):
         for d in dato:
             lista.append(d)
     return lista
+
+def todo_operadores():
+    sql = Operador.select()
+    operadores = db.execute(sql)
+    return operadores
+
+def eliminar_operador(id):
+    sql = Operador.delete

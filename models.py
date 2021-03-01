@@ -25,13 +25,13 @@ class Municipio(BaseModel):
 
 
 class Operador(BaseModel):
-    nombre = CharField(max_length=40)
+    nombre = CharField(max_length=40, unique=True)
     nit = CharField(max_length=40)
     direccion = CharField(max_length=99, null=True)
 
 
 class Restaurante(BaseModel):
-    nombre = CharField(max_length=40)
+    nombre = CharField(max_length=40, unique=True)
     direccion = TextField(null=True)
     id_region = ForeignKeyField(Region, backref="restaurante_region")
     id_municipio = ForeignKeyField(Municipio, backref="restaurante_municipio")

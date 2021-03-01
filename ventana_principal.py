@@ -9,7 +9,7 @@ import analizar_datos
 import os
 import threading
 import controlador
-import ventana_datos
+import ventana_datos, ventana_operadores
 import ventana_crear_restaurante
 
 
@@ -56,8 +56,10 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         self.btn_consultar_anho.clicked.connect(self.consultar_anho)
         self.btn_consultar_todo.clicked.connect(self.consultar_todo)
         self.btn_nuevo_restaurante.clicked.connect(self.abrir_ventana_restaurante)
+        self.btn_operadores.clicked.connect(self.abrir_ventana_operadores)
         self.le_matricula.textChanged.connect(self.buscar_restaurante_operador)
         self.cb_operador.activated[str].connect(self.buscar_operador_nombre)
+        ####################################     fin eventos             ################################
 
     def limpiar_le(self):
         self.le_matricula.clear()
@@ -107,7 +109,12 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
     
     def abrir_ventana_restaurante(self):
         ventana = ventana_crear_restaurante.VentanaCrearRestaurante(parent=self)
-        self.statusBar().showMessage('Ventana de para crear restaurantes en ejecución')
+        self.statusBar().showMessage('Ventana de para restaurantes en ejecución')
+        ventana.show()
+
+    def abrir_ventana_operadores(self):
+        ventana = ventana_operadores.VentanaOperadores(parent=self)
+        self.statusBar().showMessage('Ventana de para operadores en ejecución')
         ventana.show()
 
     def analizar(self):
