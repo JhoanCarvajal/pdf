@@ -191,22 +191,19 @@ def guardar_restaurante(lista):
     except:
         print('error al crear un restaurante')
 
-def guardar_operador(lista):
+def guardar_operador(nom, ni, dire):
     try:
         try:
-            operador = Operador.get(Operador.nit == lista[1])
+            operador = Operador.get((Operador.nit == ni) | (Operador.nombre == nom))
         except:
             operador = None
 
         if not operador:
-            operador = Operador(nombre=lista[0], nit=lista[1], servicio=lista[2])
-            r = operador.save()
-            if r != 1:
-                print('No se creo el operador')
-            else:
-                print('operador creado')
+            operador = Operador(nombre=nom, nit=ni, direccion=dire)
+            resultado = operador.save()
+            return resultado
         else:
-            print('el operador ya existe ', operador.nombre)
+            return -1
     except:
         print('Error al crear un operador')
 
@@ -269,4 +266,16 @@ def todo_operadores():
     return operadores
 
 def eliminar_operador(id):
-    sql = Operador.delete
+    try:
+        resultado = Operador.delete_by_id(id)
+        return resultado
+    except ValueError():
+        print('Error al eliminar el operador')
+
+def actualizar_operador(id, nom, ni, dire):
+    try:
+        query = Operador.update(nombre=nom, nit=ni, direccion=dire).where(Operador.id == id)
+        resultado = query.execute()
+        return resultado
+    except ValueError():
+        print('Error al actualizar operador')
