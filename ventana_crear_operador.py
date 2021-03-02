@@ -25,10 +25,10 @@ class VentanaCrearOperador(QtWidgets.QMainWindow):
 
     def guardar_operador(self):
         resultado = guardar_operador(self.le_nombre.text(), self.le_nit.text(), self.le_direccion.text())
-        print(resultado)
         if resultado == 1:
             self.parent().statusBar().showMessage('Operador creado')
             self.parent().listar_operadores()
+            self.parent().parent().cargar()
             self.abrir_ventana_principal()
         else:
             self.statusBar().showMessage('No se creo el operador porque ya existe')

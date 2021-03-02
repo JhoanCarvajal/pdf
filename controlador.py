@@ -1,5 +1,5 @@
 from models import Region, Operador, Restaurante, Restaurantes_operadores, Factura, db, SQL
-from models import RoiOperador, RoiDatos, IdentificadorTotales, ValidarFechas
+from models import RoiOperador, RoiDatos, IdentificadorTotales, ValidarFechas, Municipio
 import datetime
 import sqlite3
 
@@ -83,6 +83,13 @@ def lista_regiones():
         lista.append(region.nombre)
     return lista
 
+def lista_municipios():
+    lista = []
+    municipios = Municipio.select()
+    for municipio in municipios:
+        lista.append(municipio.municipio)
+    return lista
+
 def lista_operadores():
     lista = []
     operadores = Operador.select()
@@ -97,6 +104,13 @@ def id_region(nombre):
     except:
         return None
 
+def id_municipio(nombre):
+    try:
+        municipio = Municipio.get(Municipio.municipio == nombre)
+        return municipio.id
+    except:
+        return None
+
 def id_restaurante(nombre):
     try:
         restaurante = Restaurante.get(Restaurante.nombre == nombre)
@@ -104,7 +118,7 @@ def id_restaurante(nombre):
     except:
         return None
 
-def id_operador(nit):
+def id_operador_nit(nit):
     try:
         operador = Operador.get(Operador.nit == nit)
         return operador.id
@@ -172,24 +186,21 @@ def buscar_causalidad(matricula):
         causalidad = None
     return causalidad
 
-def guardar_restaurante(lista):
+def guardar_restaurante(nom, dire, id_re, id_mun):
     try:
         try:
-            restaurante = Restaurante.get(Restaurante.nombre == lista[0])
+            restaurante = Restaurante.get(Restaurante.nombre == nom)
         except:
             restaurante = None
 
         if not restaurante:
-            restaurante = Restaurante(nombre=lista[0], direccion=lista[1], id_region=lista[2])
-            r = restaurante.save()
-            if r != 1:
-                print('No se creo el restaurante')
-            else:
-                print('restaurate creado')
+            restaurante = Restaurante(nombre=nom, direccion=dire, id_region=id_re, id_municipio=id_mun)
+            resultado = restaurante.save()
+            return resultado
         else:
-            print('el restaurante ya existe', restaurante.nombre)
+            return -1
     except:
-        print('error al crear un restaurante')
+        print('Error al crear un restaurante')
 
 def guardar_operador(nom, ni, dire):
     try:
@@ -207,23 +218,19 @@ def guardar_operador(nom, ni, dire):
     except:
         print('Error al crear un operador')
 
-def guardar_restaurante_operador(lista):
-    print(lista)
+def guardar_restaurante_operador(id_oper, id_rest, matric):
     try:
         try:
-            restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.medidor_telefono == lista[2])
+            restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.medidor_telefono == matric)
         except:
             restaurante_operador = None
 
         if not restaurante_operador:
-            restaurante_operador = Restaurantes_operadores(id_operador=lista[0], id_restaurante=lista[1], medidor_telefono=lista[2])
-            r = restaurante_operador.save()
-            if r != 1:
-                print('No se creo la relacion')
-            else:
-                print('relacion creada')
+            restaurante_operador = Restaurantes_operadores(id_operador=id_oper, id_restaurante=id_rest, medidor_telefono=matric)
+            resultado = restaurante_operador.save()
+            return resultado
         else:
-            print('la relacion ya existe')
+            return -1
     except:
         print('Error al crear la relacion')
 

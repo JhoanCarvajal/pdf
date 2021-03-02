@@ -20,12 +20,14 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
 
         self.boolean = True
         self.operador = None
-        self.restaurantes = controlador.lista_restaurantes()
-        self.operadores = controlador.lista_operadores()
+
+        self.cargar()
+
         if not self.restaurantes:
             self.restaurantes.append("Ninguno")
         if not self.operadores:
             self.operadores.append("Operador")
+
         fecha_actual = datetime.now()
         año = fecha_actual.year
         self.años = []
@@ -36,16 +38,10 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         self.meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
 
         self.cb_meses.clear()
-        self.cb_restaurantes.clear()
         self.cb_anhos.clear()
-        self.cb_operador.clear()
 
         self.cb_meses.addItems(self.meses)
-        self.cb_restaurantes.addItems(self.restaurantes)
         self.cb_anhos.addItems(self.años)
-        self.cb_operador.addItems(self.operadores)
-
-        self.buscar_operador_nombre(self.cb_operador.currentText())
 
         self.matriz_datos = []
 
@@ -63,6 +59,18 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
 
     def limpiar_le(self):
         self.le_matricula.clear()
+    
+    def cargar(self):
+        self.restaurantes = controlador.lista_restaurantes()
+        self.operadores = controlador.lista_operadores()
+
+        self.cb_restaurantes.clear()
+        self.cb_operador.clear()
+        
+        self.cb_restaurantes.addItems(self.restaurantes)
+        self.cb_operador.addItems(self.operadores)
+        
+        self.buscar_operador_nombre(self.cb_operador.currentText())
 
     def buscar_restaurante_operador(self, text):
         restaurante, operador = controlador.buscar_restaurate_operador(text)

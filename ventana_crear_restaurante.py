@@ -8,16 +8,25 @@ class VentanaCrearRestaurante(QtWidgets.QMainWindow):
         loadUi('plantillas/crear_restaurante.ui', self)
 
         regiones = lista_regiones()
-        self.cb_region.clear()
-        self.cb_region.addItems(regiones)
-        self.buscar_id_region()
+        municipios = lista_municipios()
+        operadores = lista_operadores()
 
-        self.le_medidor_telefono.textChanged.connect(self.buscar_restaurante_operador)
-        self.btn_guardar_restaurante.clicked.connect(self.guardar_restaurante)
-        self.btn_guardar_relacion.clicked.connect(self.guardar_relacion)
-        self.cb_region.currentTextChanged.connect(self.buscar_id_region)
-        self.le_nombre_restaurante_2.textChanged.connect(self.buscar_id_restaurante)
-        self.le_nit_operador_2.textChanged.connect(self.buscar_id_operador)
+        self.cb_regiones.clear()
+        self.cb_municipios.clear()
+        self.cb_operadores.clear()
+
+        self.cb_regiones.addItems(regiones)
+        self.cb_municipios.addItems(municipios)
+        self.cb_operadores.addItems(operadores)
+
+        self.buscar_id_region()
+        self.buscar_id_municipio()
+        self.buscar_id_operador()
+
+        self.btn_guardar.clicked.connect(self.guardar_restaurante)
+        self.cb_regiones.currentTextChanged.connect(self.buscar_id_region)
+        self.cb_municipios.currentTextChanged.connect(self.buscar_id_municipio)
+        self.cb_operadores.currentTextChanged.connect(self.buscar_id_operador)
 
     def abrir_ventana_principal(self):
         self.parent().show()
@@ -26,35 +35,44 @@ class VentanaCrearRestaurante(QtWidgets.QMainWindow):
     def buscar_restaurante_operador(self, text):
         restaurante, operador = buscar_restaurate_operador(text)
         if restaurante and operador:
-            self.le_nombre_restaurante_2.clear()
-            self.le_nit_operador_2.clear()
-            self.le_nombre_restaurante_2.setText(restaurante.nombre)
-            self.le_nit_operador_2.setText(operador.nit)
+            self.le_nombre.clear()
+            self.le_nombre.setText(restaurante.nombre)
         
     def guardar_restaurante(self):
-        restaurante = []
-        restaurante.append(self.le_nombre_restaurante.text())
-        restaurante.append(self.le_direccion_restaurante.text())
-        restaurante.append(self.id_region)
-        guardar_restaurante(restaurante)
+        resultado = guardar_restaurante(self.le_nombre.text(), self.le_direccion.text(), self.id_region, self.id_municipio)
+        if resultado == 1:
+            self.parent().statusBar().showMessage('Restaurante creado!')
+            self.guardar_relacion()
+        else:
+            self.statusBar().showMessage('No se creo el restaurante porque ya existe')
 
     def guardar_relacion(self):
-        restaurante_operador = []
-        restaurante_operador.append(self.id_operador)
-        restaurante_operador.append(self.id_restaurante)
-        restaurante_operador.append(self.le_medidor_telefono.text())
-        guardar_restaurante_operador(restaurante_operador)
+        self.buscar_id_restaurante()
+        print(f'id_operador={self.id_operador}, id_restaurante={self.id_restaurante}, matricula={self.le_matricula.text()}')
+        resultado = guardar_restaurante_operador(self.id_operador, self.id_restaurante, self.le_matricula.text())
+        if resultado == 1:
+            self.parent().statusBar().showMessage('Restaurante creado con operador de red')
+            self.parent().cargar()
+            self.abrir_ventana_principal()
+        else:
+            self.statusBar().showMessage('Se creo el restaurante pero no se pudo relacionar con el operador')
 
     def buscar_id_region(self):
-        nombre = self.cb_region.currentText()
+        nombre = self.cb_regiones.currentText()
         self.id_region = id_region(nombre)
-
-    def buscar_id_restaurante(self, text):
-        self.id_restaurante = id_restaurante(text)
     
-    def buscar_id_operador(self, text):
-        self.id_operador = id_operador(text)
+    def buscar_id_municipio(self):
+        nombre = self.cb_municipios.currentText()
+        self.id_municipio = id_municipio(nombre)
 
+    def buscar_id_operador(self):
+        nombre = self.cb_operadores.currentText()
+        self.id_operador = id_operador_nombre(nombre)
+
+    def buscar_id_restaurante(self):
+        nombre = self.le_nombre.text()
+        self.id_restaurante = id_restaurante(nombre)
+    
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication

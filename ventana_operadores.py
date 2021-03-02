@@ -57,6 +57,7 @@ class VentanaOperadores(QtWidgets.QMainWindow):
             resultado = eliminar_operador(id)
             if resultado:
                 self.statusBar().showMessage(f'Se elimino el operador con id {id}')
+                self.parent().cargar()
                 self.listar_operadores()
             else:
                 self.statusBar().showMessage('No se elimino el operador o no existe')
