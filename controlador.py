@@ -1,5 +1,5 @@
 from models import Region, Operador, Restaurante, Restaurantes_operadores, Factura, db, SQL
-from models import RoiOperador, RoiDatos, IdentificadorTotales, ValidarFechas, Municipio
+from models import RoiOperador, RoiDatos, IdentificadorTotales, ValidarFechas, Municipio, Departamento
 import datetime
 import sqlite3
 
@@ -296,7 +296,7 @@ def todo_restaurantes():
 
 def eliminar_restaurante(id):
     try:
-        resultado = Restaurante.delete_by_id(id)
+        resultado = Restaurante.delete().where(Restaurante.id == id).execute()
         return resultado
     except ValueError():
         print('Error al eliminar el restaurante')
@@ -308,3 +308,11 @@ def actualizar_restaurante(id, nom, dire, id_re, id_mun):
         return resultado
     except ValueError():
         print('Error al actualizar restaurantes')
+
+#retorna los municipios de una region
+def municipios_region(id_re):
+    lista = []
+    municipios = Municipio.select().join(Departamento).join(Region).where(Departamento.id_region == id_re)
+    for municipio in municipios:
+        lista.append(municipio.municipio)
+    return lista

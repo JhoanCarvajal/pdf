@@ -8,7 +8,6 @@ class VentanaCrearRestaurante(QtWidgets.QMainWindow):
         loadUi('plantillas/crear_restaurante.ui', self)
 
         regiones = lista_regiones()
-        municipios = lista_municipios()
         operadores = lista_operadores()
 
         self.cb_regiones.clear()
@@ -16,7 +15,6 @@ class VentanaCrearRestaurante(QtWidgets.QMainWindow):
         self.cb_operadores.clear()
 
         self.cb_regiones.addItems(regiones)
-        self.cb_municipios.addItems(municipios)
         self.cb_operadores.addItems(operadores)
 
         self.buscar_id_region()
@@ -61,6 +59,7 @@ class VentanaCrearRestaurante(QtWidgets.QMainWindow):
     def buscar_id_region(self):
         nombre = self.cb_regiones.currentText()
         self.id_region = id_region(nombre)
+        self.municipios_region_seleccionada()
     
     def buscar_id_municipio(self):
         nombre = self.cb_municipios.currentText()
@@ -73,6 +72,12 @@ class VentanaCrearRestaurante(QtWidgets.QMainWindow):
     def buscar_id_restaurante(self):
         nombre = self.le_nombre.text()
         self.id_restaurante = id_restaurante(nombre)
+
+    def municipios_region_seleccionada(self):
+        municipios = municipios_region(self.id_region)
+        self.cb_municipios.clear()
+        self.cb_municipios.addItems(municipios)
+
     
 
 if __name__ == '__main__':
