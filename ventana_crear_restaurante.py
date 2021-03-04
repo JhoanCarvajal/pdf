@@ -52,7 +52,8 @@ class VentanaCrearRestaurante(QtWidgets.QMainWindow):
         resultado = guardar_restaurante_operador(self.id_operador, self.id_restaurante, self.le_matricula.text())
         if resultado == 1:
             self.parent().statusBar().showMessage('Restaurante creado con operador de red')
-            self.parent().cargar()
+            self.parent().listar_restaurantes()
+            self.parent().parent().cargar()
             self.abrir_ventana_principal()
         else:
             self.statusBar().showMessage('Se creo el restaurante pero no se pudo relacionar con el operador')

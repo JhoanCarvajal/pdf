@@ -267,6 +267,7 @@ def validar_fechas(id_operador):
             lista.append(d)
     return lista
 
+# Operadores de red
 def todo_operadores():
     sql = Operador.select()
     operadores = db.execute(sql)
@@ -286,3 +287,24 @@ def actualizar_operador(id, nom, ni, dire):
         return resultado
     except ValueError():
         print('Error al actualizar operador')
+
+# Restaurantes
+def todo_restaurantes():
+    sql = Restaurante.select()
+    restaurantes = db.execute(sql)
+    return restaurantes
+
+def eliminar_restaurante(id):
+    try:
+        resultado = Restaurante.delete_by_id(id)
+        return resultado
+    except ValueError():
+        print('Error al eliminar el restaurante')
+
+def actualizar_restaurante(id, nom, dire, id_re, id_mun):
+    try:
+        query = Restaurante.update(nombre=nom, direccion=dire, id_region=id_re, id_municipio=id_mun).where(Restaurante.id == id)
+        resultado = query.execute()
+        return resultado
+    except ValueError():
+        print('Error al actualizar restaurantes')

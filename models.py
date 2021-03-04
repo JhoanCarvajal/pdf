@@ -16,12 +16,13 @@ class Region(BaseModel):
 
 class Departamento(BaseModel):
     departamento = CharField(max_length=40, null=False, default='')
+    id_region = ForeignKeyField(Region, backref="restaurante_region", on_delete='CASCADE')
 
 
 class Municipio(BaseModel):
     municipio = CharField(max_length=40, null=False, default='')
     estado = IntegerField(null=False)
-    id_departamento = ForeignKeyField(Departamento, backref="municipios_departamentos")
+    id_departamento = ForeignKeyField(Departamento, backref="municipios_departamentos", on_delete='CASCADE')
 
 
 class Operador(BaseModel):
@@ -33,18 +34,18 @@ class Operador(BaseModel):
 class Restaurante(BaseModel):
     nombre = CharField(max_length=40, unique=True)
     direccion = TextField(null=True)
-    id_region = ForeignKeyField(Region, backref="restaurante_region")
-    id_municipio = ForeignKeyField(Municipio, backref="restaurante_municipio")
+    id_region = ForeignKeyField(Region, backref="restaurante_region", on_delete='CASCADE')
+    id_municipio = ForeignKeyField(Municipio, backref="restaurante_municipio", on_delete='CASCADE')
 
 
 class Restaurantes_operadores(BaseModel):
-    id_operador = ForeignKeyField(Operador, backref="operador_restaurante")
-    id_restaurante = ForeignKeyField(Restaurante, backref="restaurante_operador")
+    id_operador = ForeignKeyField(Operador, backref="operador_restaurante", on_delete='CASCADE')
+    id_restaurante = ForeignKeyField(Restaurante, backref="restaurante_operador", on_delete='CASCADE')
     medidor_telefono = CharField(max_length=40)
 
 
 class Factura(BaseModel):
-    id_restaurante = ForeignKeyField(Restaurante, backref="factura_restaurante")
+    id_restaurante = ForeignKeyField(Restaurante, backref="factura_restaurante", on_delete='CASCADE')
     inicial = DateField()
     final = DateField()
     causa = FloatField()
@@ -61,7 +62,7 @@ class Factura(BaseModel):
 
 
 class RoiOperador(BaseModel):
-    id_operador = ForeignKeyField(Operador, backref="roiOperador_operadores")
+    id_operador = ForeignKeyField(Operador, backref="roiOperador_operadores", on_delete='CASCADE')
     primer_roi = CharField(max_length=40, null=True)
     primera_palabra_clave = CharField(max_length=40, null=True)
     segundo_roi = CharField(max_length=40, null=True)
@@ -74,7 +75,7 @@ class RoiOperador(BaseModel):
 
 
 class RoiDatos(BaseModel):
-    id_operador = ForeignKeyField(Operador, backref="roiDatos_operadores")
+    id_operador = ForeignKeyField(Operador, backref="roiDatos_operadores", on_delete='CASCADE')
     matricula = CharField(max_length=40)
     periodo = CharField(max_length=40)
     valor = CharField(max_length=40)
@@ -86,7 +87,7 @@ class RoiDatos(BaseModel):
 
 
 class IdentificadorTotales(BaseModel):
-    id_operador = ForeignKeyField(Operador, backref="identificadorTotales_operadores")
+    id_operador = ForeignKeyField(Operador, backref="identificadorTotales_operadores", on_delete='CASCADE')
     consumo_activa = CharField(max_length=40)
     contribucion_activa = CharField(max_length=40)
     consumo_reactiva = CharField(max_length=40)
@@ -94,7 +95,7 @@ class IdentificadorTotales(BaseModel):
 
 
 class ValidarFechas(BaseModel):
-    id_operador = ForeignKeyField(Operador, backref="ValidarFechas_operadores")
+    id_operador = ForeignKeyField(Operador, backref="ValidarFechas_operadores", on_delete='CASCADE')
     remplazar = CharField(max_length=40, null=True)
     separadores = CharField(max_length=40)
     posicion_dia_inicio = IntegerField(null=True)
