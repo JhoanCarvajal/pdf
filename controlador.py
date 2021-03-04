@@ -34,8 +34,8 @@ def guardar_factura(lista):
 def info_restaurante(mes,nombre,año):
     con = sqlite3.connect("database.db")
     cursor = con.cursor()
-    sql = "SELECT * FROM factura WHERE id_restaurante_id = \
-        (SELECT id FROM restaurante WHERE nombre = ?) AND (SELECT strftime('%m', DATE(final))) = ? \
+    sql = "SELECT * FROM facturas WHERE id_restaurante_id = \
+        (SELECT id FROM restaurantes WHERE nombre = ?) AND (SELECT strftime('%m', DATE(final))) = ? \
             AND (SELECT strftime('%Y', DATE(final))) = ? ORDER BY id ASC"
     datos = (str(nombre), str(mes), str(año))
     cursor.execute(sql, datos)
@@ -47,8 +47,8 @@ def info_restaurante(mes,nombre,año):
 def info_todo_año(nombre, año):
     con = sqlite3.connect("database.db")
     cursor = con.cursor()
-    sql = "SELECT * FROM factura WHERE \
-        id_restaurante_id = (SELECT id FROM restaurante WHERE nombre = ?) \
+    sql = "SELECT * FROM facturas WHERE \
+        id_restaurante_id = (SELECT id FROM restaurantes WHERE nombre = ?) \
         AND (SELECT strftime('%Y', DATE(final))) = ? \
         ORDER BY id ASC"
     datos = (str(nombre), str(año))
