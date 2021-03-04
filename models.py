@@ -13,10 +13,16 @@ class BaseModel(Model):
 class Region(BaseModel):
     nombre = CharField(max_length=40)
 
+    class Meta:
+        table_name = 'regiones'
+
 
 class Departamento(BaseModel):
     departamento = CharField(max_length=40, null=False, default='')
-    id_region = ForeignKeyField(Region, backref="restaurante_region", on_delete='CASCADE')
+    id_region = ForeignKeyField(Region, backref="departamento_region", on_delete='CASCADE')
+
+    class Meta:
+        table_name = 'departamentos'
 
 
 class Municipio(BaseModel):
@@ -24,11 +30,17 @@ class Municipio(BaseModel):
     estado = IntegerField(null=False)
     id_departamento = ForeignKeyField(Departamento, backref="municipios_departamentos", on_delete='CASCADE')
 
+    class Meta:
+        table_name = 'municipios'
+
 
 class Operador(BaseModel):
     nombre = CharField(max_length=40, unique=True)
     nit = CharField(max_length=40)
     direccion = CharField(max_length=99, null=True)
+
+    class Meta:
+        table_name = 'operadores'
 
 
 class Restaurante(BaseModel):
@@ -37,11 +49,17 @@ class Restaurante(BaseModel):
     id_region = ForeignKeyField(Region, backref="restaurante_region", on_delete='CASCADE')
     id_municipio = ForeignKeyField(Municipio, backref="restaurante_municipio", on_delete='CASCADE')
 
+    class Meta:
+        table_name = 'restaurantes'
+
 
 class Restaurantes_operadores(BaseModel):
     id_operador = ForeignKeyField(Operador, backref="operador_restaurante", on_delete='CASCADE')
     id_restaurante = ForeignKeyField(Restaurante, backref="restaurante_operador", on_delete='CASCADE')
     medidor_telefono = CharField(max_length=40)
+
+    class Meta:
+        table_name = 'restaurantes_operadores'
 
 
 class Factura(BaseModel):
@@ -60,6 +78,9 @@ class Factura(BaseModel):
     contribucion = FloatField()
     alumbrado = FloatField()
 
+    class Meta:
+        table_name = 'facturas'
+
 
 class RoiOperador(BaseModel):
     id_operador = ForeignKeyField(Operador, backref="roiOperador_operadores", on_delete='CASCADE')
@@ -73,6 +94,9 @@ class RoiOperador(BaseModel):
     cuarta_palabra_clave = CharField(max_length=40, null=True)
     solo_negro = BooleanField(default=False)
 
+    class Meta:
+        table_name = 'roi_operadores'
+
 
 class RoiDatos(BaseModel):
     id_operador = ForeignKeyField(Operador, backref="roiDatos_operadores", on_delete='CASCADE')
@@ -85,6 +109,9 @@ class RoiDatos(BaseModel):
     codigos = CharField(max_length=40)
     totales = CharField(max_length=40)
 
+    class Meta:
+        table_name = 'roi_datos'
+
 
 class IdentificadorTotales(BaseModel):
     id_operador = ForeignKeyField(Operador, backref="identificadorTotales_operadores", on_delete='CASCADE')
@@ -92,6 +119,9 @@ class IdentificadorTotales(BaseModel):
     contribucion_activa = CharField(max_length=40)
     consumo_reactiva = CharField(max_length=40)
     contribucion_reactiva = CharField(max_length=40)
+
+    class Meta:
+        table_name = 'identificadores_totales'
 
 
 class ValidarFechas(BaseModel):
@@ -104,6 +134,9 @@ class ValidarFechas(BaseModel):
     posicion_mes_final = IntegerField(null=True)
     posicion_anho_inicio = IntegerField(null=True)
     posicion_anho_final = IntegerField(null=True)
+
+    class Meta:
+        table_name = 'validar_fechas'
 
 
 def crear_tablas():
