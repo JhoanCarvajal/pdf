@@ -296,8 +296,9 @@ def todo_restaurantes():
 
 def eliminar_restaurante(id):
     try:
-        resultado = Restaurante.delete().where(Restaurante.id == id).execute()
-        return resultado
+        resultaodo1 = Restaurantes_operadores.delete().where(Restaurantes_operadores.id_restaurante == id).execute()
+        resultado2 = Restaurante.delete().where(Restaurante.id == id).execute()
+        return resultado2
     except ValueError():
         print('Error al eliminar el restaurante')
 
