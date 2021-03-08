@@ -2,7 +2,7 @@ from peewee import *
 
 DATABASE = 'database.db'
 
-db = SqliteDatabase(DATABASE)
+db = SqliteDatabase(DATABASE, pragmas={'foreign_keys': 1})
 
 
 class BaseModel(Model):

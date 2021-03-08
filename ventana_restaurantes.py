@@ -64,7 +64,7 @@ class VentanaRestaurantes(QtWidgets.QMainWindow):
 
 
 if __name__ == '__main__':
-    app = QtWidgets.QApplication
+    app = QtWidgets.QApplication([])
     ventana = VentanaRestaurantes()
     ventana.show()
     app.exec_()

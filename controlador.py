@@ -3,32 +3,6 @@ from models import RoiOperador, RoiDatos, IdentificadorTotales, ValidarFechas, M
 import datetime
 import sqlite3
 
-# guardar nuevos registros en la tabla de facturas
-def guardar_factura(lista):
-    print(lista)
-    try:
-        me_te = str(lista[0])
-        try:
-            restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.medidor_telefono == me_te)
-        except:
-            restaurante_operador = None
-        if restaurante_operador:
-            factura = Factura(id_restaurante=restaurante_operador.id_restaurante, inicial=lista[1], 
-            final=lista[2], causa=lista[3], paga=lista[4], ajuste=lista[5], doc_pag=lista[6],
-            doc_aj=lista[7], consumo_activa=lista[8], consumo_reactiva=lista[9], kw=lista[10],
-            valor_kw=lista[11], contribucion=lista[12], alumbrado=lista[13])
-
-            print(factura)
-
-            r = factura.save()
-            if r != 1:
-                print('Error el restaurante no existe')
-            else:
-                print('factura creada')
-        else:
-            print('no existe una relcion')
-    except:
-        print('Hubo un error')
 
 # consulta sobre las facturas del restaurante dependiendo de un mes y un año
 def info_restaurante(mes,nombre,año):
@@ -68,98 +42,32 @@ def todo():
         lista_facturas.append(factura)
     return restaurantes, lista_facturas
 
-# Consulta sobre los restaurantes
-def lista_restaurantes():
-    lista = []
-    restaurantes = Restaurante.select()
-    for restaurante in restaurantes:
-        lista.append(restaurante.nombre)
-    return lista
-
-def lista_regiones():
-    lista = []
-    regiones = Region.select()
-    for region in regiones:
-        lista.append(region.nombre)
-    return lista
-
-def lista_municipios():
-    lista = []
-    municipios = Municipio.select()
-    for municipio in municipios:
-        lista.append(municipio.municipio)
-    return lista
-
-def lista_operadores():
-    lista = []
-    operadores = Operador.select()
-    for operador in operadores:
-        lista.append(operador.nombre)
-    return lista
-
-def id_region(nombre):
+# facturas
+def guardar_factura(lista):
+    print(lista)
     try:
-        region = Region.get(Region.nombre == nombre)
-        return region.id
-    except:
-        return None
+        me_te = str(lista[0])
+        try:
+            restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.medidor_telefono == me_te)
+        except:
+            restaurante_operador = None
+        if restaurante_operador:
+            factura = Factura(id_restaurante=restaurante_operador.id_restaurante, inicial=lista[1], 
+            final=lista[2], causa=lista[3], paga=lista[4], ajuste=lista[5], doc_pag=lista[6],
+            doc_aj=lista[7], consumo_activa=lista[8], consumo_reactiva=lista[9], kw=lista[10],
+            valor_kw=lista[11], contribucion=lista[12], alumbrado=lista[13])
 
-def id_municipio(nombre):
-    try:
-        municipio = Municipio.get(Municipio.municipio == nombre)
-        return municipio.id
-    except:
-        return None
+            print(factura)
 
-def id_restaurante(nombre):
-    try:
-        restaurante = Restaurante.get(Restaurante.nombre == nombre)
-        return restaurante.id
-    except:
-        return None
-
-def id_operador_nit(nit):
-    try:
-        operador = Operador.get(Operador.nit == nit)
-        return operador.id
-    except:
-        return None
-
-def id_operador_nombre(nombre):
-    try:
-        operador = Operador.get(Operador.nombre == nombre)
-        return operador.id
-    except:
-        return None
-
-def buscar_operador(nit):
-    try:
-        operador = Operador.get(Operador.nit == nit)
-        if operador:
-            return operador
+            r = factura.save()
+            if r != 1:
+                print('Error el restaurante no existe')
+            else:
+                print('factura creada')
         else:
-            return None
+            print('no existe una relcion')
     except:
-        pass
-
-def buscar_restaurate_operador(medidor_telefono):
-    restaurante = None
-    operador = None
-    try:
-        restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.medidor_telefono == medidor_telefono)
-    except:
-        restaurante_operador = None
-    
-    if restaurante_operador:
-        id_restaurante = restaurante_operador.id_restaurante
-        id_operador = restaurante_operador.id_operador
-        restaurante = Restaurante.get(Restaurante.id == id_restaurante)
-        operador = Operador.get(Operador.id == id_operador)
-    else:
-        restaurante = None
-        operador = None
-    
-    return restaurante, operador
+        print('Hubo un error')
 
 def buscar_causalidad(matricula):
     causalidad = None
@@ -186,37 +94,64 @@ def buscar_causalidad(matricula):
         causalidad = None
     return causalidad
 
-def guardar_restaurante(nom, dire, id_re, id_mun):
+#regiones
+def lista_regiones():
+    lista = []
+    regiones = Region.select()
+    for region in regiones:
+        lista.append(region)
+    return lista
+
+def id_region(nombre):
     try:
-        try:
-            restaurante = Restaurante.get(Restaurante.nombre == nom)
-        except:
-            restaurante = None
-
-        if not restaurante:
-            restaurante = Restaurante(nombre=nom, direccion=dire, id_region=id_re, id_municipio=id_mun)
-            resultado = restaurante.save()
-            return resultado
-        else:
-            return -1
+        region = Region.get(Region.nombre == nombre)
+        return region.id
     except:
-        print('Error al crear un restaurante')
+        return None
 
-def guardar_operador(nom, ni, dire):
+#municipios
+def lista_municipios():
+    lista = []
+    municipios = Municipio.select()
+    for municipio in municipios:
+        lista.append(municipio.municipio)
+    return lista
+
+def id_municipio(nombre):
+    # retorna solo el id de una region
     try:
-        try:
-            operador = Operador.get((Operador.nit == ni) | (Operador.nombre == nom))
-        except:
-            operador = None
-
-        if not operador:
-            operador = Operador(nombre=nom, nit=ni, direccion=dire)
-            resultado = operador.save()
-            return resultado
-        else:
-            return -1
+        municipio = Municipio.get(Municipio.municipio == nombre)
+        return municipio.id
     except:
-        print('Error al crear un operador')
+        return None
+
+def municipios_region(id_re):
+    # retorna los municipios de una region
+    lista = []
+    municipios = Municipio.select().join(Departamento).join(Region).where(Departamento.id_region == id_re)
+    for municipio in municipios:
+        lista.append(municipio)
+    return lista
+
+# restaurante_operador
+def buscar_restaurate_operador(medidor_telefono):
+    restaurante = None
+    operador = None
+    try:
+        restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.medidor_telefono == medidor_telefono)
+    except:
+        restaurante_operador = None
+    
+    if restaurante_operador:
+        id_restaurante = restaurante_operador.id_restaurante
+        id_operador = restaurante_operador.id_operador
+        restaurante = Restaurante.get(Restaurante.id == id_restaurante)
+        operador = Operador.get(Operador.id == id_operador)
+    else:
+        restaurante = None
+        operador = None
+    
+    return restaurante, operador
 
 def guardar_restaurante_operador(id_oper, id_rest, matric):
     try:
@@ -234,6 +169,10 @@ def guardar_restaurante_operador(id_oper, id_rest, matric):
     except:
         print('Error al crear la relacion')
 
+def get_restaurante_operador(id_resta):
+    restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.id_restaurante == id_resta)
+    return restaurante_operador
+# regiones de interes del operador
 def regiones_interes_operadores(id):
     lista = []
     sql = RoiOperador.select().where(RoiOperador.id_operador == id)
@@ -242,6 +181,7 @@ def regiones_interes_operadores(id):
         lista.append(dato)
     return lista
 
+#regiones de interes para los datos
 def regiones_interes_datos(id_operador):
     lista = []
     sql = RoiDatos.select().where(RoiDatos.id_operador == id_operador)
@@ -250,6 +190,7 @@ def regiones_interes_datos(id_operador):
         lista.append(dato)
     return lista
 
+# identificador de los totales
 def identificador_totales(id_operador):
     lista = []
     sql = IdentificadorTotales.select().where(IdentificadorTotales.id_operador == id_operador)
@@ -258,6 +199,7 @@ def identificador_totales(id_operador):
         lista.append(dato)
     return lista
 
+# validar fechas
 def validar_fechas(id_operador):
     lista = []
     sql = ValidarFechas.select().where(ValidarFechas.id_operador == id_operador)
@@ -268,6 +210,29 @@ def validar_fechas(id_operador):
     return lista
 
 # Operadores de red
+def lista_operadores():
+    lista = []
+    operadores = Operador.select()
+    for operador in operadores:
+        lista.append(operador)
+    return lista
+
+def guardar_operador(nom, ni, dire):
+    try:
+        try:
+            operador = Operador.get((Operador.nit == ni) | (Operador.nombre == nom))
+        except:
+            operador = None
+
+        if not operador:
+            operador = Operador(nombre=nom, nit=ni, direccion=dire)
+            resultado = operador.save()
+            return resultado
+        else:
+            return -1
+    except:
+        print('Error al crear un operador')
+
 def todo_operadores():
     sql = Operador.select()
     operadores = db.execute(sql)
@@ -288,7 +253,38 @@ def actualizar_operador(id, nom, ni, dire):
     except ValueError():
         print('Error al actualizar operador')
 
+def id_operador_nit(nit):
+    try:
+        operador = Operador.get(Operador.nit == nit)
+        return operador.id
+    except:
+        return None
+
+def id_operador_nombre(nombre):
+    try:
+        operador = Operador.get(Operador.nombre == nombre)
+        return operador.id
+    except:
+        return None
+
+def buscar_operador(nit):
+    try:
+        operador = Operador.get(Operador.nit == nit)
+        if operador:
+            return operador
+        else:
+            return None
+    except:
+        pass
+
 # Restaurantes
+def lista_restaurantes():
+    lista = []
+    restaurantes = Restaurante.select()
+    for restaurante in restaurantes:
+        lista.append(restaurante.nombre)
+    return lista
+
 def todo_restaurantes():
     sql = Restaurante.select()
     restaurantes = db.execute(sql)
@@ -310,10 +306,30 @@ def actualizar_restaurante(id, nom, dire, id_re, id_mun):
     except ValueError():
         print('Error al actualizar restaurantes')
 
-#retorna los municipios de una region
-def municipios_region(id_re):
-    lista = []
-    municipios = Municipio.select().join(Departamento).join(Region).where(Departamento.id_region == id_re)
-    for municipio in municipios:
-        lista.append(municipio.municipio)
-    return lista
+def buscar_restaurante(id):
+    restaurante = Restaurante.get(Restaurante.id == id)
+    return restaurante
+
+def id_restaurante(nombre):
+    try:
+        restaurante = Restaurante.get(Restaurante.nombre == nombre)
+        return restaurante.id
+    except:
+        return None
+
+def guardar_restaurante(nom, dire, id_re, id_mun):
+    try:
+        try:
+            restaurante = Restaurante.get(Restaurante.nombre == nom)
+        except:
+            restaurante = None
+
+        if not restaurante:
+            restaurante = Restaurante(nombre=nom, direccion=dire, id_region=id_re, id_municipio=id_mun)
+            resultado = restaurante.save()
+            return resultado
+        else:
+            return -1
+    except:
+        print('Error al crear un restaurante')
+

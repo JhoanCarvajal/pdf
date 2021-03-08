@@ -35,7 +35,7 @@ class VentanaCrearOperador(QtWidgets.QMainWindow):
 
 
 if __name__ == '__main__':
-    app = QtWidgets.QApplication
+    app = QtWidgets.QApplication([])
     ventana = VentanaCrearOperador()
     ventana.show()
     app.exec_()

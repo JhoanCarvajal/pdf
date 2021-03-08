@@ -2,10 +2,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
 from controlador import *
 
-class VentanaCrearRestaurante(QtWidgets.QMainWindow):
+class VentanaActualizarRestaurante(QtWidgets.QMainWindow):
     def __init__(self, parent=None, *args, **kwargs):
-        super(VentanaCrearRestaurante, self).__init__(parent)
+        super(VentanaActualizarRestaurante, self).__init__(parent)
         loadUi('plantillas/crear_restaurante.ui', self)
+
+        self.lb_restaurante.setText('Actualizar Restaurante')
+        self.setWindowTitle("Actualizar Restaurante")
 
         self.regiones = lista_regiones()
         self.operadores = lista_operadores()
@@ -21,10 +24,47 @@ class VentanaCrearRestaurante(QtWidgets.QMainWindow):
         self.buscar_id_municipio()
         self.buscar_id_operador()
 
+        if kwargs:
+            self.id_restaurante = kwargs.get("id_resta")
+            self.buscar_restaurante()
+            self.get_restaurante_operador()
+
         self.btn_guardar.clicked.connect(self.guardar_restaurante)
         self.cb_regiones.currentTextChanged.connect(self.buscar_id_region)
         self.cb_municipios.currentTextChanged.connect(self.buscar_id_municipio)
         self.cb_operadores.currentTextChanged.connect(self.buscar_id_operador)
+
+    def buscar_restaurante(self):
+        restaurante = buscar_restaurante(self.id_restaurante)
+        print(self.cb_regiones.count())
+        if restaurante:
+            self.le_nombre.setText(restaurante.nombre)
+            self.le_direccion.setText(restaurante.direccion)
+            region_resta = restaurante.id_region
+            for i, region in enumerate(self.regiones):
+                print(i, region.id, region.nombre)
+                if region.id == region_resta.id:
+                    print('igualesss')
+                    self.cb_regiones.setCurrentIndex(i)
+                    self.id_region = region.id
+            self.municipios_region_seleccionada()
+            municipio_resta = restaurante.id_municipio
+            for i, municipio in enumerate(self.municipios):
+                print(i, municipio.id, municipio.municipio)
+                if municipio.id == municipio_resta.id:
+                    print('igualesss')
+                    self.cb_municipios.setCurrentIndex(i)
+        
+    def get_restaurante_operador(self):
+        self.restaurante_operador = get_restaurante_operador(self.id_restaurante)
+        if self.restaurante_operador:
+            self.le_matricula.setText(self.restaurante_operador.medidor_telefono)
+            operador_resta = self.restaurante_operador.id_operador
+            for i, operador in enumerate(self.operadores):
+                print(i, operador.id, operador.nombre)
+                if operador.id == operador_resta.id:
+                    print('igualesss')
+                    self.cb_operadores.setCurrentIndex(i)
 
     def abrir_ventana_principal(self):
         self.parent().show()
@@ -78,10 +118,9 @@ class VentanaCrearRestaurante(QtWidgets.QMainWindow):
         self.cb_municipios.clear()
         self.cb_municipios.addItems([municipio.municipio for municipio in self.municipios])
 
-    
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
-    ventana = VentanaCrearRestaurante()
+    ventana = VentanaActualizarRestaurante(id_resta=16)
     ventana.show()
     app.exec_()

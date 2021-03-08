@@ -69,7 +69,7 @@ class VentanaPrincipal(QtWidgets.QMainWindow):
         self.cb_operador.clear()
         
         self.cb_restaurantes.addItems(self.restaurantes)
-        self.cb_operador.addItems(self.operadores)
+        self.cb_operador.addItems([operador.nombre for operador in self.operadores])
         
         self.buscar_operador_nombre(self.cb_operador.currentText())
 
