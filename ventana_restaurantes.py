@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
 from controlador import *
-import ventana_crear_restaurante
+import ventana_crear_restaurante, ventana_actualizar_restaurante
 
 class VentanaRestaurantes(QtWidgets.QMainWindow):
     def __init__(self, parent=None, *args, **kwargs):
@@ -33,22 +33,11 @@ class VentanaRestaurantes(QtWidgets.QMainWindow):
 
     def actualizar_restaurantes(self):
         tabla = self.table_restaurantes
-        restaurantes = []
-        fila = []
-        for row_number in range(tabla.rowCount()):
-            for column_number in range(tabla.columnCount()):
-                if tabla.item(row_number, column_number) != None:
-                    fila.append(tabla.item(row_number, column_number).text())
-            if len(fila) > 0:
-                restaurantes.append(fila)
-            fila = []
-        if len(restaurantes) > 0:
-            for restaurante in restaurantes:
-                resultado = actualizar_restaurante(restaurante[0], restaurante[1], restaurante[2], restaurante[3], restaurante[4])
-                if resultado != 0:
-                    self.statusBar().showMessage('Se actualizaron los restaurantes')
-                    self.listar_restaurantes()
-                    
+        if tabla.currentItem() != None:
+            id = tabla.currentItem().text()
+            ventana = ventana_actualizar_restaurante.VentanaActualizarRestaurante(parent=self, id_resta=id)
+            self.statusBar().showMessage('Ventana de para crear restaurantes en ejecución')
+            ventana.show()    
 
     def eliminar_restaurante(self):
         tabla = self.table_restaurantes

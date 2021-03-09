@@ -17,21 +17,35 @@
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0" colspan="3">
-       <widget class="QLabel" name="label">
+      <item row="3" column="0">
+       <widget class="QPushButton" name="btn_crear">
         <property name="font">
          <font>
-          <pointsize>20</pointsize>
+          <pointsize>12</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
         <property name="text">
-         <string>Operadores de red</string>
+         <string>Crear</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" colspan="3">
+      <item row="3" column="1">
+       <widget class="QPushButton" name="btn_actualizar">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Actualizar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="3">
        <widget class="QTableWidget" name="table_operadores">
         <column>
          <property name="text">
@@ -55,35 +69,21 @@
         </column>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QPushButton" name="btn_crear">
+      <item row="0" column="0" colspan="3">
+       <widget class="QLabel" name="label">
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>20</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
         <property name="text">
-         <string>Crear</string>
+         <string>Operadores de red</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QPushButton" name="btn_actualizar">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Actualizar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
+      <item row="3" column="2">
        <widget class="QPushButton" name="btn_eliminar">
         <property name="font">
          <font>
@@ -94,6 +94,13 @@
         </property>
         <property name="text">
          <string>Eliminar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="3">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Para eliminar o actualizar primero de click en el ID del operador, luego de click en el boton.</string>
         </property>
        </widget>
       </item>

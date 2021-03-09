@@ -61,14 +61,14 @@
        <widget class="QLineEdit" name="le_direccion"/>
       </item>
       <item row="4" column="0">
-       <widget class="QLabel" name="lb_region">
+       <widget class="QLabel" name="lb_departamento">
         <property name="text">
-         <string>Región</string>
+         <string>Departamento</string>
         </property>
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QComboBox" name="cb_regiones">
+       <widget class="QComboBox" name="cb_departamentos">
         <property name="currentText">
          <string/>
         </property>
@@ -120,7 +120,7 @@
  <tabstops>
   <tabstop>le_nombre</tabstop>
   <tabstop>le_direccion</tabstop>
-  <tabstop>cb_regiones</tabstop>
+  <tabstop>cb_departamentos</tabstop>
   <tabstop>btn_guardar</tabstop>
   <tabstop>le_matricula</tabstop>
  </tabstops>

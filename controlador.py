@@ -94,6 +94,21 @@ def buscar_causalidad(matricula):
         causalidad = None
     return causalidad
 
+#departamentos
+def lista_departamentos():
+    lista = []
+    departamentos = Departamento.select()
+    for departamento in departamentos:
+        lista.append(departamento)
+    return lista
+
+def id_departamento(nombre):
+    try:
+        departamento = Departamento.get(Departamento.departamento == nombre)
+        return departamento.id
+    except:
+        return None
+
 #regiones
 def lista_regiones():
     lista = []
@@ -125,20 +140,20 @@ def id_municipio(nombre):
     except:
         return None
 
-def municipios_region(id_re):
+def municipios_departamento(id_depa):
     # retorna los municipios de una region
     lista = []
-    municipios = Municipio.select().join(Departamento).join(Region).where(Departamento.id_region == id_re)
+    municipios = Municipio.select().where(Municipio.id_departamento == id_depa)
     for municipio in municipios:
         lista.append(municipio)
     return lista
 
 # restaurante_operador
-def buscar_restaurate_operador(medidor_telefono):
+def buscar_restaurate_operador(matricula):
     restaurante = None
     operador = None
     try:
-        restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.medidor_telefono == medidor_telefono)
+        restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.matricula == matricula)
     except:
         restaurante_operador = None
     
@@ -156,12 +171,12 @@ def buscar_restaurate_operador(medidor_telefono):
 def guardar_restaurante_operador(id_oper, id_rest, matric):
     try:
         try:
-            restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.medidor_telefono == matric)
+            restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.matricula == matric)
         except:
             restaurante_operador = None
 
         if not restaurante_operador:
-            restaurante_operador = Restaurantes_operadores(id_operador=id_oper, id_restaurante=id_rest, medidor_telefono=matric)
+            restaurante_operador = Restaurantes_operadores(id_operador=id_oper, id_restaurante=id_rest, matricula=matric)
             resultado = restaurante_operador.save()
             return resultado
         else:
@@ -172,6 +187,15 @@ def guardar_restaurante_operador(id_oper, id_rest, matric):
 def get_restaurante_operador(id_resta):
     restaurante_operador = Restaurantes_operadores.get(Restaurantes_operadores.id_restaurante == id_resta)
     return restaurante_operador
+
+def actualizar_restaurante_operador(id, id_oper, id_rest, matric):
+    try:
+        query = Restaurantes_operadores.update(id_operador=id_oper, id_restaurante=id_rest, matricula=matric).where(Restaurantes_operadores.id == id)
+        resultado = query.execute()
+        return resultado
+    except ValueError():
+        print('Error al actualizar restaurantes')
+
 # regiones de interes del operador
 def regiones_interes_operadores(id):
     lista = []
@@ -298,9 +322,9 @@ def eliminar_restaurante(id):
     except ValueError():
         print('Error al eliminar el restaurante')
 
-def actualizar_restaurante(id, nom, dire, id_re, id_mun):
+def actualizar_restaurante(id, nom, dire, id_mun):
     try:
-        query = Restaurante.update(nombre=nom, direccion=dire, id_region=id_re, id_municipio=id_mun).where(Restaurante.id == id)
+        query = Restaurante.update(nombre=nom, direccion=dire, id_municipio=id_mun).where(Restaurante.id == id)
         resultado = query.execute()
         return resultado
     except ValueError():
@@ -317,7 +341,7 @@ def id_restaurante(nombre):
     except:
         return None
 
-def guardar_restaurante(nom, dire, id_re, id_mun):
+def guardar_restaurante(nom, dire, id_mun):
     try:
         try:
             restaurante = Restaurante.get(Restaurante.nombre == nom)
@@ -325,7 +349,7 @@ def guardar_restaurante(nom, dire, id_re, id_mun):
             restaurante = None
 
         if not restaurante:
-            restaurante = Restaurante(nombre=nom, direccion=dire, id_region=id_re, id_municipio=id_mun)
+            restaurante = Restaurante(nombre=nom, direccion=dire, id_municipio=id_mun)
             resultado = restaurante.save()
             return resultado
         else:

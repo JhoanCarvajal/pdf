@@ -46,7 +46,6 @@ class Operador(BaseModel):
 class Restaurante(BaseModel):
     nombre = CharField(max_length=40, unique=True)
     direccion = TextField(null=True)
-    id_region = ForeignKeyField(Region, backref="restaurante_region", on_delete='CASCADE')
     id_municipio = ForeignKeyField(Municipio, backref="restaurante_municipio", on_delete='CASCADE')
 
     class Meta:
@@ -56,7 +55,7 @@ class Restaurante(BaseModel):
 class Restaurantes_operadores(BaseModel):
     id_operador = ForeignKeyField(Operador, backref="operador_restaurante", on_delete='CASCADE')
     id_restaurante = ForeignKeyField(Restaurante, backref="restaurante_operador", on_delete='CASCADE')
-    medidor_telefono = CharField(max_length=40)
+    matricula = CharField(max_length=40)
 
     class Meta:
         table_name = 'restaurantes_operadores'

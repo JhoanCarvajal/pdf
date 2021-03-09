@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>776</width>
-    <height>408</height>
+    <width>782</width>
+    <height>389</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,27 +17,88 @@
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="1" column="0">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="14" column="0" colspan="4">
+      <item row="15" column="0" colspan="4">
        <widget class="Line" name="line_2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
-      <item row="18" column="0" colspan="4">
+      <item row="9" column="2">
+       <widget class="QPushButton" name="btn_operadores">
+        <property name="text">
+         <string>Operadores de red</string>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="1">
+       <widget class="QLabel" name="lb_nombre_restaurante">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="3">
+       <widget class="QPushButton" name="btn_analizar">
+        <property name="text">
+         <string>Analizar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="17" column="1">
+       <widget class="QComboBox" name="cb_restaurantes"/>
+      </item>
+      <item row="14" column="0" colspan="4">
+       <widget class="QLineEdit" name="le_matricula">
+        <property name="focusPolicy">
+         <enum>Qt::StrongFocus</enum>
+        </property>
+        <property name="placeholderText">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="19" column="0" colspan="4">
        <widget class="Line" name="line_3">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
-      <item row="16" column="2">
+      <item row="18" column="1">
+       <widget class="QPushButton" name="btn_consultar_anho">
+        <property name="text">
+         <string>Consultar Año</string>
+        </property>
+       </widget>
+      </item>
+      <item row="17" column="2">
        <widget class="QComboBox" name="cb_anhos"/>
       </item>
-      <item row="15" column="0">
-       <widget class="QLabel" name="lb_mes">
+      <item row="16" column="2">
+       <widget class="QLabel" name="lb_anho">
         <property name="text">
-         <string>Mes</string>
+         <string>Año</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0" colspan="4">
+       <widget class="Line" name="line_4">
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="0" colspan="4">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
@@ -58,72 +119,41 @@
         </property>
        </widget>
       </item>
-      <item row="8" column="2">
-       <widget class="QPushButton" name="btn_operadores">
-        <property name="text">
-         <string>Operadores de red</string>
-        </property>
-       </widget>
+      <item row="17" column="0">
+       <widget class="QComboBox" name="cb_meses"/>
       </item>
-      <item row="13" column="0" colspan="4">
-       <widget class="QLineEdit" name="le_matricula">
-        <property name="focusPolicy">
-         <enum>Qt::StrongFocus</enum>
-        </property>
-        <property name="placeholderText">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="17" column="2">
-       <widget class="QPushButton" name="btn_consultar_todo">
-        <property name="text">
-         <string>Consultar Todo</string>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="0">
-       <widget class="QPushButton" name="btn_seleccionar">
-        <property name="text">
-         <string>Seleccionar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="12" column="2">
+      <item row="13" column="2">
        <widget class="QLabel" name="lb_nombre_operador">
         <property name="text">
          <string/>
         </property>
        </widget>
       </item>
-      <item row="8" column="0">
-       <widget class="QComboBox" name="cb_operador"/>
-      </item>
-      <item row="15" column="2">
-       <widget class="QLabel" name="lb_anho">
+      <item row="9" column="3">
+       <widget class="QPushButton" name="btn_restaurantes">
         <property name="text">
-         <string>Año</string>
+         <string>Restaurantes</string>
         </property>
        </widget>
       </item>
-      <item row="9" column="1">
-       <widget class="QLabel" name="lb_ruta">
+      <item row="16" column="1">
+       <widget class="QLabel" name="lb_restaurante">
         <property name="text">
-         <string>Ruta del archivo</string>
+         <string>Restaurante</string>
         </property>
        </widget>
       </item>
-      <item row="12" column="1">
-       <widget class="QLabel" name="lb_nombre_restaurante">
+      <item row="18" column="2">
+       <widget class="QPushButton" name="btn_consultar_todo">
         <property name="text">
-         <string/>
+         <string>Consultar Todo</string>
         </property>
        </widget>
       </item>
-      <item row="17" column="0">
-       <widget class="QPushButton" name="btn_consultar_mes">
+      <item row="16" column="0">
+       <widget class="QLabel" name="lb_mes">
         <property name="text">
-         <string>Consultar Mes</string>
+         <string>Mes</string>
         </property>
        </widget>
       </item>
@@ -144,35 +174,59 @@
         </property>
        </widget>
       </item>
-      <item row="8" column="3">
-       <widget class="QPushButton" name="btn_restaurantes">
-        <property name="text">
-         <string>Restaurantes</string>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="1">
+      <item row="12" column="1">
        <widget class="QLabel" name="label">
         <property name="text">
          <string>Restaurante</string>
         </property>
        </widget>
       </item>
-      <item row="17" column="1">
-       <widget class="QPushButton" name="btn_consultar_anho">
+      <item row="13" column="0">
+       <widget class="QLabel" name="lb_matricula">
         <property name="text">
-         <string>Consultar Año</string>
+         <string>Matricula</string>
         </property>
        </widget>
       </item>
-      <item row="11" column="2">
+      <item row="9" column="0">
+       <widget class="QComboBox" name="cb_operador">
+        <property name="currentText">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="1">
+       <widget class="QLabel" name="lb_ruta">
+        <property name="text">
+         <string>Ruta del archivo</string>
+        </property>
+       </widget>
+      </item>
+      <item row="12" column="2">
        <widget class="QLabel" name="label_2">
         <property name="text">
          <string>Proveedor de red</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" rowspan="6">
+      <item row="10" column="0">
+       <widget class="QPushButton" name="btn_seleccionar">
+        <property name="text">
+         <string>Seleccionar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="18" column="0">
+       <widget class="QPushButton" name="btn_consultar_mes">
+        <property name="text">
+         <string>Consultar Mes</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" rowspan="7">
        <widget class="QLabel" name="label_3">
         <property name="minimumSize">
          <size>
@@ -191,50 +245,10 @@
         </property>
        </widget>
       </item>
-      <item row="16" column="0">
-       <widget class="QComboBox" name="cb_meses"/>
-      </item>
-      <item row="12" column="3">
-       <widget class="QPushButton" name="btn_analizar">
+      <item row="7" column="1" colspan="3">
+       <widget class="QLabel" name="label_6">
         <property name="text">
-         <string>Analizar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="15" column="1">
-       <widget class="QLabel" name="lb_restaurante">
-        <property name="text">
-         <string>Restaurante</string>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="0" colspan="4">
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="12" column="0">
-       <widget class="QLabel" name="lb_matricula">
-        <property name="text">
-         <string>Matricula</string>
-        </property>
-       </widget>
-      </item>
-      <item row="16" column="1">
-       <widget class="QComboBox" name="cb_restaurantes"/>
-      </item>
-      <item row="7" column="0" colspan="4">
-       <widget class="Line" name="line_4">
-        <property name="lineWidth">
-         <number>1</number>
-        </property>
-        <property name="midLineWidth">
-         <number>0</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <string/>
         </property>
        </widget>
       </item>
