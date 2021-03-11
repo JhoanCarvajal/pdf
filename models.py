@@ -11,7 +11,7 @@ class BaseModel(Model):
 
 
 class Region(BaseModel):
-    nombre = CharField(max_length=40)
+    nombre = CharField(max_length=40, null=False, unique=True)
 
     class Meta:
         table_name = 'regiones'
@@ -34,9 +34,17 @@ class Municipio(BaseModel):
         table_name = 'municipios'
 
 
+class Item(BaseModel):
+    nombre = CharField(max_length=40, null=False, unique=True)
+    descripcion = CharField(max_length=99, null=True)
+
+    class Meta:
+        table_name = 'items'
+
+
 class Operador(BaseModel):
-    nombre = CharField(max_length=40, unique=True)
-    nit = CharField(max_length=40)
+    nombre = CharField(max_length=40, null=False, unique=True)
+    nit = CharField(max_length=40, null=False)
     direccion = CharField(max_length=99, null=True)
 
     class Meta:
@@ -44,7 +52,7 @@ class Operador(BaseModel):
 
 
 class Restaurante(BaseModel):
-    nombre = CharField(max_length=40, unique=True)
+    nombre = CharField(max_length=40, null=False, unique=True)
     direccion = TextField(null=True)
     id_municipio = ForeignKeyField(Municipio, backref="restaurante_municipio", on_delete='CASCADE')
 
@@ -55,7 +63,17 @@ class Restaurante(BaseModel):
 class Restaurantes_operadores(BaseModel):
     id_operador = ForeignKeyField(Operador, backref="operador_restaurante", on_delete='CASCADE')
     id_restaurante = ForeignKeyField(Restaurante, backref="restaurante_operador", on_delete='CASCADE')
-    matricula = CharField(max_length=40)
+    matricula = CharField(max_length=40, null=False, unique=True)
+
+    class Meta:
+        table_name = 'restaurantes_operadores'
+
+
+class Items_operador(BaseModel):
+    id_item = ForeignKeyField(Item, backref="items_operador_items", on_delete='CASCADE')
+    id_operador = ForeignKeyField(Operador, backref="items_operador_operador", on_delete='CASCADE')
+    roi_nombre = CharField(max_length=40, null=False)
+    roi_valor = CharField(max_length=40, null=False)
 
     class Meta:
         table_name = 'restaurantes_operadores'
@@ -63,19 +81,8 @@ class Restaurantes_operadores(BaseModel):
 
 class Factura(BaseModel):
     id_restaurante = ForeignKeyField(Restaurante, backref="factura_restaurante", on_delete='CASCADE')
-    inicial = DateField()
-    final = DateField()
-    causa = FloatField()
-    paga = FloatField()
-    ajuste = FloatField()
-    doc_pag = CharField(max_length=40, null=True)
-    doc_aj = CharField(max_length=40, null=True)
-    consumo_activa = FloatField()
-    consumo_reactiva = FloatField()
-    kw = FloatField()
-    valor_kw = FloatField()
-    contribucion = FloatField()
-    alumbrado = FloatField()
+    id_items_operador = ForeignKeyField(Items_operador, backref="factura_items_operador", on_delete='CASCADE')
+    valor = CharField(max_length=99, null=True)
 
     class Meta:
         table_name = 'facturas'
@@ -97,32 +104,6 @@ class RoiOperador(BaseModel):
         table_name = 'roi_operadores'
 
 
-class RoiDatos(BaseModel):
-    id_operador = ForeignKeyField(Operador, backref="roiDatos_operadores", on_delete='CASCADE')
-    matricula = CharField(max_length=40)
-    periodo = CharField(max_length=40)
-    valor = CharField(max_length=40)
-    kw = CharField(max_length=40)
-    alumbrado = CharField(max_length=40)
-    direccion = CharField(max_length=40)
-    codigos = CharField(max_length=40)
-    totales = CharField(max_length=40)
-
-    class Meta:
-        table_name = 'roi_datos'
-
-
-class IdentificadorTotales(BaseModel):
-    id_operador = ForeignKeyField(Operador, backref="identificadorTotales_operadores", on_delete='CASCADE')
-    consumo_activa = CharField(max_length=40)
-    contribucion_activa = CharField(max_length=40)
-    consumo_reactiva = CharField(max_length=40)
-    contribucion_reactiva = CharField(max_length=40)
-
-    class Meta:
-        table_name = 'identificadores_totales'
-
-
 class ValidarFechas(BaseModel):
     id_operador = ForeignKeyField(Operador, backref="ValidarFechas_operadores", on_delete='CASCADE')
     remplazar = CharField(max_length=40, null=True)
@@ -140,5 +121,4 @@ class ValidarFechas(BaseModel):
 
 def crear_tablas():
     with db:
-        db.create_tables([Region, Departamento, Municipio, Operador, Restaurante, 
-        Restaurantes_operadores, Factura, RoiOperador, RoiDatos, IdentificadorTotales, ValidarFechas])
+        db.create_tables([Region, Departamento, Municipio, Operador, Restaurante, Item, Restaurantes_operadores, Items_operador, Factura, RoiOperador, ValidarFechas])
