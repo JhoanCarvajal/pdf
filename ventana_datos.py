@@ -1,4 +1,3 @@
-# from plantillas.datos_ui import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
 import analizar_datos
@@ -8,9 +7,6 @@ class VentanaDatos(QtWidgets.QMainWindow):
     def __init__(self, parent=None, *args, **kwargs):
         super(VentanaDatos, self).__init__(parent)
         loadUi('plantillas/datos.ui', self)
-
-        # QtWidgets.QMainWindow.__init__(*args, **kwargs)
-        # self.setupUi(self)
 
         # recuperamos la lista que viene en **kwargs
         self.lista_vieja = []

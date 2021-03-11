@@ -1,14 +1,14 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
-from controlador import *
+import controlador
 
 class VentanaCrearRestaurante(QtWidgets.QMainWindow):
     def __init__(self, parent=None, *args, **kwargs):
         super(VentanaCrearRestaurante, self).__init__(parent)
         loadUi('plantillas/crear_restaurante.ui', self)
 
-        self.departamentos = lista_departamentos()
-        self.operadores = lista_operadores()
+        self.departamentos = controlador.lista_departamentos()
+        self.operadores = controlador.lista_operadores()
 
         self.cb_departamentos.clear()
         self.cb_municipios.clear()
@@ -31,13 +31,13 @@ class VentanaCrearRestaurante(QtWidgets.QMainWindow):
         self.close()
 
     def buscar_restaurante_operador(self, text):
-        restaurante, operador = buscar_restaurate_operador(text)
+        restaurante, operador = controlador.buscar_restaurate_operador(text)
         if restaurante and operador:
             self.le_nombre.clear()
             self.le_nombre.setText(restaurante.nombre)
         
     def guardar_restaurante(self):
-        resultado = guardar_restaurante(self.le_nombre.text(), self.le_direccion.text(), self.id_municipio)
+        resultado = controlador.guardar_restaurante(self.le_nombre.text(), self.le_direccion.text(), self.id_municipio)
         if resultado == 1:
             self.parent().statusBar().showMessage('Restaurante creado!')
             self.guardar_relacion()
@@ -47,7 +47,7 @@ class VentanaCrearRestaurante(QtWidgets.QMainWindow):
     def guardar_relacion(self):
         self.buscar_id_restaurante()
         print(f'id_operador={self.id_operador}, id_restaurante={self.id_restaurante}, matricula={self.le_matricula.text()}')
-        resultado = guardar_restaurante_operador(self.id_operador, self.id_restaurante, self.le_matricula.text())
+        resultado = controlador.guardar_restaurante_operador(self.id_operador, self.id_restaurante, self.le_matricula.text())
         if resultado == 1:
             self.parent().statusBar().showMessage('Restaurante creado con operador de red')
             self.parent().listar_restaurantes()
@@ -58,24 +58,24 @@ class VentanaCrearRestaurante(QtWidgets.QMainWindow):
 
     def buscar_id_departamento(self):
         nombre = self.cb_departamentos.currentText()
-        self.id_departamento = id_departamento(nombre)
+        self.id_departamento = controlador.id_departamento(nombre)
         self.municipios_departamento_seleccionado()
     
     def buscar_id_municipio(self):
         nombre = self.cb_municipios.currentText()
-        self.id_municipio = id_municipio(nombre)
+        self.id_municipio = controlador.id_municipio(nombre)
 
     def buscar_id_operador(self):
         nombre = self.cb_operadores.currentText()
-        self.id_operador = id_operador_nombre(nombre)
+        self.id_operador = controlador.id_operador_nombre(nombre)
 
     def buscar_id_restaurante(self):
         nombre = self.le_nombre.text()
-        self.id_restaurante = id_restaurante(nombre)
+        self.id_restaurante = controlador.id_restaurante(nombre)
 
     def municipios_departamento_seleccionado(self):
         print(self.id_departamento)
-        self.municipios = municipios_departamento(self.id_departamento)
+        self.municipios = controlador.municipios_departamento(self.id_departamento)
         self.cb_municipios.clear()
         self.cb_municipios.addItems([municipio.municipio for municipio in self.municipios])
 

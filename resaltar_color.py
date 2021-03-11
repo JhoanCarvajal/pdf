@@ -19,5 +19,5 @@ def solo_negro(ruta):
     # Fondo en grises
     invMask = cv2.bitwise_not(mask_negro)
     #por si la quiero guardar
-    cv2.imwrite('Grises.png',invMask)
+    # cv2.imwrite('Grises.png',invMask)
     return invMask 

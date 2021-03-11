@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
-from controlador import *
+import controlador
 import ventana_crear_restaurante, ventana_actualizar_restaurante
 
 class VentanaRestaurantes(QtWidgets.QMainWindow):
@@ -23,7 +23,7 @@ class VentanaRestaurantes(QtWidgets.QMainWindow):
         ventana.show()
 
     def listar_restaurantes(self):
-        restaurantes = todo_restaurantes()
+        restaurantes = controlador.todo_restaurantes()
         tabla = self.table_restaurantes
         tabla.setRowCount(0)
         for row_number, row_data in enumerate(restaurantes):
@@ -43,7 +43,7 @@ class VentanaRestaurantes(QtWidgets.QMainWindow):
         tabla = self.table_restaurantes
         if tabla.currentItem() != None:
             id = tabla.currentItem().text()
-            resultado = eliminar_restaurante(id)
+            resultado = controlador.eliminar_restaurante(id)
             if resultado:
                 self.statusBar().showMessage(f'Se elimino el restaurante con id {id}')
                 self.parent().cargar()

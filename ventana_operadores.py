@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
-from controlador import *
+import controlador
 import ventana_crear_operador
 
 class VentanaOperadores(QtWidgets.QMainWindow):
@@ -23,7 +23,7 @@ class VentanaOperadores(QtWidgets.QMainWindow):
         ventana.show()
 
     def listar_operadores(self):
-        operadores = todo_operadores()
+        operadores = controlador.todo_operadores()
         tabla = self.table_operadores
         tabla.setRowCount(0)
         for row_number, row_data in enumerate(operadores):
@@ -44,7 +44,7 @@ class VentanaOperadores(QtWidgets.QMainWindow):
             fila = []
         if len(operadores) > 0:
             for operador in operadores:
-                resultado = actualizar_operador(operador[0], operador[1], operador[2], operador[3])
+                resultado = controlador.actualizar_operador(operador[0], operador[1], operador[2], operador[3])
                 if resultado != 0:
                     self.statusBar().showMessage('Se actualizaron los operadores')
                     self.listar_operadores()
@@ -54,7 +54,7 @@ class VentanaOperadores(QtWidgets.QMainWindow):
         tabla = self.table_operadores
         if tabla.currentItem() != None:
             id = tabla.currentItem().text()
-            resultado = eliminar_operador(id)
+            resultado = controlador.eliminar_operador(id)
             if resultado:
                 self.statusBar().showMessage(f'Se elimino el operador con id {id}')
                 self.parent().cargar()
